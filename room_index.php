@@ -49,7 +49,7 @@ if (isset($_GET['room_edit'])) {
                             <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
                         </li>
                         <li>
-                            <a href="professor_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
+                            <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
                         </li>
                         <li>
                             <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
@@ -138,14 +138,18 @@ if (isset($_GET['room_edit'])) {
                                             <th>Building Name</th>
                                             <th>Floor Number</th>
                                             <th>Room Number</th>
+                                            <th>roomStatus</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody id="myTable">
                                         <?php
-                                        $result = mysqli_query($conn, "SELECT * FROM tb_room");
+                                        $result_active = mysqli_query($conn, "SELECT * FROM tb_room WHERE roomStatus = 1");
+                                        $result_inactive = mysqli_query($conn, "SELECT * FROM tb_room WHERE roomStatus = 0");
                                         $i = 1;
-                                        while ($row = mysqli_fetch_array($result)) {
+
+                                        // Display Active Room
+                                        while ($row = mysqli_fetch_array($result_active)) {
                                         ?>
                                             <tr>
                                                 <td style="display: none;"><?php echo $row["roomID"] ?></td>
@@ -153,24 +157,39 @@ if (isset($_GET['room_edit'])) {
                                                 <td><?php echo $row["roomBuild"] ?></td>
                                                 <td><?php echo $row["roomFloornum"] ?></td>
                                                 <td><?php echo $row["roomNum"] ?></td>
-
-                                                <!-- <?php
-                                                        if ($row['secStatus'] == "1") {
-                                                            echo "Active";
-                                                        } else {
-                                                            echo "Inactive";
-                                                        } ?> -->
+                                                <td><?php echo "Active" ?>
+                                                </td>
                                                 <td>
-                                                    <form method="POST" action="subject_all_process.php">
-                                                        <a href="" name="room_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
-                                                        <input type="hidden" name="roomID" value="<?php echo $row['roomID']; ?>">
-                                                        <a href="#statusRoom" class="status" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
-                                                    </form>
+                                                    <a href="" name="room_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
+                                                    <input type="hidden" name="roomID" value="<?php echo $row['roomID']; ?>">
+                                                    <a href="#statusRoom" class="status" data-bs-toggle="modal" data-roomid="<?php echo $row['roomID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
                                                 </td>
                                             </tr>
                                         <?php
                                             $i++;
-                                        } ?>
+                                        }
+
+                                        // Display Inactive Room
+                                        while ($row = mysqli_fetch_array($result_inactive)) {
+                                        ?>
+                                            <tr style="color: #999; /* Gray out inactive room */">
+                                                <td style="display: none;"><?php echo $row["roomID"] ?></td>
+                                                <td><?php echo $i; ?></td>
+                                                <td><?php echo $row["roomBuild"] ?></td>
+                                                <td><?php echo $row["roomFloornum"] ?></td>
+                                                <td><?php echo $row["roomNum"] ?></td>
+                                                <td><?php echo "Inactive"; ?></td>
+                                                <td>
+                                                    <a href="" name="room_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
+                                                    <input type="hidden" name="roomID" value="<?php echo $row['roomID']; ?>">
+                                                    <a href="#statusRoom" class="status" data-bs-toggle="modal" data-roomid="<?php echo $row['roomID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                            $i++;
+                                        }
+                                        ?>
+
                                     </tbody>
                                 </table>
                                 <div class="clearfix">
@@ -188,13 +207,13 @@ if (isset($_GET['room_edit'])) {
                             </div>
                         </div>
                     </div>
-                     <!-- Add Modal HTML -->
-                     <div id="addRoom" class="modal fade">
+                    <!-- Add Modal HTML -->
+                    <div id="addRoom" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                            <form method="POST" action="room_all_process.php">
-                                    <input type="hidden" name="roomID"  value="<?php echo $roomID; ?>">
-                                    <input type="hidden" name="roomStatus"  value="<?php echo $roomStatus; ?>">
+                                <form method="POST" action="room_all_process.php">
+                                    <input type="hidden" name="roomID" value="<?php echo $roomID; ?>">
+                                    <input type="hidden" name="roomStatus" value="1"> <!-- Always set to "1" for active status -->
 
                                     <div class="modal-header">
                                         <h5 class="modal-title">Add New Room</h5>
@@ -234,9 +253,9 @@ if (isset($_GET['room_edit'])) {
                     <div id="editRoom" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                            <form method="POST" action="room_all_process.php">
+                                <form method="POST" action="room_all_process.php">
                                     <input type="hidden" name="roomID" id="roomID" value="<?php echo $roomID; ?>">
-                                    <input type="hidden" name="roomStatus" id="roomStatus" value="<?php echo $roomStatus; ?>">
+                                    <input type="hidden" name="roomStatus" value="1"> <!-- Always set to "1" for active status -->
 
                                     <div class="modal-header">
                                         <h5 class="modal-title">Edit Room</h5>
@@ -255,7 +274,7 @@ if (isset($_GET['room_edit'])) {
                                             <label style="font-weight: bold;">Room Number</label>
                                             <input type="number" name="roomNum" id="roomNum" class="form-control" required>
                                         </div>
-                                      
+
                                         <!-- <div class="form-group">
                                             <label style="font-weight: bold;">Status</label>
                                             <select class="form-control" required name="Status">
@@ -278,17 +297,19 @@ if (isset($_GET['room_edit'])) {
                     <div id="statusRoom" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form>
+                                <form method="POST" action="room_all_process.php">
+                                    <input type="hidden" name="roomID" id="roomID" value="<?php echo $roomID; ?>">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Change Room Status</h5>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <h6>Are you sure you want to inactivate this Room?</h6>
+                                        <h6>Are you sure you want to change the Status of this Room?</h6>.
+                                        <input type="hidden" name="roomID" id="status_roomID" value="">
                                     </div>
                                     <div class="modal-footer">
                                         <input type="button" class="btn" data-bs-dismiss="modal" value="Cancel">
-                                        <input type="submit" class="btn" value="Confirm Status">
+                                        <input type="submit" class="btn" name="room_toggle_status" value="Confirm Status">
                                     </div>
                                 </form>
                             </div>
@@ -374,6 +395,17 @@ if (isset($_GET['room_edit'])) {
                 $('#roomStatus').val(data[5]);
             });
 
+        });
+    </script>
+
+    <script> 
+        //this script is for the secStatus 
+
+        // JavaScript to set secID when opening status modal
+        $('.status').on('click', function() {
+            var roomID = $(this).data('roomid');
+            $('#status_roomID').val(roomID); // Set roomID to the hidden input field
+            $('#statusRoom').modal('show');
         });
     </script>
 </body>

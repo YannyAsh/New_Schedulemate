@@ -70,7 +70,7 @@ function generateAcademicYears()
                             <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
                         </li>
                         <li>
-                            <a href="professor_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
+                            <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
                         </li>
                         <li>
                             <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
@@ -154,46 +154,70 @@ function generateAcademicYears()
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
+                                            <th style="display: none;">subID</th>
                                             <th>No.</th>
                                             <th>Subject Code</th>
                                             <th>Subject Description</th>
                                             <th>Subject Units</th>
                                             <th>Subject Lab Hours</th>
                                             <th>Subject Lec Hours</th>
+                                            <th style="display: none;">subStatus</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody id="myTable">
                                         <?php
-                                        $result = mysqli_query($conn, "SELECT * FROM tb_subjects");
+                                        $result_active = mysqli_query($conn, "SELECT * FROM tb_subjects WHERE subStatus = 1");
+                                        $result_inactive = mysqli_query($conn, "SELECT * FROM tb_subjects WHERE subStatus = 0");
                                         $i = 1;
-                                        while ($row = mysqli_fetch_array($result)) {
+
+                                        //Display Active Subjects
+                                        while ($row = mysqli_fetch_array($result_active)) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $row["subID"] ?></td>
+                                                <td style="display: none;"><?php echo $row["subID"] ?></td>
+                                                <td><?php echo $i; ?></td>
                                                 <td><?php echo $row["subCode"] ?></td>
                                                 <td><?php echo $row["subDesc"] ?></td>
                                                 <td><?php echo $row["subUnits"] ?></td>
                                                 <td><?php echo $row["subLabhours"] ?></td>
                                                 <td><?php echo $row["subLechours"] ?></td>
-
-                                                <!-- <?php
-                                                        if ($row['secStatus'] == "1") {
-                                                            echo "Active";
-                                                        } else {
-                                                            echo "Inactive";
-                                                        } ?> -->
+                                                <td style="display: none;"><?php echo "Active" ?></td>
                                                 <td>
-                                                    <form method="POST" action="subject_all_process.php">
-                                                        <a href="" name="sub_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
-                                                        <input type="hidden" name="subID" value="<?php echo $row['subID']; ?>">
-                                                        <a href="#statusSubj" class="status" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
-                                                    </form>
+                                                    <a href="" name="sub_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
+                                                    <input type="hidden" name="subID" value="<?php echo $row['subID']; ?>">
+                                                    <a href="#statusSubj" class="status" data-bs-toggle="modal" data-secid="<?php echo $row['subID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
                                                 </td>
                                             </tr>
                                         <?php
                                             $i++;
-                                        } ?>
+                                        }
+
+                                        //Display Inactive Subjects
+                                        while ($row = mysqli_fetch_array($result_inactive)) {
+                                        ?>
+                                            <tr style="color: #999; /* Gray out inactive sections */">
+                                                <td style="display: none;"><?php echo $row["subID"] ?></td>
+                                                <td><?php echo $i; ?></td>
+                                                <td><?php echo $row["subCode"] ?></td>
+                                                <td><?php echo $row["subDesc"] ?></td>
+                                                <td><?php echo $row["subUnits"] ?></td>
+                                                <td><?php echo $row["subLabhours"] ?></td>
+                                                <td><?php echo $row["subLechours"] ?></td>
+                                                <td style="display: none;"><?php echo "Inactive" ?></td>
+                                                <td>
+                                                    <a href="" name="sub_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
+                                                    <input type="hidden" name="subID" value="<?php echo $row['subID']; ?>">
+                                                    <a href="#statusSubj" class="status" data-bs-toggle="modal" data-secid="<?php echo $row['subID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
+                                                </td>
+
+                                            </tr>
+                                        <?php
+                                            $i++;
+                                        }
+                                        ?>
+
+
                                     </tbody>
                                 </table>
                                 <div class="clearfix">
@@ -215,7 +239,11 @@ function generateAcademicYears()
                     <div id="addSubj" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
+
                                 <form method="POST" action="subject_all_process.php">
+                                    <input type="hidden" name="subID" value="<?php echo $subID; ?>">
+                                    <input type="hidden" name="subStatus" value="1"> <!-- Always set to "1" for active status -->
+
                                     <div class="modal-header">
                                         <h5 class="modal-title">Add New Subject</h5>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -305,6 +333,7 @@ function generateAcademicYears()
                             </div>
                         </div>
                     </div>
+
                     <!-- Edit Modal HTML -->
                     <div id="editSubj" class="modal fade">
                         <div class="modal-dialog">
@@ -348,21 +377,24 @@ function generateAcademicYears()
                             </div>
                         </div>
                     </div>
+
                     <!-- Change Status Modal HTML -->
                     <div id="statusSubj" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form>
+                                <form method="POST" action="subject_all_process.php">
                                     <div class="modal-header">
+                                        <input type="hidden" name="subID" id="subID" value="<?php echo $subID; ?>">
                                         <h5 class="modal-title">Change Subject Status</h5>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <h6>Are you sure you want to inactivate this Subject?</h6>
+                                        <h6>Are you sure you want to change the Status of this Subject?</h6>
+                                        <input type="hidden" name="subID" id="status_subID" value="">
                                     </div>
                                     <div class="modal-footer">
                                         <input type="button" class="btn" data-bs-dismiss="modal" value="Cancel">
-                                        <input type="submit" class="btn" value="Confirm Status">
+                                        <input type="submit" class="btn" name="sub_toggle_status" value="Confirm Status">
                                     </div>
                                 </form>
                             </div>
@@ -515,14 +547,14 @@ function generateAcademicYears()
 
                 console.log(data);
                 $('#subID').val(data[0]);
-                $('#subCode').val(data[1]);
-                $('#subDesc').val(data[2]);
-                $('#subUnits').val(data[3]);
-                $('#subLabhours').val(data[4]);
-                $('#subLechours').val(data[5]);
+                $('#subCode').val(data[2]);
+                $('#subDesc').val(data[3]);
+                $('#subUnits').val(data[4]);
+                $('#subLabhours').val(data[5]);
+                $('#subLechours').val(data[6]);
                 // $('#secDay').val(data[4]);
                 // $('#secNight').val(data[5]);
-                $('#secStatus').val(data[6]);
+                $('#secStatus').val(data[7]);
 
                 // if (data[4] == 'Day') {
 
@@ -531,6 +563,16 @@ function generateAcademicYears()
 
             });
 
+        });
+    </script>
+
+    <script>
+        //this script is for the subStatus 
+        // JavaScript to set subID when opening status modal
+        $('.status').on('click', function() {
+            var subID = $(this).data('subid');
+            $('#status_subID').val(subID); // Set subID to the hidden input field
+            $('#statusSubj').modal('show');
         });
     </script>
 </body>

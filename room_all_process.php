@@ -15,7 +15,7 @@ if (isset($_POST["room_add_new"])) {
     $roomBuild = $_POST["roomBuild"];
     $roomFloornum = $_POST["roomFloornum"];
     $roomNum = $_POST["roomNum"];
-    $roomStatus = $_POST["roomStatus"] ? $_POST["roomStatus"] : 1; // 1 as a default value or whatever suits your logic;
+    $roomStatus = $_POST["roomStatus"];
 
     // Check for valid floor number (1 digit or less) and not negative
     if (!preg_match('/^\d{1}$/', $roomFloornum) || $roomFloornum < 0) {
