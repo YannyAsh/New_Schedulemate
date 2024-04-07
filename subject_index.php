@@ -47,6 +47,9 @@ function generateAcademicYears()
     <link rel="stylesheet" href="CSS/dashboard.css" />
     <!-- table style -->
     <link rel="stylesheet" href="CSS/content.css" />
+
+     <!-- sweetalert2 js -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Subject</title>
 </head>
 
@@ -136,6 +139,32 @@ function generateAcademicYears()
             <div class="container-fluid px-4">
                 <div class="row g-3 my-2">
                     <div class="container">
+
+                        <!-- this is for the alerts -->
+                        <?php if (isset($_SESSION['message'])) : ?>
+                            <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '<?php echo $_SESSION['message']; ?>',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            </script>
+                        <?php unset($_SESSION['message']);
+                        endif; ?>
+
+                        <?php if (isset($_SESSION['error'])) : ?>
+                            <script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '<?php echo $_SESSION['error']; ?>',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            </script>
+                        <?php unset($_SESSION['error']);
+                        endif; ?>
+                        
                         <div class="table-wrapper">
                             <div class="table-title">
                                 <div class="row">

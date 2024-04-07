@@ -13,7 +13,6 @@ if (isset($_GET['sec_edit'])) {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +27,9 @@ if (isset($_GET['sec_edit'])) {
     <link rel="stylesheet" href="CSS/dashboard.css" />
     <!-- table style -->
     <link rel="stylesheet" href="CSS/content.css" />
+
+    <!-- sweetalert2 js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Section</title>
 </head>
 
@@ -112,10 +114,38 @@ if (isset($_GET['sec_edit'])) {
                     </ul>
                 </div>
             </nav>
+
+
             <!-- Start of the contents -->
             <div class="container-fluid px-4">
                 <div class="row g-3 my-2">
                     <div class="container">
+
+                        <!-- this is for the alerts -->
+                        <?php if (isset($_SESSION['message'])) : ?>
+                            <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '<?php echo $_SESSION['message']; ?>',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            </script>
+                        <?php unset($_SESSION['message']);
+                        endif; ?>
+
+                        <?php if (isset($_SESSION['error'])) : ?>
+                            <script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '<?php echo $_SESSION['error']; ?>',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            </script>
+                        <?php unset($_SESSION['error']);
+                        endif; ?>
+                        
                         <div class="table-wrapper">
                             <div class="table-title">
                                 <div class="row">
@@ -140,7 +170,7 @@ if (isset($_GET['sec_edit'])) {
                                             <th>Section Year Level</th>
                                             <th>Section Name</th>
                                             <th>Session</th>
-                                            <th>Status</th>
+                                            <th style="display: none;">Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -160,7 +190,7 @@ if (isset($_GET['sec_edit'])) {
                                                 <td><?php echo $row["secYearlvl"] ?></td>
                                                 <td><?php echo $row["secName"] ?></td>
                                                 <td><?php echo $row["secSession"] ?></td>
-                                                <td><?php echo "Active"; ?></td>
+                                                <td style="display: none;"><?php echo "Active"; ?></td>
                                                 <td>
                                                     <a href="" name="sec_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
                                                     <input type="hidden" name="secID" value="<?php echo $row['secID']; ?>">
@@ -181,9 +211,9 @@ if (isset($_GET['sec_edit'])) {
                                                 <td><?php echo $row["secYearlvl"] ?></td>
                                                 <td><?php echo $row["secName"] ?></td>
                                                 <td><?php echo $row["secSession"] ?></td>
-                                                <td><?php echo "Inactive"; ?></td>
+                                                <td style="display: none;"><?php echo "Inactive"; ?></td>
                                                 <td>
-                                                    <a href="" name="sec_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
+                                                    <a href="" name="sec_edit" class="edit" data-bs-toggle="modal" data-secid="<?php echo $row['secID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
                                                     <input type="hidden" name="secID" value="<?php echo $row['secID']; ?>">
                                                     <a href="#statusSection" class="status" data-bs-toggle="modal" data-secid="<?php echo $row['secID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
                                                 </td>
@@ -218,16 +248,18 @@ if (isset($_GET['sec_edit'])) {
                                     <input type="hidden" name="secID" value="<?php echo $secID; ?>">
                                     <input type="hidden" name="secStatus" value="1"> <!-- Always set to "1" for active status -->
 
-
                                     <div class="modal-header">
                                         <h5 class="modal-title">Add New Section</h5>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
+
+                                    <!-- Entries for the new Section -->
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label style="font-weight: bold;">Section Program</label>
                                             <input type="text" name="secProgram" class="form-control" required value="<?php echo $secProgram ?>">
                                         </div>
+
                                         <div class="form-group">
                                             <label style="font-weight: bold;">Section Year Level</label>
                                             <select class="form-control" required name="secYearlvl" value="<?php echo $secYearlvl ?>">
@@ -238,10 +270,12 @@ if (isset($_GET['sec_edit'])) {
                                                 <option value="4">4</option>
                                             </select>
                                         </div>
+
                                         <div class="form-group">
                                             <label style="font-weight: bold;">Section Name</label>
                                             <input type="text" name="secName" class="form-control" required value="<?php echo $secName ?>">
                                         </div>
+
                                         <div class="form-group">
                                             <label style="font-weight: bold;">Session</label>
                                             <select class="form-control" required name="secSession">
@@ -250,15 +284,10 @@ if (isset($_GET['sec_edit'])) {
                                                 <option id="secNight" value="Night" <?= ($secSession == "Night") ? "selected" : ""; ?>>Night Class</option>
                                             </select>
                                         </div>
-                                        <!-- <div class="form-group">
-                                            <label style="font-weight: bold;">Status</label>
-                                            <select class="form-control" required name="secStatus">
-                                                <option value="" disabled selected>Select Status</option>
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </div> -->
+
                                     </div>
+
+                                    <!-- Add Section Button -->
                                     <div class="modal-footer">
                                         <input type="button" class="btn" data-bs-dismiss="modal" value="Cancel">
                                         <input type="submit" name="sec_add_new" class="btn" value="Add">
@@ -267,6 +296,8 @@ if (isset($_GET['sec_edit'])) {
                             </div>
                         </div>
                     </div>
+
+
                     <!-- Edit Modal HTML -->
                     <div id="editSection" class="modal fade">
                         <div class="modal-dialog">
@@ -276,16 +307,18 @@ if (isset($_GET['sec_edit'])) {
                                     <input type="hidden" name="secID" id="secID" value="<?php echo $secID; ?>">
                                     <input type="hidden" name="secStatus" value="1"> <!-- Always set to "1" for active status -->
 
-
                                     <div class="modal-header">
                                         <h5 class="modal-title">Edit Section</h5>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
+
+                                    <!-- this is where user can edit the Section information -->
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label style="font-weight: bold;">Section Program</label>
                                             <input type="text" name="secProgram" id="secProgram" class="form-control" required>
                                         </div>
+
                                         <div class="form-group">
                                             <label style="font-weight: bold;">Section Year Level</label>
                                             <select class="form-control" id="secYearlvl" required name="secYearlvl">
@@ -296,27 +329,23 @@ if (isset($_GET['sec_edit'])) {
                                                 <option value="4">4</option>
                                             </select>
                                         </div>
+
                                         <div class="form-group">
                                             <label style="font-weight: bold;">Section Name</label>
                                             <input type="text" name="secName" id="secName" class="form-control" required value="<?php echo $secName ?>">
                                         </div>
+
                                         <div class="form-group">
                                             <label style="font-weight: bold;" for="secSession">Session</label>
-                                            <select name="secSession" class="form-control" required>
+                                            <select name="secSession" id="secSession" class="form-control" required>
                                                 <option value="" disabled>Select Session</option>
-                                                <option id="secDay" value="day" <?= ($secSession == "Day") ? "selected" : ""; ?>>Day Class</option>
-                                                <option id="secNight" value="night" <?= ($secSession == "Night") ? "selected" : ""; ?>>Night Class</option>
+                                                <option id="secDay" value="Day" <?= ($secSession == "Day") ? "selected" : ""; ?>>Day Class</option>
+                                                <option id="secNight" value="Night" <?= ($secSession == "Night") ? "selected" : ""; ?>>Night Class</option>
                                             </select>
                                         </div>
-                                        <!-- <div class="form-group">
-                                            <label style="font-weight: bold;" for="secStatus">Status</label>
-                                            <select name="secStatus" id="secStatus" class="form-control" required>
-                                                <option value="" disabled selected>Select Status</option>
-                                                <option value="active"  >Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </div> -->
                                     </div>
+
+                                    <!-- Update Section button -->
                                     <div class="modal-footer">
                                         <input type="button" class="btn" data-bs-dismiss="modal" value="Cancel">
                                         <input type="submit" name="sec_update" class="btn" value="Update">
@@ -325,20 +354,25 @@ if (isset($_GET['sec_edit'])) {
                             </div>
                         </div>
                     </div>
+
+
                     <!-- Change Status Modal HTML -->
                     <div id="statusSection" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <form method="POST" action="section_all_process.php">
                                     <input type="hidden" name="secID" id="secID" value="<?php echo $secID; ?>">
+
                                     <div class="modal-header">
                                         <h5 class="modal-title">Change Section Status</h5>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
+
                                     <div class="modal-body">
                                         <h6>Are you sure you want to change the Status of this Section?</h6>
                                         <input type="hidden" name="secID" id="status_secID" value="">
                                     </div>
+
                                     <div class="modal-footer">
                                         <input type="button" class="btn" data-bs-dismiss="modal" value="Cancel">
                                         <input type="submit" class="btn" name="sec_toggle_status" value="Confirm Status">
@@ -420,17 +454,12 @@ if (isset($_GET['sec_edit'])) {
                 }).get();
 
                 console.log(data);
-                $('#secID').val(data[1]);
+                $('#secID').val(data[0]);
                 $('#secProgram').val(data[2]);
                 $('#secYearlvl').val(data[3]);
                 $('#secName').val(data[4]);
-                // $('#secDay').val(data[4]);
-                // $('#secNight').val(data[5]);
+                $('#secSession').val(data[5]);
                 $('#secStatus').val(data[6]);
-                if (data[5] == 'Day') {
-
-
-                }
             });
         });
     </script>

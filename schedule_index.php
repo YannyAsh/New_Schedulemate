@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
     <!-- sidebar style -->
     <link rel="stylesheet" href="CSS/dashboard.css" />
     <!-- table style -->
     <link rel="stylesheet" href="CSS/content.css" />
-    <title>Room</title>
+    <title>Schedule</title>
 </head>
 
 <body>
@@ -25,42 +26,54 @@
 
             <!-- sidebar menu -->
             <div class="list-group list-group-flush my-3">
-                <a href="dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-house me-2"></i>Dashboard</a>
+                <a href="dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i
+                        class="fas fa-house me-2"></i>Dashboard</a>
 
                 <!-- entries -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
+                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i
+                        class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
                 <div class="sidebar-submenu">
                     <ul>
                         <li>
-                            <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
+                            <a href="section_index.php"
+                                class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
                         </li>
                         <li>
-                            <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
+                            <a href="prof_index.php"
+                                class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
                         </li>
                         <li>
-                            <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
+                            <a href="subject_index.php"
+                                class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
                         </li>
                         <li>
-                            <a href="room_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Rooms</a>
+                            <a href="room_index.php"
+                                class="submenu-item list-group-item bg-transparent second-text fw-bold">Rooms</a>
                         </li>
                     </ul>
                 </div>
 
                 <!-- schedule -->
-                <a href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
+                <a href="schedule_index.php"
+                    class="list-group-item list-group-item bg-transparent second-text active"><i
+                        class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
 
                 <!-- reports -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>
+                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i
+                        class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>
                 <div class="sidebar-submenu">
                     <ul>
                         <li>
-                            <a href="pbs.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBS</a>
+                            <a href="pbs.php"
+                                class="submenu-item list-group-item bg-transparent second-text fw-bold">PBS</a>
                         </li>
                         <li>
-                            <a href="pbt.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBT</a>
+                            <a href="pbt.php"
+                                class="submenu-item list-group-item bg-transparent second-text fw-bold">PBT</a>
                         </li>
                         <li>
-                            <a href="pbru.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBRU</a>
+                            <a href="pbru.php"
+                                class="submenu-item list-group-item bg-transparent second-text fw-bold">PBRU</a>
                         </li>
                     </ul>
                 </div>
@@ -77,7 +90,9 @@
                     <i class="fas fa-align-left fs-4 me-3" id="menu-toggle"></i>
                 </div>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -85,11 +100,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i>John Doe
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="profile.php">Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Logout</a></li>
                             </ul>
                         </li>
@@ -111,7 +127,8 @@
                                         <input class="form-control" id="tableSearch" type="text" placeholder="Search">
                                     </div>
                                     <div class="col">
-                                        <a href="#addSchedule" class="btn btn-success" data-bs-toggle="modal"><i class="material-icons">&#xE147;</i><span>Add New Schedule</span></a>
+                                        <a href="#addSchedule" class="btn btn-success" data-bs-toggle="modal"><i
+                                                class="material-icons">&#xE147;</i><span>Add New Schedule</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -120,97 +137,27 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>MIS Code</th>
                                             <th>Academic Year</th>
                                             <th>Semester</th>
                                             <th>Program</th>
-                                            <th>Subject</th>
                                             <th>Section</th>
-                                            <th>Room</th>
-                                            <th>Professor</th>
-                                            <th>Schedule</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody id="myTable">
                                         <tr>
                                             <td>1</td>
-                                            <td>PC4112</td>
                                             <td>2023-2024</td>
                                             <td>1st Semester</td>
                                             <td>BSIT</td>
-                                            <td>System Administration</td>
                                             <td>1 A</td>
-                                            <td>ST 101</td>
-                                            <td>John Doe</td>
-                                            <td>Monday 8:00-9:00</td>
                                             <td>
-                                                <a href="#editRoom" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
-                                                <a href="#statusRoom" class="status" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>PC4112</td>
-                                            <td>2023-2024</td>
-                                            <td>1st Semester</td>
-                                            <td>BSIT</td>
-                                            <td>System Administration</td>
-                                            <td>1 A</td>
-                                            <td>ST 101</td>
-                                            <td>John Doe</td>
-                                            <td>Monday 8:00-9:00</td>
-                                            <td>
-                                                <a href="#editRoom" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
-                                                <a href="#statusRoom" class="status" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>PC4112</td>
-                                            <td>2023-2024</td>
-                                            <td>1st Semester</td>
-                                            <td>BSIT</td>
-                                            <td>System Administration</td>
-                                            <td>1 A</td>
-                                            <td>ST 101</td>
-                                            <td>John Doe</td>
-                                            <td>Monday 8:00-9:00</td>
-                                            <td>
-                                                <a href="#editRoom" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
-                                                <a href="#statusRoom" class="status" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>PC4112</td>
-                                            <td>2023-2024</td>
-                                            <td>1st Semester</td>
-                                            <td>BSIT</td>
-                                            <td>System Administration</td>
-                                            <td>1 A</td>
-                                            <td>ST 101</td>
-                                            <td>John Doe</td>
-                                            <td>Monday 8:00-9:00</td>
-                                            <td>
-                                                <a href="#editRoom" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
-                                                <a href="#statusRoom" class="status" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>PC4112</td>
-                                            <td>2023-2024</td>
-                                            <td>1st Semester</td>
-                                            <td>BSIT</td>
-                                            <td>System Administration</td>
-                                            <td>1 A</td>
-                                            <td>ST 101</td>
-                                            <td>John Doe</td>
-                                            <td>Monday 8:00-9:00</td>
-                                            <td>
-                                                <a href="#editRoom" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
-                                                <a href="#statusRoom" class="status" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
+                                                <a href="#viewSchedule" class="view" data-bs-toggle="modal"><i
+                                                        class="material-icons" data-bs-toggle="tooltip"
+                                                        title="View">&#xe8f4;</i></a>
+                                                <a href="#statusSchedule" class="status" data-bs-toggle="modal"><i
+                                                        class="material-icons" data-bs-toggle="tooltip"
+                                                        title="Status">&#xe909;</i></a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -231,25 +178,21 @@
                         </div>
                     </div>
                     <!-- Add Modal HTML -->
-                    <div id="addSchedule" class="modal fade">
+                    <div id="addSchedule" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                        aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <form>
                                     <div class="modal-header">
                                         <h5 class="modal-title">Add New Schedule</h5>
-                                        <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col">
-                                                    <div class="form-group">
-                                                        <label>MIS Code</label>
-                                                        <input type="text" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <label>Academic Year</label>
                                                     <select class="form-control" required name="Academic Year">
                                                         <option value="" disabled selected>Select Academic Year</option>
                                                         <option value="2022-2023">2022-2023</option>
@@ -257,7 +200,6 @@
                                                     </select>
                                                 </div>
                                                 <div class="col">
-                                                    <label>Semester</label>
                                                     <select class="form-control" required name="Semester">
                                                         <option value="" disabled selected>Select Semester</option>
                                                         <option value="1st Semester">1st Semester</option>
@@ -265,273 +207,354 @@
                                                     </select>
                                                 </div>
                                                 <div class="col">
-                                                    <label>Program</label>
-                                                    <select class="form-control" required name="Program">
+                                                    <select class="form-control" required name="Section">
                                                         <option value="" disabled selected>Select Program</option>
                                                         <option value="BSIT">BSIT</option>
                                                         <option value="BIT">BIT</option>
                                                     </select>
                                                 </div>
-                                            </div>
-
-                                            <div class="row">
                                                 <div class="col">
-                                                    <label>Subject</label>
-                                                    <select class="form-control" required name="Subject">
-                                                        <option value="" disabled selected>Select Subject</option>
-                                                        <option value="SysAd">SysAd</option>
-                                                        <option value="CrossPlat">CrossPlat</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col">
-                                                    <label>Section</label>
                                                     <select class="form-control" required name="Section">
                                                         <option value="" disabled selected>Select Section</option>
-                                                        <option value="A">A</option>
-                                                        <option value="B">B</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col">
-                                                    <label>Room</label>
-                                                    <select class="form-control" required name="Room">
-                                                    <option value="" disabled selected>Select Room</option>
-                                                        <option value="ST 101">ST 101</option>
-                                                        <option value="ST 102">ST 102</option>
+                                                        <option value="BSIT">I A</option>
+                                                        <option value="BIT">I B</option>
                                                     </select>
                                                 </div>
                                             </div>
-
-                                            <label>Professor</label>
-                                            <select class="form-control" required name="Professor">
-                                            <option value="" disabled selected>Select Professor</option>
-                                                <option value="BSIT">John Doe</option>
-                                                <option value="BIT">May Naur</option>
-                                            </select>
-
-
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h6 class="day-heading">MONDAY</h6>
-                                                    <label>Time Starts</label>
-                                                    <input type="time" class="form-control" required>
-                                                    <label>Time Ends</label>
-                                                    <input type="time" class="form-control" required>
-                                                </div>
-                                                <div class="col">
-                                                    <h6 class="day-heading">TUESDAY</h6>
-                                                    <label>Time Starts</label>
-                                                    <input type="time" class="form-control" required>
-                                                    <label>Time Ends</label>
-                                                    <input type="time" class="form-control" required>
-                                                </div>
+                                            <label for="numRows">Enter the number of rows:</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="numRows"
+                                                    placeholder="Number of Rows">
+                                                <button type="button" class="btn btn-primary" id="createRowsBtn">
+                                                    Create
+                                                    Rows</button>
                                             </div>
+                                        </div>
+                                        <div id="formInputs">
+                                            <!-- Initial form inputs -->
 
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h6 class="day-heading">WEDNESDAY</h6>
-                                                    <label>Time Starts</label>
-                                                    <input type="time" class="form-control" required>
-                                                    <label>Time Ends</label>
-                                                    <input type="time" class="form-control" required>
+                                            <div class="form-row" id="rowTemplate" style="display: none;">
+                                                <div class="label-container">
+                                                    <hr>
+                                                    <label class="row-label"></label>
                                                 </div>
-                                                <div class="col">
-                                                    <h6 class="day-heading">THURSDAY</h6>
-                                                    <label>Time Starts</label>
-                                                    <input type="time" class="form-control" required>
-                                                    <label>Time Ends</label>
-                                                    <input type="time" class="form-control" required>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <select class="form-control" required name="Subject">
+                                                            <option value="" disabled selected>Select Subject
+                                                            </option>
+                                                            <option value="SysAd">SysAd</option>
+                                                            <option value="CrossPlat">CrossPlat</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <select class="form-control" required name="Professor">
+                                                            <option value="" disabled selected>Select Professor
+                                                            </option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <select class="form-control" required name="Room">
+                                                            <option value="" disabled selected>Select Room
+                                                            </option>
+                                                            <option value="ST 101">ST 101</option>
+                                                            <option value="ST 102">ST 102</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h6 class="day-heading">MONDAY</h6>
+                                                        <label>Time Starts</label>
+                                                        <input type="time" class="form-control" required>
+                                                        <label>Time Ends</label>
+                                                        <input type="time" class="form-control" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h6 class="day-heading">TUESDAY</h6>
+                                                        <label>Time Starts</label>
+                                                        <input type="time" class="form-control" required>
+                                                        <label>Time Ends</label>
+                                                        <input type="time" class="form-control" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h6 class="day-heading">WEDNESDAY</h6>
+                                                        <label>Time Starts</label>
+                                                        <input type="time" class="form-control" required>
+                                                        <label>Time Ends</label>
+                                                        <input type="time" class="form-control" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h6 class="day-heading">THURSDAY</h6>
+                                                        <label>Time Starts</label>
+                                                        <input type="time" class="form-control" required>
+                                                        <label>Time Ends</label>
+                                                        <input type="time" class="form-control" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h6 class="day-heading">FRIDAY</h6>
+                                                        <label>Time Starts</label>
+                                                        <input type="time" class="form-control" required>
+                                                        <label>Time Ends</label>
+                                                        <input type="time" class="form-control" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h6 class="day-heading">SATURDAY</h6>
+                                                        <label>Time Starts</label>
+                                                        <input type="time" class="form-control" required>
+                                                        <label>Time Ends</label>
+                                                        <input type="time" class="form-control" required>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h6 class="day-heading">SUNDAY</h6>
+                                                        <label>Time Starts</label>
+                                                        <input type="time" class="form-control" required>
+                                                        <label>Time Ends</label>
+                                                        <input type="time" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn btn-danger remove-btn"
+                                                    disabled>Remove</button>
                                             </div>
-
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h6 class="day-heading">FRIDAY</h6>
-                                                    <label>Time Starts</label>
-                                                    <input type="time" class="form-control" required>
-                                                    <label>Time Ends</label>
-                                                    <input type="time" class="form-control" required>
-                                                </div>
-                                                <div class="col">
-                                                    <h6 class="day-heading">SATURDAY</h6>
-                                                    <label>Time Starts</label>
-                                                    <input type="time" class="form-control" required>
-                                                    <label>Time Ends</label>
-                                                    <input type="time" class="form-control" required>
-                                                </div>
-                                            </div>
-
-                                            <h6 class="day-heading">SUNDAY</h6>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label>Time Starts</label>
-                                                    <input type="time" class="form-control" required>
-                                                </div>
-                                                <div class="col">
-                                                    <label>Time Ends</label>
-                                                    <input type="time" class="form-control" required>
-                                                </div>
-                                            </div>
-
-                                            <label>Status</label>
-                                            <select class="form-control" required name="Status">
-                                                <option value="" disabled selected>Select Status</option>
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
                                         </div>
                                     </div>
                             </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn" data-bs-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn" value="Add">
-                            </div>
-                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn" id="submitBtn">Submit</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Custom modal for confirmation -->
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to remove this row?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn" id="confirmDeleteBtn">OK</button>
                         </div>
                     </div>
                 </div>
-                <!-- Edit Modal HTML -->
-                <div id="editSchedule" class="modal fade">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Edit Schedule</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+
+            <!-- View Modal HTML -->
+            <div id="viewSchedule" class="modal fade">
+                <div class=" modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">View Schedule Details</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Academic Year</th>
+                                            <th>Semester</th>
+                                            <th>Program</th>
+                                            <th>Section</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myTable">
+                                        <tr>
+                                            <td>2023-2024</td>
+                                            <td>1st Semester</td>
+                                            <td>BSIT</td>
+                                            <td>1 A</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>MIS Code</th>
+                                            <th>Subject</th>
+                                            <th>Professor</th>
+                                            <th>Room</th>
+                                            <th>Days</th>
+                                            <th>Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myTable">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-group">
-                                                <label>MIS Code</label>
-                                                <input type="text" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <label>Academic Year</label>
-                                            <select class="form-control" required name="Academic Year">
-                                                <option value="2022-2023">2022-2023</option>
-                                                <option value="2021-2022">2021-2022</option>
-                                            </select>
-                                        </div>
-                                        <div class="col">
-                                            <label>Semester</label>
-                                            <select class="form-control" required name="Semester">
-                                                <option value="1st Semester">1st Semester</option>
-                                                <option value="2nd Semester">2nd Semester</option>
-                                            </select>
-                                        </div>
-                                        <div class="col">
-                                            <label>Program</label>
-                                            <select class="form-control" required name="Program">
-                                                <option value="BSIT">BSIT</option>
-                                                <option value="BIT">BIT</option>
-                                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn" data-bs-dismiss="modal" value="Close">
+                            <a class="btn btn-default" data-bs-toggle="modal" data-bs-dismiss="modal"
+                                href="#editSchedule" role="button">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Modal HTML -->
+            <div id="editSchedule" class="modal fade">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Schedule</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal"
+                                aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>MIS Code</label>
+                                            <input type="text" class="form-control" required>
                                         </div>
                                     </div>
+                                    <div class="col">
+                                        <label>Academic Year</label>
+                                        <select class="form-control" required name="Academic Year">
+                                            <option value="2022-2023">2022-2023</option>
+                                            <option value="2021-2022">2021-2022</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label>Semester</label>
+                                        <select class="form-control" required name="Semester">
+                                            <option value="1st Semester">1st Semester</option>
+                                            <option value="2nd Semester">2nd Semester</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label>Program</label>
+                                        <select class="form-control" required name="Program">
+                                            <option value="BSIT">BSIT</option>
+                                            <option value="BIT">BIT</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <label>Subject</label>
-                                            <select class="form-control" required name="Program">
-                                                <option value="SysAd">SysAd</option>
-                                                <option value="CrossPlat">CrossPlat</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col">
-                                            <label>Section</label>
-                                            <select class="form-control" required name="Section">
-                                                <option value="A">A</option>
-                                                <option value="B">B</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col">
-                                            <label>Room</label>
-                                            <select class="form-control" required name="Room">
-                                                <option value="ST 101">ST 101</option>
-                                                <option value="ST 102">ST 102</option>
-                                            </select>
-                                        </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Subject</label>
+                                        <select class="form-control" required name="Program">
+                                            <option value="SysAd">SysAd</option>
+                                            <option value="CrossPlat">CrossPlat</option>
+                                        </select>
                                     </div>
 
-                                    <label>Professor</label>
-                                    <select class="form-control" required name="Program">
-                                        <option value="BSIT">John Doe</option>
-                                        <option value="BIT">May Naur</option>
-                                    </select>
-
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <h6 class="day-heading">MONDAY</h6>
-                                            <label>Time Starts</label>
-                                            <input type="time" class="form-control" required>
-                                            <label>Time Ends</label>
-                                            <input type="time" class="form-control" required>
-                                        </div>
-                                        <div class="col">
-                                            <h6 class="day-heading">TUESDAY</h6>
-                                            <label>Time Starts</label>
-                                            <input type="time" class="form-control" required>
-                                            <label>Time Ends</label>
-                                            <input type="time" class="form-control" required>
-                                        </div>
+                                    <div class="col">
+                                        <label>Section</label>
+                                        <select class="form-control" required name="Section">
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                        </select>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <h6 class="day-heading">WEDNESDAY</h6>
-                                            <label>Time Starts</label>
-                                            <input type="time" class="form-control" required>
-                                            <label>Time Ends</label>
-                                            <input type="time" class="form-control" required>
-                                        </div>
-                                        <div class="col">
-                                            <h6 class="day-heading">THURSDAY</h6>
-                                            <label>Time Starts</label>
-                                            <input type="time" class="form-control" required>
-                                            <label>Time Ends</label>
-                                            <input type="time" class="form-control" required>
-                                        </div>
+                                    <div class="col">
+                                        <label>Room</label>
+                                        <select class="form-control" required name="Room">
+                                            <option value="ST 101">ST 101</option>
+                                            <option value="ST 102">ST 102</option>
+                                        </select>
                                     </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <h6 class="day-heading">FRIDAY</h6>
-                                            <label>Time Starts</label>
-                                            <input type="time" class="form-control" required>
-                                            <label>Time Ends</label>
-                                            <input type="time" class="form-control" required>
-                                        </div>
-                                        <div class="col">
-                                            <h6 class="day-heading">SATURDAY</h6>
-                                            <label>Time Starts</label>
-                                            <input type="time" class="form-control" required>
-                                            <label>Time Ends</label>
-                                            <input type="time" class="form-control" required>
-                                        </div>
+                                <label>Professor</label>
+                                <select class="form-control" required name="Program">
+                                    <option value="BSIT">John Doe</option>
+                                    <option value="BIT">May Naur</option>
+                                </select>
+
+
+                                <div class="row">
+                                    <div class="col">
+                                        <h6 class="day-heading">MONDAY</h6>
+                                        <label>Time Starts</label>
+                                        <input type="time" class="form-control" required>
+                                        <label>Time Ends</label>
+                                        <input type="time" class="form-control" required>
                                     </div>
-
-                                    <h6 class="day-heading">SUNDAY</h6>
-                                    <div class="row">
-                                        <div class="col">
-                                            <label>Time Starts</label>
-                                            <input type="time" class="form-control" required>
-                                        </div>
-                                        <div class="col">
-                                            <label>Time Ends</label>
-                                            <input type="time" class="form-control" required>
-                                        </div>
+                                    <div class="col">
+                                        <h6 class="day-heading">TUESDAY</h6>
+                                        <label>Time Starts</label>
+                                        <input type="time" class="form-control" required>
+                                        <label>Time Ends</label>
+                                        <input type="time" class="form-control" required>
                                     </div>
+                                </div>
 
-                                    <label>Status</label>
-                                    <select class="form-control" required name="Status">
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col">
+                                        <h6 class="day-heading">WEDNESDAY</h6>
+                                        <label>Time Starts</label>
+                                        <input type="time" class="form-control" required>
+                                        <label>Time Ends</label>
+                                        <input type="time" class="form-control" required>
+                                    </div>
+                                    <div class="col">
+                                        <h6 class="day-heading">THURSDAY</h6>
+                                        <label>Time Starts</label>
+                                        <input type="time" class="form-control" required>
+                                        <label>Time Ends</label>
+                                        <input type="time" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <h6 class="day-heading">FRIDAY</h6>
+                                        <label>Time Starts</label>
+                                        <input type="time" class="form-control" required>
+                                        <label>Time Ends</label>
+                                        <input type="time" class="form-control" required>
+                                    </div>
+                                    <div class="col">
+                                        <h6 class="day-heading">SATURDAY</h6>
+                                        <label>Time Starts</label>
+                                        <input type="time" class="form-control" required>
+                                        <label>Time Ends</label>
+                                        <input type="time" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <h6 class="day-heading">SUNDAY</h6>
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Time Starts</label>
+                                        <input type="time" class="form-control" required>
+                                    </div>
+                                    <div class="col">
+                                        <label>Time Ends</label>
+                                        <input type="time" class="form-control" required>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -544,13 +567,14 @@
                 </div>
             </div>
             <!-- Change Status Modal HTML -->
-            <div id="statusSchedule" class="modal fade">
+            <div id="statusSchedule" Schedule class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form>
                             <div class="modal-header">
                                 <h5 class="modal-title">Change Schedule Status</h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+                                <button type="button" class="close" data-bs-dismiss="modal"
+                                    aria-hidden="true">&times;</button>
                             </div>
                             <div class="modal-body">
                                 <h6>Are you sure you want to inactivate this Schedule?</h6>
@@ -575,37 +599,117 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        var el = document.getElementById("wrapper");
-        var toggleButton = document.getElementById("menu-toggle");
+    var el = document.getElementById("wrapper");
+    var toggleButton = document.getElementById("menu-toggle");
 
-        toggleButton.onclick = function() {
-            el.classList.toggle("toggled");
-        };
+    toggleButton.onclick = function() {
+        el.classList.toggle("toggled");
+    };
 
-        var dropdown = document.getElementsByClassName("list-group-submenu");
-        var i;
+    var dropdown = document.getElementsByClassName("list-group-submenu");
+    var i;
 
-        for (i = 0; i < dropdown.length; i++) {
-            dropdown[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "block") {
-                    dropdownContent.style.display = "none";
-                } else {
-                    dropdownContent.style.display = "block";
-                }
-            });
-        }
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Activate tooltip
-            $('[data-toggle="tooltip"]').tooltip();
+    $(document).ready(function() {
+        // Activate tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
+
+    <script>
+    // Filter table
+
+    $(document).ready(function() {
+        $("#tableSearch").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
         });
+    });
+    </script>
+    <!-- Bootstrap JS and jQuery -->
+    <!-- creating rows modal -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        var rowToRemove; // Store the row to be removed
+        var rowCount = 1; // Initialize row count
+
+        // Initialize the modal with one form row
+        var rowTemplate = $('#rowTemplate').clone();
+        rowTemplate.removeAttr('id').removeAttr('style');
+        rowTemplate.find('.row-label').text('Subject ' + rowCount + ':');
+        rowCount++;
+        $('#formInputs').append(rowTemplate);
+
+        $('#createRowsBtn').click(function() {
+            var numRows = $('#numRows').val();
+            if (!numRows || isNaN(numRows) || numRows <= 0) {
+                alert('Please enter a valid number of rows.');
+                return;
+            }
+
+            for (var i = 0; i < numRows; i++) {
+                var newRow = rowTemplate.clone();
+                newRow.find('.row-label').text('Subject ' + rowCount + ':');
+                rowCount++;
+                newRow.find('.remove-btn').prop('disabled',
+                    false); // Enable the remove button for the new row
+                $('#formInputs').append(newRow);
+            }
+        });
+
+        // Remove row button functionality (for existing rows and dynamically added rows)
+        $(document).on('click', '.remove-btn', function() {
+            var formRow = $(this).closest('.form-row');
+            var formRows = formRow.siblings('.form-row');
+            if (formRows.length === 0) {
+                alert('At least one form is required.');
+            } else {
+                // Store the row to be removed
+                rowToRemove = formRow;
+                $('#confirmModal').modal('show'); // Show the custom confirmation modal
+            }
+        });
+
+        // Handle confirm deletion in the custom modal
+        $('#confirmDeleteBtn').click(function() {
+            rowToRemove.remove();
+            $('#confirmModal').modal('hide'); // Hide the custom modal
+
+            // Update the subject numbers after row deletion
+            var subjectRows = $('.form-row');
+            // index = 1
+            subjectRows.each(function(index) {
+                $(this).find('.row-label').text('Subject ' + (index) + ':');
+            });
+
+            // Reset rowCount based on the current number of rows in adding new rows
+            rowCount = subjectRows.length + 1;
+        });
+
+
+    });
     </script>
 </body>
 
 </html>
+message.txt
+41 KB

@@ -26,6 +26,9 @@ if (isset($_GET['room_edit'])) {
     <link rel="stylesheet" href="CSS/dashboard.css" />
     <!-- table style -->
     <link rel="stylesheet" href="CSS/content.css" />
+
+    <!-- sweetalert2 js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Room</title>
 </head>
 
@@ -115,6 +118,32 @@ if (isset($_GET['room_edit'])) {
             <div class="container-fluid px-4">
                 <div class="row g-3 my-2">
                     <div class="container">
+
+                        <!-- this is for the alerts -->
+                        <?php if (isset($_SESSION['message'])) : ?>
+                            <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '<?php echo $_SESSION['message']; ?>',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            </script>
+                        <?php unset($_SESSION['message']);
+                        endif; ?>
+
+                        <?php if (isset($_SESSION['error'])) : ?>
+                            <script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '<?php echo $_SESSION['error']; ?>',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                            </script>
+                        <?php unset($_SESSION['error']);
+                        endif; ?>
+
                         <div class="table-wrapper">
                             <div class="table-title">
                                 <div class="row">
@@ -138,7 +167,7 @@ if (isset($_GET['room_edit'])) {
                                             <th>Building Name</th>
                                             <th>Floor Number</th>
                                             <th>Room Number</th>
-                                            <th>roomStatus</th>
+                                            <th style="display: none;">roomStatus</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -157,7 +186,7 @@ if (isset($_GET['room_edit'])) {
                                                 <td><?php echo $row["roomBuild"] ?></td>
                                                 <td><?php echo $row["roomFloornum"] ?></td>
                                                 <td><?php echo $row["roomNum"] ?></td>
-                                                <td><?php echo "Active" ?>
+                                                <td style="display: none;"><?php echo "Active" ?>
                                                 </td>
                                                 <td>
                                                     <a href="" name="room_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
@@ -178,7 +207,7 @@ if (isset($_GET['room_edit'])) {
                                                 <td><?php echo $row["roomBuild"] ?></td>
                                                 <td><?php echo $row["roomFloornum"] ?></td>
                                                 <td><?php echo $row["roomNum"] ?></td>
-                                                <td><?php echo "Inactive"; ?></td>
+                                                <td style="display: none;"><?php echo "Inactive"; ?></td>
                                                 <td>
                                                     <a href="" name="room_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
                                                     <input type="hidden" name="roomID" value="<?php echo $row['roomID']; ?>">
@@ -207,6 +236,7 @@ if (isset($_GET['room_edit'])) {
                             </div>
                         </div>
                     </div>
+
                     <!-- Add Modal HTML -->
                     <div id="addRoom" class="modal fade">
                         <div class="modal-dialog">
@@ -232,14 +262,6 @@ if (isset($_GET['room_edit'])) {
                                             <label style="font-weight: bold;">Room Number</label>
                                             <input type="number" name="roomNum" class="form-control" required value="<?php echo $roomNum; ?>">
                                         </div>
-                                        <!-- <div class="form-group">
-                                            <label style="font-weight: bold;">Status</label>
-                                            <select class="form-control" required name="Status">
-                                                <option value="" disabled selected>Select Status</option>
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </div> -->
                                     </div>
                                     <div class="modal-footer">
                                         <input type="button" class="btn" data-bs-dismiss="modal" value="Cancel">
@@ -249,6 +271,7 @@ if (isset($_GET['room_edit'])) {
                             </div>
                         </div>
                     </div>
+
                     <!-- Edit Modal HTML -->
                     <div id="editRoom" class="modal fade">
                         <div class="modal-dialog">
@@ -274,15 +297,6 @@ if (isset($_GET['room_edit'])) {
                                             <label style="font-weight: bold;">Room Number</label>
                                             <input type="number" name="roomNum" id="roomNum" class="form-control" required>
                                         </div>
-
-                                        <!-- <div class="form-group">
-                                            <label style="font-weight: bold;">Status</label>
-                                            <select class="form-control" required name="Status">
-                                                <option value="" disabled selected>Select Status</option>
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                        </div> -->
                                     </div>
                                     <div class="modal-footer">
                                         <input type="button" class="btn" data-bs-dismiss="modal" value="Cancel">
@@ -293,6 +307,7 @@ if (isset($_GET['room_edit'])) {
                             </div>
                         </div>
                     </div>
+
                     <!-- Change Status Modal HTML -->
                     <div id="statusRoom" class="modal fade">
                         <div class="modal-dialog">
@@ -398,7 +413,7 @@ if (isset($_GET['room_edit'])) {
         });
     </script>
 
-    <script> 
+    <script>
         //this script is for the secStatus 
 
         // JavaScript to set secID when opening status modal

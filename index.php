@@ -10,6 +10,7 @@
 	<!-- this is the js for the icons -->
 	<script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
 
+	<!-- sweetalert2 js -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<title>Sign in & Sign up Form</title>

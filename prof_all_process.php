@@ -1,10 +1,11 @@
 <?php
 session_start();
 
-// Include the database connection file
-include_once 'db.php'; 
+include_once('db.php');
+
 
 $profFname = "";
+$profMname = "";
 $profLname = "";
 $profMobile = "";
 $profAddress = "";
@@ -20,6 +21,7 @@ $prof_edit_state = false;
 // Saving records
 if (isset($_POST["prof_add_new"])) {
     $profFname = $_POST["profFname"];
+    $profMname = $_POST["profMname"];
     $profLname = $_POST["profLname"];
     $profMobile = $_POST["profMobile"];
     $profAddress = $_POST["profAddress"];
@@ -27,40 +29,45 @@ if (isset($_POST["prof_add_new"])) {
     $profExpert = $_POST["profExpert"];
     $profRank = $_POST["profRank"];
     $profUnit = $_POST["profUnit"];
-    $profEmployStatus = $_POST["profEmployStatus"];
-    $profStatus = $_POST["profStatus"];
-    
-    // Validate required fields
-    if (empty($profFname) || empty($profLname) || empty($profMobile)) {
-        $_SESSION['message'] = "Error: Missing required fields";
-        header("Location: prof_index.php");
-        die();
-    }
+    // $profEmployStatus = $_POST["profEmployStatus"];
+    // $profStatus = $_POST["profStatus"];
 
-    // Check for duplicate entry 
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM tb_professor WHERE profFname=? AND profLname=? AND profMobile=?");
-    $stmt->bind_param("sss", $profFname, $profLname, $profMobile);
-    $stmt->execute();
-    $stmt->bind_result($count);
-    $stmt->fetch();
-    $stmt->close();
+    // echo"<pre>";
+    // var_dump($_POST);
+    // echo"</pre>";
+    // die;
+ 
+    // // Validate required fields
+    // if (empty($profFname) || empty($profLname) || empty($profMobile)) {
+    //     $_SESSION['message'] = "Error: Missing required fields";
+    //     header("Location: prof_index.php");
+    //     die();
+    // }
 
-    if ($count > 0) {
-        $_SESSION['message'] = "Error: Duplicate entry";
-        header("Location: prof_index.php");
-        die();
-    }
+    // // Check for duplicate entry 
+    // $stmt = $conn->prepare("SELECT COUNT(*) FROM tb_professor WHERE profFname=? AND profLname=? AND profMobile=?");
+    // $stmt->bind_param("sss", $profFname, $profLname, $profMobile);
+    // $stmt->execute();
+    // $stmt->bind_result($count);
+    // $stmt->fetch();
+    // $stmt->close();
 
-     // Validate the mobile number format
-    if (!preg_match('/^(?:\+639|09)\d{9}$/', $profMobile)) {
-        $_SESSION['message'] = "Error: Invalid mobile number format. Use either '+639xxxxxxxxx' or '09xxxxxxxxx'.";
-        header("Location: prof_index.php");
-        die();
-    }
+    // if ($count > 0) {
+    //     $_SESSION['message'] = "Error: Duplicate entry";
+    //     header("Location: prof_index.php");
+    //     die();
+    // }
+
+    //  // Validate the mobile number format
+    // if (!preg_match('/^(?:\+639|09)\d{9}$/', $profMobile)) {
+    //     $_SESSION['message'] = "Error: Invalid mobile number format. Use either '+639xxxxxxxxx' or '09xxxxxxxxx'.";
+    //     header("Location: prof_index.php");
+    //     die();
+    // }
 
     //Add the information to the Database
-    $stmt = $conn->prepare("INSERT INTO tb_professor (profFname, profLname, profMobile, profAddress, profEduc, profExpert, profRank, profUnit, profEmployStatus, profStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssssss", $profFname, $profLname, $profMobile, $profAddress, $profEduc, $profExpert, $profRank, $profUnit, $profEmployStatus, $profStatus);
+    $stmt = $conn->prepare("INSERT INTO tb_professor (profFname, profMname, profLname, profMobile, profAddress, profEduc, profExpert, profRank, profUnit, profEmployStatus, profStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssssss", $profFname, $profMname, $profLname, $profMobile, $profAddress, $profEduc, $profExpert, $profRank, $profUnit, $profEmployStatus, $profStatus);
     $stmt->execute();
 
     if ($stmt) {
@@ -72,9 +79,11 @@ if (isset($_POST["prof_add_new"])) {
     $stmt->close();
 }
 
+
 // For updating records
 if (isset($_POST["prof_update"])) {
     $profFname = $_POST["profFname"];
+    $profMname = $_POST["profMname"];
     $profLname = $_POST["profLname"];
     $profMobile = $_POST["profMobile"];
     $profAddress = $_POST["profAddress"];
@@ -95,7 +104,7 @@ if (isset($_POST["prof_update"])) {
     $currentDataRow = $currentDataResult->fetch_assoc();
 
     // Compare each field to check for changes
-    $fieldsToCheck = ["profFname", "profLname", "profMobile", "profAddress", "profEduc", "profExpert", "profRank", "profUnit", "profEmployStatus"];
+    $fieldsToCheck = ["profFname", "profMname" , "profLname", "profMobile", "profAddress", "profEduc", "profExpert", "profRank", "profUnit", "profEmployStatus"];
     $changesDetected = false;
 
     foreach ($fieldsToCheck as $field) {
@@ -113,8 +122,8 @@ if (isset($_POST["prof_update"])) {
     }
 
     // Proceed with the update
-    $stmt = $conn->prepare("UPDATE tb_professor SET profFname=?, profLname=?, profMobile=?, profAddress=?, profEduc=?, profExpert=?, profRank=?, profUnit=?, profEmployStatus=?, profStatus=? WHERE profID=?");
-    $stmt->bind_param("ssssssssssi", $profFname, $profLname, $profMobile, $profAddress, $profEduc, $profExpert, $profRank, $profUnit, $profEmployStatus, $profStatus, $profID);
+    $stmt = $conn->prepare("UPDATE tb_professor SET profFname=?, profMname=?, profLname=?, profMobile=?, profAddress=?, profEduc=?, profExpert=?, profRank=?, profUnit=?, profEmployStatus=?, profStatus=? WHERE profID=?");
+    $stmt->bind_param("sssssssssssi", $profFname, $profMname, $profLname, $profMobile, $profAddress, $profEduc, $profExpert, $profRank, $profUnit, $profEmployStatus, $profStatus, $profID);
     $stmt->execute();
 
     if ($stmt) {

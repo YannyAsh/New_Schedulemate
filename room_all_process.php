@@ -19,14 +19,14 @@ if (isset($_POST["room_add_new"])) {
 
     // Check for valid floor number (1 digit or less) and not negative
     if (!preg_match('/^\d{1}$/', $roomFloornum) || $roomFloornum < 0) {
-        $_SESSION['message'] = "Error: Invalid floor number. It should be 1 digit or less and non-negative.";
+        $_SESSION['error'] = "Error: Invalid floor number. It should be 1 digit or less and non-negative.";
         header("Location: room_index.php");
         exit;
     }
 
     // Check for valid room number (3 digits or less) and not negative
     if (!preg_match('/^\d{1,3}$/', $roomNum) || $roomNum < 0) {
-        $_SESSION['message'] = "Error: Invalid room number. It should be 3 digits or less and non-negative.";
+        $_SESSION['error'] = "Error: Invalid room number. It should be 3 digits or less and non-negative.";
         header("Location: room_index.php");
         exit;
     }
@@ -48,7 +48,7 @@ if (isset($_POST["room_add_new"])) {
     $stmt->close();
 
     if ($count > 0) {
-        $_SESSION['message'] = "Error: Another room with the same details exists";
+        $_SESSION['error'] = "Another room with the same details exists";
         header("Location: room_index.php");
         exit;
     }
@@ -76,17 +76,50 @@ if (isset($_POST["room_update"])) {
     $roomStatus = $_POST["roomStatus"];
     $roomID = $_POST["roomID"];
 
+    // Fetch the current data from the database
+    $currentDataQuery = "SELECT * FROM tb_room WHERE roomID = ?";
+    $currentDataStmt = $conn->prepare($currentDataQuery);
+    $currentDataStmt->bind_param("i", $roomID);
+    $currentDataStmt->execute();
+    $currentDataResult = $currentDataStmt->get_result();
+    $currentDataRow = $currentDataResult->fetch_assoc();
+
+    // Compare each field to check for changes
+    $fieldsToCheck = ["roomBuild", "roomFloornum", "roomNum"];
+    $changesDetected = false;
+
+    //If there are changes made then it will proceed to update
+    foreach ($fieldsToCheck as $field) {
+        if ($currentDataRow[$field] != $_POST[$field]) {
+            $changesDetected = true;
+            break;
+        }
+    }
+
+    //if changes are not made then it will send an alert
+    if (!$changesDetected) {
+        // No changes detected
+        $_SESSION["error"] = "No changes detected.";
+        header('Location: room_index.php');
+        exit;
+    }
+
+    // Check if the updated name already exists in the table
+    $checkNameQuery = $conn->prepare("SELECT roomID FROM tb_room WHERE roomNum=? AND roomID!=?");
+    $checkNameQuery->bind_param("ii", $roomNum, $roomID);
+    $checkNameQuery->execute();
+    $checkNameResult = $checkNameQuery->get_result();
+
+    if ($checkNameResult->num_rows > 0) {
+        $_SESSION['error'] = "Room already exists. Please input another a different room.";
+        header("Location: room_index.php");
+        exit();
+    }
+
+    // Update the record if changes were made
     $stmt = $conn->prepare("UPDATE tb_room SET roomBuild=?, roomFloornum=?, roomNum=?, roomStatus=? WHERE roomID=?");
     $stmt->bind_param("sisii", $roomBuild, $roomFloornum, $roomNum, $roomStatus, $roomID);
     $stmt->execute();
-
-    // Retrieve current data
-    $currentData = $conn->prepare("SELECT * FROM tb_room WHERE roomID=?");
-    $currentData->bind_param("i", $roomID);
-    $currentData->execute();
-    $result = $currentData->get_result();
-    $currentData->close();
-
 
     if ($stmt) {
         $_SESSION["message"] = "Information Updated Successfully";
@@ -96,6 +129,7 @@ if (isset($_POST["room_update"])) {
     }
     $stmt->close();
 }
+
 
 // Toggle Active and Inactive
 if (isset($_POST['room_toggle_status'])) {
