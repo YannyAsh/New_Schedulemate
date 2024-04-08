@@ -24,6 +24,13 @@ if (isset($_POST["room_add_new"])) {
         exit;
     }
 
+    // Check for valid room number (3 digits only) and not negative
+    if (!preg_match('/^\d{3}$/', $roomNum) || $roomNum < 0) {
+        $_SESSION['error'] = "Invalid room number";
+        header("Location: room_index.php");
+        exit;
+    }
+
     // Check for duplicate room, excluding the current one
     $stmt = $conn->prepare("SELECT COUNT(*) FROM tb_room WHERE roomBuild=? AND roomFloornum=? AND roomNum=? AND roomID != ?");
     if (!$stmt) {
@@ -59,6 +66,7 @@ if (isset($_POST["room_add_new"])) {
     }
     $stmt->close();
 }
+
 
 
 // For updating records
