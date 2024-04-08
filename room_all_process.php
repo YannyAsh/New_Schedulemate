@@ -19,14 +19,7 @@ if (isset($_POST["room_add_new"])) {
 
     // Check for valid floor number (1 digit or less) and not negative
     if (!preg_match('/^\d{1}$/', $roomFloornum) || $roomFloornum < 0) {
-        $_SESSION['error'] = "Error: Invalid floor number. It should be 1 digit or less and non-negative.";
-        header("Location: room_index.php");
-        exit;
-    }
-
-    // Check for valid room number (3 digits or less) and not negative
-    if (!preg_match('/^\d{1,3}$/', $roomNum) || $roomNum < 0) {
-        $_SESSION['error'] = "Error: Invalid room number. It should be 3 digits or less and non-negative.";
+        $_SESSION['error'] = "Invalid floor number";
         header("Location: room_index.php");
         exit;
     }

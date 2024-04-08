@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 include_once('db.php');
@@ -33,6 +33,7 @@ if (isset($_POST['sec_add_new'])) {
         exit();
     }
 
+    //Add new data to the database
     $stmt = $conn->prepare("INSERT INTO tb_section (secProgram, secYearlvl, secName, secSession, secStatus) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sisss", $secProgram, $secYearlvl, $secName, $secSession, $secStatus);
     $stmt->execute();
@@ -80,7 +81,7 @@ if (isset($_POST['sec_update'])) {
     if (!$changesDetected) {
         // No changes detected
         $_SESSION["error"] = "No changes detected in the information.";
-        header('Location: room_index.php');
+        header('Location: section_index.php');
         exit;
     }
 
@@ -92,13 +93,13 @@ if (isset($_POST['sec_update'])) {
     }
 
     // Check if the updated name already exists in the table
-    $checkNameQuery = $conn->prepare("SELECT secID FROM tb_section WHERE secName=? AND secID!=?");
-    $checkNameQuery->bind_param("si", $secName, $secID);
+    $checkNameQuery = $conn->prepare("SELECT secID FROM tb_section WHERE secYearlvl=? AND secName=? AND secID!=?");
+    $checkNameQuery->bind_param("isi", $secYearlvl, $secName, $secID);
     $checkNameQuery->execute();
     $checkNameResult = $checkNameQuery->get_result();
 
     if ($checkNameResult->num_rows > 0) {
-        $_SESSION['error'] = "Section name already exists. Please choose a different name.";
+        $_SESSION['error'] = "Section already exists";
         header("Location: section_index.php");
         exit();
     }
