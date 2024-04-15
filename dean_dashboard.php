@@ -1,3 +1,7 @@
+<?php
+include 'admin_approval.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    
+
     <!-- sidebar style -->
     <link rel="stylesheet" href="CSS/dashboard.css" />
     <!-- table style -->
@@ -142,6 +146,32 @@
                 <div class="container-fluid px-4">
                     <div class="row g-3 my-2">
                         <div class="container">
+
+                            <!-- this is for the alerts -->
+                            <?php if (isset($_SESSION['message'])) : ?>
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: '<?php echo $_SESSION['message']; ?>',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                </script>
+                            <?php unset($_SESSION['message']);
+                            endif; ?>
+
+                            <?php if (isset($_SESSION['error'])) : ?>
+                                <script>
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: '<?php echo $_SESSION['error']; ?>',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                </script>
+                            <?php unset($_SESSION['error']);
+                            endif; ?>
+
                             <div class="table-wrapper">
                                 <div class="table-title">
                                     <div class="row">
@@ -157,61 +187,37 @@
                                                 <th>Employee ID</th>
                                                 <th>Name</th>
                                                 <th>Program</th>
-                                                <th>Status</th>
+                                                <th>Position</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>John Doe</td>
-                                                <td>BSIT</td>
-                                                <td>Active</td>
-                                                <td>
-                                                    <a href="#approve" class="approve" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe86c;</i></a>
-                                                    <a href="#disapprove" class="disapprove" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe5c9;</i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>John Doe</td>
-                                                <td>BSIT</td>
-                                                <td>Active</td>
-                                                <td>
-                                                    <a href="#approve" class="approve" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe86c;</i></a>
-                                                    <a href="#disapprove" class="disapprove" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe5c9;</i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>John Doe</td>
-                                                <td>BSIT</td>
-                                                <td>Active</td>
-                                                <td>
-                                                    <a href="#approve" class="approve" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe86c;</i></a>
-                                                    <a href="#disapprove" class="disapprove" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe5c9;</i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>John Doe</td>
-                                                <td>BSIT</td>
-                                                <td>Active</td>
-                                                <td>
-                                                    <a href="#approve" class="approve" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe86c;</i></a>
-                                                    <a href="#disapprove" class="disapprove" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe5c9;</i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>John Doe</td>
-                                                <td>BSIT</td>
-                                                <td>Active</td>
-                                                <td>
-                                                    <a href="#approve" class="approve" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe86c;</i></a>
-                                                    <a href="#disapprove" class="disapprove" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe5c9;</i></a>
-                                                </td>
-                                            </tr>
+                                            <?php
+                                            $query = "SELECT * FROM tb_register WHERE userApproval = 'pending' ORDER BY userID ASC";
+                                            $result = mysqli_query($conn, $query); // Corrected variable name from $result to $query
+                                            while ($row = mysqli_fetch_array($result)) {
+                                            ?>
+
+                                                <tr>
+                                                    <td><?php echo $row['userID']; ?></td>
+                                                    <td><?php echo $row['userFname']; ?></td>
+                                                    <td><?php echo $row['userProgram']; ?></td>
+                                                    <td><?php echo $row['userPosition']; ?></td>
+                                                    <td>
+                                                        <form method="POST" action="admin_approval.php">
+                                                            <input type="hidden" name="userID" value="<?php echo $row['userID']; ?>">
+                                                            <button type="submit" name="approve" class="approve" value="Approve" data-bs-toggle="modal">
+                                                                <i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe86c;</i>
+                                                            </button>
+                                                            <button type="submit" name="deny" class="disapprove" value="Deny" data-bs-toggle="modal">
+                                                                <i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe5c9;</i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                            }
+                                            ?>
                                         </tbody>
                                     </table>
                                     <div class="clearfix">

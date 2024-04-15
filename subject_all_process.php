@@ -3,6 +3,8 @@ session_start();
 
 include_once('db.php');
 
+$subYear = "";
+$subSem = "";
 $subCode = "";
 $subDesc = "";
 $subUnits = "";
@@ -16,6 +18,8 @@ $sub_edit_state = false;
 // Check if the form was submitted
 if (isset($_POST['sub_add_new'])) {
     // Access submitted data using array names
+    $subYear = $_POST['subYear'];
+    $subSem = $_POST['subSem'];
     $subCode = $_POST['subCode'];
     $subDesc = $_POST['subDesc'];
     $subUnits = $_POST['subUnits']; // Access as array
@@ -32,8 +36,8 @@ if (isset($_POST['sub_add_new'])) {
     
     // Loop through each entry and insert into the database
     for($i=1; $i < count($subCode); $i++) {
-        $stmt = $conn->prepare("INSERT INTO tb_subjects (subCode, subDesc, subUnits, subLabhours, subLechours, subStatus) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $subCode[$i], $subDesc[$i], $subUnits[$i], $subLabhours[$i], $subLechours[$i], $subStatus[$i]);
+        $stmt = $conn->prepare("INSERT INTO tb_subjects (subYear, subSem, subCode, subDesc, subUnits, subLabhours, subLechours, subStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssss", $subYear ,$subSem, $subCode[$i], $subDesc[$i], $subUnits[$i], $subLabhours[$i], $subLechours[$i], $subStatus[$i]);
         $stmt->execute();
     }
 
@@ -50,6 +54,8 @@ if (isset($_POST['sub_add_new'])) {
 
 //For updating records
 if (isset($_POST["sub_update"])) {
+    $subYear = $_POST['subYear'];
+    $subSem = $_POST['subSem'];
     $subCode = $_POST['subCode'];
     $subDesc = $_POST['subDesc'];
     $subUnits = $_POST['subUnits'];
@@ -58,8 +64,8 @@ if (isset($_POST["sub_update"])) {
     $subStatus = $_POST['subStatus'];
     $subID = $_POST['subID'];
 
-    $stmt = $conn->prepare("UPDATE tb_subjects SET subCode=?, subDesc=?, subUnits=?, subLabhours=?, subLechours=?, subStatus=? WHERE subID=?");
-    $stmt->bind_param("ssssssi", $subCode, $subDesc, $subUnits, $subLabhours, $subLechours, $subStatus, $subID);
+    $stmt = $conn->prepare("UPDATE tb_subjects SET subYear=?, subSem=?, subCode=?, subDesc=?, subUnits=?, subLabhours=?, subLechours=?, subStatus=? WHERE subID=?");
+    $stmt->bind_param("ssssssssi", $subYear, $subSem, $subCode, $subDesc, $subUnits, $subLabhours, $subLechours, $subStatus, $subID);
     $stmt->execute();
 
     if ($stmt) {

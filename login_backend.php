@@ -1,46 +1,45 @@
 <?php
 session_start();
 
-//login
+// Include database connection
+include_once('db.php');
+
+// Handle login
 if (isset($_POST["login"])) {
     $email = $_POST["userEmail"];
     $password = $_POST["userPass"];
     $errors = array();
-    require_once dirname(__FILE__) . "/db.php";
 
-
+    // Select user from database based on email
     $sql = "SELECT * FROM tb_register WHERE userEmail = '$email'";
     $result = mysqli_query($conn, $sql);
     $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-    //restriction 
-    if ($user) {
-        if (password_verify($password, $user["userPass"])) {
-            $_SESSION["user"] = "yes";
-            $_SESSION["success"] = 2;
+    // Check if user exists and password is correct
+    if ($user && password_verify($password, $user["userPass"])) {
+        $_SESSION["user"] = "yes";
 
-            // Assuming userPosition is stored in your database
-            if ($user['userPosition'] === 'admin')
-            {
+        // Check user approval status
+        $userApproval = $user['userApproval'];
+
+        if ($userApproval == "approved") {
+            // Redirect to appropriate dashboard based on user position
+            if ($user['userPosition'] === 'admin') {
                 header("Location: admin_dashboard.php");
-            }
-            else if ($user['userPosition'] === 'dean') 
-            {
+            } elseif ($user['userPosition'] === 'dean') {
                 header("Location: dean_dashboard.php");
-            } 
-            else if ($user['userPosition'] === 'chairperson')
-            {
+            } elseif ($user['userPosition'] === 'chairperson') {
                 header("Location: chair_dashboard.php");
             }
             exit(); // Always exit after header redirect
-        } else {
-            array_push($errors, "Password does not match");
+        } elseif ($userApproval == "pending") {
+            $_SESSION["errors"] = array("Your account is still pending for approval");
         }
     } else {
-        array_push($errors, "Invalid email");
+        $_SESSION["errors"] = array("Invalid email or password");
     }
-    
-    $_SESSION["errors"] = $errors;
+
     header("Location: index.php"); // Redirect back to login page with errors
     exit();
 }
+?>

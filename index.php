@@ -19,18 +19,15 @@
 <body>
 
 	<div class="container">
-		<div class="forms-container">
-			<div class="signin-signup">
-
-				<!-- Alerts -->
-				<?php
+		<!-- Alerts -->
+		<?php
 				if (isset($_SESSION["success"])) {
 					if ($_SESSION["success"] == 1) {
 				?>
 						<script>
 							Swal.fire({
 								icon: "success",
-								title: "Registered successfully!",
+								title: "Registration successful! Please wait for approval.",
 								text: "",
 							});
 						</script>
@@ -58,6 +55,8 @@
 				}
 				?>
 
+		<div class="forms-container">
+			<div class="signin-signup">
 				<!-- Sign IN form -->
 				<form action="login_backend.php" class="sign-in-form" method="post">
 					<img src="images/login_logo.png" alt="" width="300">

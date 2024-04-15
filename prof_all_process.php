@@ -3,7 +3,6 @@ session_start();
 
 include_once('db.php');
 
-
 $profFname = "";
 $profMname = "";
 $profLname = "";
@@ -29,41 +28,41 @@ if (isset($_POST["prof_add_new"])) {
     $profExpert = $_POST["profExpert"];
     $profRank = $_POST["profRank"];
     $profUnit = $_POST["profUnit"];
-    // $profEmployStatus = $_POST["profEmployStatus"];
-    // $profStatus = $_POST["profStatus"];
+    $profEmployStatus = $_POST["profEmployStatus"];
+    $profStatus = $_POST["profStatus"];
 
     // echo"<pre>";
     // var_dump($_POST);
     // echo"</pre>";
     // die;
  
-    // // Validate required fields
-    // if (empty($profFname) || empty($profLname) || empty($profMobile)) {
-    //     $_SESSION['message'] = "Error: Missing required fields";
-    //     header("Location: prof_index.php");
-    //     die();
-    // }
+    // Validate required fields
+    if (empty($profFname) || empty($profLname) || empty($profMobile)) {
+        $_SESSION['message'] = "Error: Missing required fields";
+        header("Location: prof_index.php");
+        exit();
+    }
 
-    // // Check for duplicate entry 
-    // $stmt = $conn->prepare("SELECT COUNT(*) FROM tb_professor WHERE profFname=? AND profLname=? AND profMobile=?");
-    // $stmt->bind_param("sss", $profFname, $profLname, $profMobile);
-    // $stmt->execute();
-    // $stmt->bind_result($count);
-    // $stmt->fetch();
-    // $stmt->close();
+    // Check for duplicate entry 
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM tb_professor WHERE profFname=? AND profLname=? AND profMobile=?");
+    $stmt->bind_param("sss", $profFname, $profLname, $profMobile);
+    $stmt->execute();
+    $stmt->bind_result($count);
+    $stmt->fetch();
+    $stmt->close();
 
-    // if ($count > 0) {
-    //     $_SESSION['message'] = "Error: Duplicate entry";
-    //     header("Location: prof_index.php");
-    //     die();
-    // }
+    if ($count > 0) {
+        $_SESSION['message'] = "Error: Duplicate entry";
+        header("Location: prof_index.php");
+        die();
+    }
 
-    //  // Validate the mobile number format
-    // if (!preg_match('/^(?:\+639|09)\d{9}$/', $profMobile)) {
-    //     $_SESSION['message'] = "Error: Invalid mobile number format. Use either '+639xxxxxxxxx' or '09xxxxxxxxx'.";
-    //     header("Location: prof_index.php");
-    //     die();
-    // }
+     // Validate the mobile number format
+    if (!preg_match('/^(?:\+639|09)\d{9}$/', $profMobile)) {
+        $_SESSION['message'] = "Error: Invalid mobile number format. Use either '+639xxxxxxxxx' or '09xxxxxxxxx'.";
+        header("Location: prof_index.php");
+        die();
+    }
 
     //Add the information to the Database
     $stmt = $conn->prepare("INSERT INTO tb_professor (profFname, profMname, profLname, profMobile, profAddress, profEduc, profExpert, profRank, profUnit, profEmployStatus, profStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");

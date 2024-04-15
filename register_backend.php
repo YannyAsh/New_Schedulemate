@@ -9,7 +9,7 @@ if (isset($_POST["submit"])) {
     $prog = $_POST["userProgram"];
     $password = $_POST["userPass"];
     $passwordRepeat = $_POST["userPasscon"];
-
+    $userApproval = isset($_POST["userApproval"]) ? $_POST["userApproval"] : 'pending';
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
     $errors = array();
 
@@ -37,38 +37,59 @@ if (isset($_POST["submit"])) {
     if ($rowCount > 0) {
         array_push($errors, "Email already exists!");
     }
+
+    
     if (count($errors) > 0) {
         $_SESSION['errors'] = $errors;
         print_r($errors);
         header("Location: index.php");
     } else {
+        require_once dirname(__FILE__) . "/db.php";
 
-        //add user 
-        $sql = "INSERT INTO tb_register (userFname, userLname, userEmail, userPosition, userDept, userProgram, userPass) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        // Check if the email already exists
+        $sql = "SELECT * FROM tb_register WHERE userEmail = ?";
         $stmt = mysqli_stmt_init($conn);
-        $prepareStmt = mysqli_stmt_prepare($stmt, $sql);
+        if (mysqli_stmt_prepare($stmt, $sql)) {
+            mysqli_stmt_bind_param($stmt, "s", $email);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_store_result($stmt);
+            $rowCount = mysqli_stmt_num_rows($stmt);
+            if ($rowCount > 0) {
+                array_push($errors, "Email already exists!");
+                $_SESSION['errors'] = $errors;
+                header("Location: index.php");
+                exit();
+            }
+        }
 
-        if ($prepareStmt) {
-            mysqli_stmt_bind_param($stmt, "sssssss", $fname, $lname, $email, $position, $dept, $prog, $passwordHash);
+        // Insert user into the database with status 'pending'
+        $sql = "INSERT INTO tb_register (userFname, userLname, userEmail, userPosition, userDept, userProgram, userPass, userApproval) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_stmt_init($conn);
+        if (mysqli_stmt_prepare($stmt, $sql)) {
+            mysqli_stmt_bind_param($stmt, "ssssssss", $fname, $lname, $email, $position, $dept, $prog, $passwordHash, $userApproval);
             mysqli_stmt_execute($stmt);
             $_SESSION["success"] = 1;
-
-            if ($position === 'admin') 
-            {
-                header("Location: admin_dashboard.php");
-            } 
-            elseif ($position === 'dean') 
-            {
-                header("Location: dean_dashboard.php");
-            } 
-            elseif ($position === 'chairperson') 
-            {
-                header("Location: chair_dashboard.php");
-            }
-        } 
-        else 
-        {
+            header("Location: index.php"); // Assuming 'register.php' is your registration page
+            exit();
+        } else {
             die("Something went wrong");
         }
+
+        // if (mysqli_stmt_prepare($stmt, $sql)) {
+        //     mysqli_stmt_bind_param($stmt, "ssssssss", $fname, $lname, $email, $position, $dept, $prog, $passwordHash, $userApproval);
+        //     mysqli_stmt_execute($stmt);
+        //     $_SESSION["success"] = 1;
+
+        //     if ($position === 'admin') {
+        //         header("Location: admin_dashboard.php");
+        //     } elseif ($position === 'dean') {
+        //         header("Location: dean_dashboard.php");
+        //     } elseif ($position === 'chairperson') {
+        //         header("Location: chair_dashboard.php");
+        //     }
+        // } 
+        // else {
+        //     die("Something went wrong");
+        // }
     }
 }
