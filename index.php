@@ -82,7 +82,17 @@
 
 					<div class="input-field">
 						<i class="fas fa-user"></i>
+						<input type="number" name="userEmployID" placeholder="Employee ID" required>
+					</div>
+
+					<div class="input-field">
+						<i class="fas fa-user"></i>
 						<input type="text" name="userFname" placeholder="First Name" required>
+					</div>
+
+					<div class="input-field">
+						<i class="fas fa-user"></i>
+						<input type="text" name="userMname" placeholder="Middle Name" required>
 					</div>
 
 					<div class="input-field">
