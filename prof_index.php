@@ -6,6 +6,7 @@ if (isset($_GET['prof_edit'])) {
     $prof_edit_state = true;
     $record = mysqli_query($conn, "SELECT * FROM tb_professor WHERE profID=$profID");
     $data = mysqli_fetch_array($record);
+    $profEmployID = $data['profEmployID'];
     $profFname  = $data['profFname'];
     $profMname  = $data['profMname'];
     $profLname = $data['profLname'];
@@ -14,7 +15,7 @@ if (isset($_GET['prof_edit'])) {
     $profEduc = $data["profEduc"];
     $profExpert = $data["profExpert"];
     $profRank = $data["profRank"];
-    $profUnit = $data["profUnit"];
+    $profHrs = $data["profHrs"];
     $profEmployStatus = $data["profEmployStatus"];
     $profStatus = $data["profStatus"];
 }
@@ -146,6 +147,7 @@ if (isset($_GET['prof_edit'])) {
                                         <tr>
                                             <th style="display: none;">profID</th>
                                             <th>No.</th>
+                                            <th>Employee ID</th>
                                             <th>First Name</th>
                                             <th>Middle Name</th>
                                             <th>Last Name</th>
@@ -167,6 +169,7 @@ if (isset($_GET['prof_edit'])) {
                                             <tr>
                                                 <td style="display: none;"><?php echo $row["profID"] ?></td>
                                                 <td><?php echo $i; ?></td>
+                                                <td><?php echo $row["profEmployID"] ?></td>
                                                 <td><?php echo $row["profFname"] ?></td>
                                                 <td><?php echo $row["profMname"] ?></td>
                                                 <td><?php echo $row["profLname"] ?></td>
@@ -191,6 +194,7 @@ if (isset($_GET['prof_edit'])) {
                                             <tr style="color: #999; /* Gray out inactive professors */">
                                                 <td style="display: none;"><?php echo $row["profID"] ?></td>
                                                 <td><?php echo $i; ?></td>
+                                                <td><?php echo $row["profEmployID"] ?></td>
                                                 <td><?php echo $row["profFname"] ?></td>
                                                 <td><?php echo $row["profMname"] ?></td>
                                                 <td><?php echo $row["profLname"] ?></td>
@@ -244,6 +248,10 @@ if (isset($_GET['prof_edit'])) {
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <div class="row">
+                                                <div class="col">
+                                                    <label>Employee ID</label>
+                                                    <input type="text" name="profEmployID" class="form-control" value="<?php echo $profFname; ?>">
+                                                </div>
                                                 <div class="col">
                                                     <label>First Name</label>
                                                     <input type="text" name="profFname" class="form-control" value="<?php echo $profFname; ?>">
@@ -372,7 +380,7 @@ if (isset($_GET['prof_edit'])) {
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label>Maximum Units</label>
-                                                        <input type="number" name="profUnit" class="form-control" value="<?php echo $profUnit; ?>">
+                                                        <input type="number" name="profHrs" class="form-control" value="<?php echo $profHrs; ?>">
                                                     </div>
                                                 </div>
 
@@ -411,6 +419,7 @@ if (isset($_GET['prof_edit'])) {
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th>Employee ID</th>
                                                     <th>First Name</th>
                                                     <th>Middle Name</th>
                                                     <th>Last Name</th>
@@ -431,6 +440,7 @@ if (isset($_GET['prof_edit'])) {
                                                 while ($row = mysqli_fetch_array($result)) {
                                                 ?>
                                                     <tr>
+                                                        <td><?php echo $row["profEmployID"] ?></td>
                                                         <td><?php echo $row["profFname"] ?></td>
                                                         <td><?php echo $row["profMname"] ?></td>
                                                         <td><?php echo $row["profLname"] ?></td>
@@ -439,7 +449,7 @@ if (isset($_GET['prof_edit'])) {
                                                         <td><?php echo $row["profEduc"] ?></td>
                                                         <td><?php echo $row["profExpert"] ?></td>
                                                         <td><?php echo $row["profRank"] ?></td>
-                                                        <td><?php echo $row["profUnit"] ?></td>
+                                                        <td><?php echo $row["profHrs"] ?></td>
                                                         <td><?php echo $row["profEmployStatus"] ?></td>
                                                     </tr>
                                                 <?php
@@ -471,6 +481,10 @@ if (isset($_GET['prof_edit'])) {
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col">
+                                            <div class="form-group">
+                                                    <label>Employee ID</label>
+                                                    <input type=" text" name="profEmployID" id="profEmployID" class="form-control" required value="<?php echo $profFname; ?>">
+                                                </div>
                                                 <div class="form-group">
                                                     <label>First Name</label>
                                                     <input type=" text" name="profFname" id="profFname" class="form-control" required value="<?php echo $profFname; ?>">
@@ -627,7 +641,7 @@ if (isset($_GET['prof_edit'])) {
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>Maximum Units</label>
-                                                    <input type="number" name="profUnit" id="profUnit" class="form-control" required value="<?php echo $profUnit; ?>">
+                                                    <input type="number" name="profHrs" id="profHrs" class="form-control" required value="<?php echo $profHrs; ?>">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -751,15 +765,16 @@ if (isset($_GET['prof_edit'])) {
                 console.log(data);
                 $('#profID').val(data[0]);
 
-                $('#profFname').val(data[2]);
-                $('#profMname').val(data[3]);
-                $('#profLname').val(data[4]);
-                $('#profMobile').val(data[5]);
-                $('#profAddress').val(data[6]);
-                $('#profEduc').val(data[7]);
-                $('#profExpert').val(data[8]);
-                $('#profRank').val(data[9]);
-                $('#profUnit').val(data[10]);
+                $('#profEmployID').val(data[2]);
+                $('#profFname').val(data[3]);
+                $('#profMname').val(data[4]);
+                $('#profLname').val(data[5]);
+                $('#profMobile').val(data[6]);
+                $('#profAddress').val(data[7]);
+                $('#profEduc').val(data[8]);
+                $('#profExpert').val(data[9]);
+                $('#profRank').val(data[10]);
+                $('#profHrs').val(data[11]);
                 // $('#profPart').val(data[11]);
                 // $('#profFull').val(data[12]);
             });
@@ -785,17 +800,16 @@ if (isset($_GET['prof_edit'])) {
                 console.log(data);
                 $('#profID').val(data[0]);
 
-                $('#profFname').val(data[2]);
-                $('#profMname').val(data[3]);
-                $('#profLname').val(data[4]);
-                $('#profMobile').val(data[5]);
-                $('#profAddress').val(data[6]);
-                $('#profEduc').val(data[7]);
-                $('#profExpert').val(data[8]);
-                $('#profRank').val(data[9]);
-                $('#profUnit').val(data[10]);
-                $('#profPart').val(data[11]);
-                $('#profFull').val(data[12]);
+                $('#profEmployID').val(data[2]);
+                $('#profFname').val(data[3]);
+                $('#profMname').val(data[4]);
+                $('#profLname').val(data[5]);
+                $('#profMobile').val(data[6]);
+                $('#profAddress').val(data[7]);
+                $('#profEduc').val(data[8]);
+                $('#profExpert').val(data[9]);
+                $('#profRank').val(data[10]);
+                $('#profHrs').val(data[11]);
             });
 
         });

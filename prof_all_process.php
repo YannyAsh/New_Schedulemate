@@ -11,7 +11,7 @@ $profAddress = "";
 $profEduc = "";
 $profExpert = "";
 $profRank = "";
-$profUnit = "";
+$profHrs = "";
 $profEmployStatus = "";
 $profStatus = 0;
 $profID = 0;
@@ -19,6 +19,7 @@ $prof_edit_state = false;
 
 // Saving records
 if (isset($_POST["prof_add_new"])) {
+    $profEmployID = $_POST["profEmployID"];
     $profFname = $_POST["profFname"];
     $profMname = $_POST["profMname"];
     $profLname = $_POST["profLname"];
@@ -27,7 +28,7 @@ if (isset($_POST["prof_add_new"])) {
     $profEduc = $_POST["profEduc"];
     $profExpert = $_POST["profExpert"];
     $profRank = $_POST["profRank"];
-    $profUnit = $_POST["profUnit"];
+    $profHrs = $_POST["profHrs"];
     $profEmployStatus = $_POST["profEmployStatus"];
     $profStatus = $_POST["profStatus"];
 
@@ -65,8 +66,8 @@ if (isset($_POST["prof_add_new"])) {
     }
 
     //Add the information to the Database
-    $stmt = $conn->prepare("INSERT INTO tb_professor (profFname, profMname, profLname, profMobile, profAddress, profEduc, profExpert, profRank, profUnit, profEmployStatus, profStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssssss", $profFname, $profMname, $profLname, $profMobile, $profAddress, $profEduc, $profExpert, $profRank, $profUnit, $profEmployStatus, $profStatus);
+    $stmt = $conn->prepare("INSERT INTO tb_professor (profEmployID, profFname, profMname, profLname, profMobile, profAddress, profEduc, profExpert, profRank, profHrs, profEmployStatus, profStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("isssssssssss", $profEmployID ,$profFname, $profMname, $profLname, $profMobile, $profAddress, $profEduc, $profExpert, $profRank, $profHrs, $profEmployStatus, $profStatus);
     $stmt->execute();
 
     if ($stmt) {
@@ -81,6 +82,7 @@ if (isset($_POST["prof_add_new"])) {
 
 // For updating records
 if (isset($_POST["prof_update"])) {
+    $profEmployID = $_POST["profEmployID"];
     $profFname = $_POST["profFname"];
     $profMname = $_POST["profMname"];
     $profLname = $_POST["profLname"];
@@ -89,7 +91,7 @@ if (isset($_POST["prof_update"])) {
     $profEduc = $_POST["profEduc"];
     $profExpert = $_POST["profExpert"];
     $profRank = $_POST["profRank"];
-    $profUnit = $_POST["profUnit"];
+    $profHrs = $_POST["profHrs"];
     $profEmployStatus = $_POST["profEmployStatus"];
     $profStatus = $_POST["profStatus"];
     $profID = $_POST["profID"];
@@ -103,7 +105,7 @@ if (isset($_POST["prof_update"])) {
     $currentDataRow = $currentDataResult->fetch_assoc();
 
     // Compare each field to check for changes
-    $fieldsToCheck = ["profFname", "profMname" , "profLname", "profMobile", "profAddress", "profEduc", "profExpert", "profRank", "profUnit", "profEmployStatus"];
+    $fieldsToCheck = ["profEmployID", "profFname", "profMname" , "profLname", "profMobile", "profAddress", "profEduc", "profExpert", "profRank", "profHrs", "profEmployStatus"];
     $changesDetected = false;
 
     foreach ($fieldsToCheck as $field) {
@@ -121,8 +123,8 @@ if (isset($_POST["prof_update"])) {
     }
 
     // Proceed with the update
-    $stmt = $conn->prepare("UPDATE tb_professor SET profFname=?, profMname=?, profLname=?, profMobile=?, profAddress=?, profEduc=?, profExpert=?, profRank=?, profUnit=?, profEmployStatus=?, profStatus=? WHERE profID=?");
-    $stmt->bind_param("sssssssssssi", $profFname, $profMname, $profLname, $profMobile, $profAddress, $profEduc, $profExpert, $profRank, $profUnit, $profEmployStatus, $profStatus, $profID);
+    $stmt = $conn->prepare("UPDATE tb_professor SET profEmployID=?, profFname=?, profMname=?, profLname=?, profMobile=?, profAddress=?, profEduc=?, profExpert=?, profRank=?, profHrs=?, profEmployStatus=?, profStatus=? WHERE profID=?");
+    $stmt->bind_param("isssssssssssi", $profEmployID, $profFname, $profMname, $profLname, $profMobile, $profAddress, $profEduc, $profExpert, $profRank, $profHrs, $profEmployStatus, $profStatus, $profID);
     $stmt->execute();
 
     if ($stmt) {
@@ -161,4 +163,5 @@ if (isset($_POST['prof_toggle_status'])) {
     }
     $stmt->close();
 }
+
 ?>

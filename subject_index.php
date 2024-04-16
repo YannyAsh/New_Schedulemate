@@ -70,7 +70,7 @@ function generateAcademicYears()
                             <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
                         </li>
                         <li>
-                            <a href="professor_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
+                            <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
                         </li>
                         <li>
                             <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>

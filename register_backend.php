@@ -74,22 +74,5 @@ if (isset($_POST["submit"])) {
         } else {
             die("Something went wrong");
         }
-
-        // if (mysqli_stmt_prepare($stmt, $sql)) {
-        //     mysqli_stmt_bind_param($stmt, "ssssssss", $fname, $lname, $email, $position, $dept, $prog, $passwordHash, $userApproval);
-        //     mysqli_stmt_execute($stmt);
-        //     $_SESSION["success"] = 1;
-
-        //     if ($position === 'admin') {
-        //         header("Location: admin_dashboard.php");
-        //     } elseif ($position === 'dean') {
-        //         header("Location: dean_dashboard.php");
-        //     } elseif ($position === 'chairperson') {
-        //         header("Location: chair_dashboard.php");
-        //     }
-        // } 
-        // else {
-        //     die("Something went wrong");
-        // }
     }
 }
