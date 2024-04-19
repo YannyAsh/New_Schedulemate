@@ -54,13 +54,13 @@
                 <div class="sidebar-submenu">
                     <ul>
                         <li>
-                            <a href="pbs.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBS</a>
+                            <a href="pbs_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBS</a>
                         </li>
                         <li>
-                            <a href="pbt.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBT</a>
+                            <a href="pbt_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBT</a>
                         </li>
                         <li>
-                            <a href="pbru.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBRU</a>
+                            <a href="pbru_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBRU</a>
                         </li>
                     </ul>
                 </div>

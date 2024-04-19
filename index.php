@@ -21,39 +21,39 @@
 	<div class="container">
 		<!-- Alerts -->
 		<?php
-				if (isset($_SESSION["success"])) {
-					if ($_SESSION["success"] == 1) {
-				?>
-						<script>
-							Swal.fire({
-								icon: "success",
-								title: "Registration successful! Please wait for approval.",
-								text: "",
-							});
-						</script>
-					<?php
-						$_SESSION["success"] = null;
-					} else {
-						// No need to show login success alert
-						$_SESSION["success"] = null;
-					}
-				}
+		if (isset($_SESSION["success"])) {
+			if ($_SESSION["success"] == 1) {
+		?>
+				<script>
+					Swal.fire({
+						icon: "success",
+						title: "Registration successful! Please wait for approval.",
+						text: "",
+					});
+				</script>
+			<?php
+				$_SESSION["success"] = null;
+			} else {
+				// No need to show login success alert
+				$_SESSION["success"] = null;
+			}
+		}
 
-				if (isset($_SESSION["errors"])) {
-					foreach ($_SESSION["errors"] as $error) {
-					?>
-						<script>
-							Swal.fire({
-								icon: "error",
-								title: "Oops...",
-								text: "<?php echo $error; ?>",
-							});
-						</script>
-				<?php
-					}
-					$_SESSION["errors"] = null;
-				}
-				?>
+		if (isset($_SESSION["errors"])) {
+			foreach ($_SESSION["errors"] as $error) {
+			?>
+				<script>
+					Swal.fire({
+						icon: "error",
+						title: "Oops...",
+						text: "<?php echo $error; ?>",
+					});
+				</script>
+		<?php
+			}
+			$_SESSION["errors"] = null;
+		}
+		?>
 
 		<div class="forms-container">
 			<div class="signin-signup">
@@ -108,12 +108,12 @@
 
 					<select class="input-field" name="userPosition" required>
 						<option value="" disabled selected>Select School Position</option>
-						<option value="admin">School Admin</option>
+						<option value="admin">Admin</option>
 						<option value="dean">Dean</option>
 						<option value="chairperson">Chairperson</option>
 					</select>
 
-					<select class="input-field" name="userDept" required>
+					<select class="input-field" name="userCollege" required>
 						<option value="" disabled selected>Select College</option>
 						<option value="coed">COLLEGE OF EDUCATION</option>
 						<option value="coe">COLLEGE OF ENGINEERING</option>
@@ -244,7 +244,7 @@
 
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
-			var deptSelect = document.querySelector('select[name="userDept"]');
+			var collegeSelect = document.querySelector('select[name="userCollege"]');
 			var programSelect = document.querySelector('select[name="userProgram"]');
 			var programs = {
 				"coed": ["BEEd - Bachelor in Elementary Education", "BECEd - Bachelor in Early Childhood Education", "BSNEd - Bachelor in Special Need Education", "BSEd-Math - Bachelor in Secondary Education (Mathematics)", "BSEd-Science - Bachelor in Secondary Education (Science)", "BSEd-Values Ed - Bachelor in Secondary Education (Values Education)", "BSEd-English - Bachelor in Secondary Education (English)", "BSEd-Filipino - Bachelor in Secondary Education (Filipino)", "BTLEd-IA - Bachelor in Technology and Livelihood Education (Industrial Arts)", "BTLEd-HE - Bachelor in Technology and Livelihood Education (Home Economics)", "BTLEd-ICT - Bachelor in Technology and Livelihood Education (Information and Communication Technology)", "BTVTEd-Draft - Bachelor in Technical and Vocational Teacher Education (Architectural Drafting)", "BTVTEd-Auto - Bachelor in Technical and Vocational Teacher Education (Automotive Technology)", "BTVTEd-Food - Bachelor in Technical and Vocational Teacher Education (Food Services Management Technology)", "BTVTEd-Elec - Bachelor in Technical and Vocational Teacher Education (Electrical Technology)", "BTVTEd-Elex - Bachelor in Technical and Vocational Teacher Education (Electronics Technology)", "BTVTEd-GFD - Bachelor in Technical and Vocational Teacher Education (Garments, Fashion and Design Technology)", "BTVTEd-WF - Bachelor in Technical and Vocational Teacher Education (Welding and Fabrication Technology)"],
@@ -255,16 +255,31 @@
 				"cas": ["BAEL-ECP - Bachelor of Arts in English Language (English Across the Professions)", "BAEL-ELSD - Bachelor of Arts in English Language (English Language Studies as Discipline)", "BAL–LCS - Bachelor of Arts in Literature (Literature And Cultural Studies)", "BAL–LAP - Bachelor of Arts in Literature (Literature Across The Professions)", "BS MATH - Bachelor of Science in Mathematics", "BS STAT - Bachelor of Science in Statistics", "BSDevCom - Bachelor of Science in Development Communication", "BAF - Batsilyer ng Sining sa Filipino", "BS PSYCH - Bachelor of Science in Psychology", "Bachelor of Science in Nursing"]
 			};
 
-			deptSelect.addEventListener('change', function() {
-				var selectedDept = this.value;
+			collegeSelect.addEventListener('change', function() {
+				var selectedCollege = this.value;
 				programSelect.innerHTML = '<option value="" disabled selected>Select Program</option>'; // Clear previous options
-				if (selectedDept in programs) {
-					programs[selectedDept].forEach(function(program) {
+				if (selectedCollege in programs) {
+					programs[selectedCollege].forEach(function(program) {
 						var option = document.createElement('option');
 						option.textContent = program;
 						option.value = program;
 						programSelect.appendChild(option);
 					});
+				}
+			});
+		});
+	</script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var positionSelect = document.querySelector('select[name="userPosition"]');
+			var programSelect = document.querySelector('select[name="userProgram"]');
+
+			positionSelect.addEventListener('change', function() {
+				if (this.value === 'dean') {
+					programSelect.style.display = 'none';
+				} else {
+					programSelect.style.display = 'block';
 				}
 			});
 		});

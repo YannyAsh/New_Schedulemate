@@ -7,7 +7,7 @@ if (isset($_POST["submit"])) {
     $lname = $_POST["userLname"];
     $email = $_POST["userEmail"];
     $position = $_POST["userPosition"];
-    $dept = $_POST["userDept"];
+    $college = $_POST["userCollege"];
     $prog = $_POST["userProgram"];
     $password = $_POST["userPass"];
     $passwordRepeat = $_POST["userPasscon"];
@@ -16,7 +16,7 @@ if (isset($_POST["submit"])) {
     $errors = array();
 
     //detect errors
-    if (empty($employID) or empty($fname) or empty($mname) or empty($lname) or empty($email) or empty($position) or empty($dept) or empty($prog) or empty($password) or empty($passwordRepeat)) {
+    if (empty($employID) or empty($fname) or empty($mname) or empty($lname) or empty($email) or empty($position) or empty($college) or empty($prog) or empty($password) or empty($passwordRepeat)) {
         array_push($errors, "All fields are required");
     }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -65,10 +65,10 @@ if (isset($_POST["submit"])) {
         }
 
         // Insert user into the database with status 'pending'
-        $sql = "INSERT INTO tb_register (userEmployID, userFname, userMname, userLname, userEmail, userPosition, userDept, userProgram, userPass, userApproval) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO tb_register (userEmployID, userFname, userMname, userLname, userEmail, userPosition, userCollege, userProgram, userPass, userApproval) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_stmt_init($conn);
         if (mysqli_stmt_prepare($stmt, $sql)) {
-            mysqli_stmt_bind_param($stmt, "isssssssss", $employID, $fname, $mname, $lname, $email, $position, $dept, $prog, $passwordHash, $userApproval);
+            mysqli_stmt_bind_param($stmt, "isssssssss", $employID, $fname, $mname, $lname, $email, $position, $college, $prog, $passwordHash, $userApproval);
             mysqli_stmt_execute($stmt);
             $_SESSION["success"] = 1;
             header("Location: index.php"); // Assuming 'register.php' is your registration page
