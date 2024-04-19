@@ -270,18 +270,64 @@
 		});
 	</script>
 
+	//Depending on the userPOsition the input feilds for userCollege and userProgram will be hidden
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			var positionSelect = document.querySelector('select[name="userPosition"]');
 			var programSelect = document.querySelector('select[name="userProgram"]');
+			var collegeSelect = document.querySelector('select[name="userCollege"]');
 
-			positionSelect.addEventListener('change', function() {
-				if (this.value === 'dean') {
+			// Function to hide/show program and college select fields
+			function toggleFields() {
+				if (positionSelect.value === 'dean') {
 					programSelect.style.display = 'none';
+					collegeSelect.style.display = 'block'; // Show college for Dean
+				} else if (positionSelect.value === 'admin') {
+					programSelect.style.display = 'none';
+					collegeSelect.style.display = 'none'; // Hide both college and program for Admin
 				} else {
 					programSelect.style.display = 'block';
+					collegeSelect.style.display = 'block'; // Show both college and program for other positions
 				}
-			});
+			}
+
+			// Initial toggle based on the default value
+			toggleFields();
+
+			// Event listener for userPosition change
+			positionSelect.addEventListener('change', toggleFields);
+		});
+	</script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var positionSelect = document.querySelector('select[name="userPosition"]');
+			var programSelect = document.querySelector('select[name="userProgram"]');
+			var collegeSelect = document.querySelector('select[name="userCollege"]');
+
+			// Function to hide/show program and college select fields
+			function toggleFields() {
+				if (positionSelect.value === 'chairperson') {
+					programSelect.required = true;
+					collegeSelect.required = true;
+				} else if (positionSelect.value === 'dean') {
+					programSelect.required = true;
+					collegeSelect.required = false;
+				} else if (positionSelect.value === 'admin') {
+					programSelect.required = false;
+					collegeSelect.required = false;
+				} else {
+					// For other positions, make both fields required
+					programSelect.required = true;
+					collegeSelect.required = true;
+				}
+			}
+
+			// Initial toggle based on the default value
+			toggleFields();
+
+			// Event listener for userPosition change
+			positionSelect.addEventListener('change', toggleFields);
 		});
 	</script>
 </body>
