@@ -115,85 +115,85 @@
 
 					<select class="input-field" name="userCollege" required>
 						<option value="" disabled selected>Select College</option>
-						<option value="coed">COLLEGE OF EDUCATION</option>
-						<option value="coe">COLLEGE OF ENGINEERING</option>
-						<option value="cot">COLLEGE OF TECHNOLOGY</option>
-						<option value="come">COLLEGE OF MANAGEMENT AND ENTREPRENEURSHIP</option>
-						<option value="cas">COLLEGE OF ARTS AND SCIENCES</option>
-						<option value="ccict">COLLEGE OF INFORMATION AND COMMUNICATIONS TECHNOLOGY</option>
+						<option value="COED">COLLEGE OF EDUCATION</option>
+						<option value="COE">COLLEGE OF ENGINEERING</option>
+						<option value="COT">COLLEGE OF TECHNOLOGY</option>
+						<option value="COME">COLLEGE OF MANAGEMENT AND ENTREPRENEURSHIP</option>
+						<option value="CAS">COLLEGE OF ARTS AND SCIENCES</option>
+						<option value="CCICT">COLLEGE OF INFORMATION AND COMMUNICATIONS TECHNOLOGY</option>
 					</select>
 
 					<select class="input-field" name="userProgram" required>
 						<option value="" disabled selected>Select Program</option>
 						<!-- College of Education Programs -->
-						<option value="">BEEd - Bachelor in Elementary Education</option>
-						<option value="">BECEd - Bachelor in Early Childhood Education</option>
-						<option value="">BSNEd - Bachelor in Special Need Education</option>
-						<option value="">BSEd-Math - Bachelor in Secondary Education (Mathematics)</option>
-						<option value="">BSEd-Science - Bachelor in Secondary Education (Science )</option>
-						<option value="">BSEd-Values Ed - Bachelor in Secondary Education (Values Education)</option>
-						<option value="">BSEd-English - Bachelor in Secondary Education (English)</option>
-						<option value="">BSEd-Filipino - Bachelor in Secondary Education (Filipino)</option>
-						<option value="">BTLEd-IA - Bachelor in Technology and Livelihood Education (Industrial Arts)</option>
-						<option value="">BTLEd-HE - Bachelor in Technology and Livelihood Education (Home Economics)</option>
-						<option value="">BTLEd-ICT - Bachelor in Technology and Livelihood Education (Information and Communication Technology)</option>
-						<option value="">BTVTEd-Draft - Bachelor in Technical and Vocational Teacher Education (Architectural Drafting)</option>
-						<option value="">BTVTEd-Auto - Bachelor in Technical and Vocational Teacher Education (Automotive Technology)</option>
-						<option value="">BTVTEd-Food - Bachelor in Technical and Vocational Teacher Education (Food Services Management Technology)</option>
-						<option value="">BTVTEd-Elec - Bachelor in Technical and Vocational Teacher Education (Electrical Technology)</option>
-						<option value="">BTVTEd-Elex - Bachelor in Technical and Vocational Teacher Education (Electronics Technology)</option>
-						<option value="">BTVTEd-GFD - Bachelor in Technical and Vocational Teacher Education (Garments, Fashion and Design Technology)</option>
-						<option value="">BTVTEd-WF - Bachelor in Technical and Vocational Teacher Education (Welding and Fabrication Technology)</option>
+						<option value="BEEd">BEEd - Bachelor in Elementary Education</option>
+						<option value="BECEd">BECEd - Bachelor in Early Childhood Education</option>
+						<option value="BSNEd">BSNEd - Bachelor in Special Need Education</option>
+						<option value="BSEd-Math">BSEd-Math - Bachelor in Secondary Education (Mathematics)</option>
+						<option value="BSEd-Science">BSEd-Science - Bachelor in Secondary Education (Science )</option>
+						<option value="BSEd-Values Ed">BSEd-Values Ed - Bachelor in Secondary Education (Values Education)</option>
+						<option value="BSEd-English">BSEd-English - Bachelor in Secondary Education (English)</option>
+						<option value="BSEd-Filipino">BSEd-Filipino - Bachelor in Secondary Education (Filipino)</option>
+						<option value="BTLEd-IA">BTLEd-IA - Bachelor in Technology and Livelihood Education (Industrial Arts)</option>
+						<option value="BTLEd-HE">BTLEd-HE - Bachelor in Technology and Livelihood Education (Home Economics)</option>
+						<option value="BTLEd-ICT">BTLEd-ICT - Bachelor in Technology and Livelihood Education (Information and Communication Technology)</option>
+						<option value="BTVTEd-Draft">BTVTEd-Draft - Bachelor in Technical and Vocational Teacher Education (Architectural Drafting)</option>
+						<option value="BTVTEd-Auto">BTVTEd-Auto - Bachelor in Technical and Vocational Teacher Education (Automotive Technology)</option>
+						<option value="BTVTEd-Food">BTVTEd-Food - Bachelor in Technical and Vocational Teacher Education (Food Services Management Technology)</option>
+						<option value="BTVTEd-Elec">BTVTEd-Elec - Bachelor in Technical and Vocational Teacher Education (Electrical Technology)</option>
+						<option value="BTVTEd-Elex">BTVTEd-Elex - Bachelor in Technical and Vocational Teacher Education (Electronics Technology)</option>
+						<option value="BTVTEd-GFD">BTVTEd-GFD - Bachelor in Technical and Vocational Teacher Education (Garments, Fashion and Design Technology)</option>
+						<option value="BTVTEd-WF">BTVTEd-WF - Bachelor in Technical and Vocational Teacher Education (Welding and Fabrication Technology)</option>
 
 						<!-- Collage of Engineering -->
-						<option value="">BSCE - Bachelor of Science in Civil Engineering</option>
-						<option value="">BSCPE - Bachelor of Science in Computer Engineering</option>
-						<option value="">BSECE - Bachelor of Science in Electronics Engineering</option>
-						<option value="">BSEE - Bachelor of Science in Electrical Engineering</option>
-						<option value="">BSIE - Bachelor of Science in Industrial Engineering</option>
-						<option value="">BSME - Bachelor of Science in Mechanical Engineering</option>
+						<option value="BSCE">BSCE - Bachelor of Science in Civil Engineering</option>
+						<option value="BSCPE">BSCPE - Bachelor of Science in Computer Engineering</option>
+						<option value="BSECE">BSECE - Bachelor of Science in Electronics Engineering</option>
+						<option value="BSEE">BSEE - Bachelor of Science in Electrical Engineering</option>
+						<option value="BSIE">BSIE - Bachelor of Science in Industrial Engineering</option>
+						<option value="BSME">BSME - Bachelor of Science in Mechanical Engineering</option>
 
 						<!-- Collage of Technology -->
-						<option value="">BSMx - Bachelor of Science in Mechatronics</option>
-						<option value="">BSGD - Bachelor of Science in Graphics and Design</option>
-						<option value="">BSTechM - Bachelor of Science in Technology Management</option>
-						<option value="">BIT Automotive Technology - Bachelor of Industrial Technology (Automotive Technology)</option>
-						<option value="">BIT Civil Technology - Bachelor of Industrial Technology (Civil Technology)</option>
-						<option value="">BIT Cosmetology - Bachelor of Industrial Technology (Cosmetology)</option>
-						<option value="">BIT Drafting Technology - Bachelor of Industrial Technology (Drafting Technology)</option>
-						<option value="">BIT Electrical Technology - Bachelor of Industrial Technology (Electrical Technology)</option>
-						<option value="">BIT Electronics Technology - Bachelor of Industrial Technology (Electronics Technology)</option>
-						<option value="">BIT Food Preparation and Services Technology - Bachelor of Industrial Technology (Food Preparation and Services Technology)</option>
-						<option value="">BIT Furniture and Cabinet Making - Bachelor of Industrial Technology (Furniture and Cabinet Making)</option>
-						<option value="">BIT Garments Technology - Bachelor of Industrial Technology (Garments Technology)</option>
-						<option value="">BIT Interior Design Technology - Bachelor of Industrial Technology (Interior Design Technology)</option>
-						<option value="">BIT Machine Shop Technology - Bachelor of Industrial Technology (Machine Shop Technology)</option>
-						<option value="">BIT Power Plant Technology - Bachelor of Industrial Technology (Power Plant Technology)</option>
-						<option value="">BIT Refrigeration and Air-conditioning Technology - Bachelor of Industrial Technology (Refrigeration and Air-conditioning Technology)</option>
-						<option value="">BIT Welding and Fabrication Technology - Bachelor of Industrial Technology (Welding and Fabrication Technology)</option>
+						<option value="BSMx">BSMx - Bachelor of Science in Mechatronics</option>
+						<option value="BSGD">BSGD - Bachelor of Science in Graphics and Design</option>
+						<option value="BSTechM">BSTechM - Bachelor of Science in Technology Management</option>
+						<option value="BIT Automotive Technology">BIT Automotive Technology - Bachelor of Industrial Technology (Automotive Technology)</option>
+						<option value="BIT Civil Technology">BIT Civil Technology - Bachelor of Industrial Technology (Civil Technology)</option>
+						<option value="BIT Cosmetology">BIT Cosmetology - Bachelor of Industrial Technology (Cosmetology)</option>
+						<option value="BIT Drafting Technology">BIT Drafting Technology - Bachelor of Industrial Technology (Drafting Technology)</option>
+						<option value="BIT Electrical Technology">BIT Electrical Technology - Bachelor of Industrial Technology (Electrical Technology)</option>
+						<option value="BIT Electronics Technology">BIT Electronics Technology - Bachelor of Industrial Technology (Electronics Technology)</option>
+						<option value="BIT Food Preparation and Services Technology">BIT Food Preparation and Services Technology - Bachelor of Industrial Technology (Food Preparation and Services Technology)</option>
+						<option value="BIT Furniture and Cabinet Making">BIT Furniture and Cabinet Making - Bachelor of Industrial Technology (Furniture and Cabinet Making)</option>
+						<option value="BIT Garments Technology">BIT Garments Technology - Bachelor of Industrial Technology (Garments Technology)</option>
+						<option value="BIT Interior Design Technology">BIT Interior Design Technology - Bachelor of Industrial Technology (Interior Design Technology)</option>
+						<option value="BIT Machine Shop Technology">BIT Machine Shop Technology - Bachelor of Industrial Technology (Machine Shop Technology)</option>
+						<option value="BIT Power Plant Technology">BIT Power Plant Technology - Bachelor of Industrial Technology (Power Plant Technology)</option>
+						<option value="BIT Refrigeration and Air-conditioning Technology">BIT Refrigeration and Air-conditioning Technology - Bachelor of Industrial Technology (Refrigeration and Air-conditioning Technology)</option>
+						<option value="BIT Welding and Fabrication Technology">BIT Welding and Fabrication Technology - Bachelor of Industrial Technology (Welding and Fabrication Technology)</option>
 
 						<!-- College of Management and Entrepreneurship -->
-						<option value="">BPA - Bachelor of Public Administration</option>
-						<option value="">BSHM - Bachelor of Science in Hospitality Management</option>
-						<option value="">BSBA- MM - Bachelor of Science in Business Administration Major in Marketing Management</option>
-						<option value="">BSTM - Bachelor of Science in Tourism Management</option>
+						<option value="BPA">BPA - Bachelor of Public Administration</option>
+						<option value="BSHM">BSHM - Bachelor of Science in Hospitality Management</option>
+						<option value="BSBA- MM">BSBA- MM - Bachelor of Science in Business Administration Major in Marketing Management</option>
+						<option value="BSTM">BSTM - Bachelor of Science in Tourism Management</option>
 
 						<!-- College of Information and Communications Technology -->
-						<option value="bsit">BSIT - Bachelor of Science in Information Technology </option>
-						<option value="bsis">BSIS - Bachelor of Science in Information Systems </option>
-						<option value="bit-ct">BIT-CT - Bachelor in Industrial Technology- Computer Technology</option>
+						<option value="BSIT">BSIT - Bachelor of Science in Information Technology </option>
+						<option value="BSIS">BSIS - Bachelor of Science in Information Systems </option>
+						<option value="BIT-CT">BIT-CT - Bachelor in Industrial Technology- Computer Technology</option>
 
 						<!-- College of Arts and Sciences -->
-						<option value="">BAEL-ECP - Bachelor of Arts in English Language (English Across the Professions)</option>
-						<option value="">BAEL-ELSD - Bachelor of Arts in English Language (English Language Studies as Discipline)</option>
-						<option value="">BAL–LCS - Bachelor of Arts in Literature (Literature And Cultural Studies)</option>
-						<option value="">BAL–LAP - Bachelor of Arts in Literature (Literature Across The Professions)</option>
-						<option value="">BS MATH - Bachelor of Science in Mathematics</option>
-						<option value="">BS STAT - Bachelor of Science in Statistics </option>
-						<option value="">BSDevCom - Bachelor of Science in Development Communication</option>
-						<option value="">BAF - Batsilyer ng Sining sa Filipino </option>
-						<option value="">BS PSYCH - Bachelor of Science in Psychology</option>
-						<option value="">Bachelor of Science in Nursing</option>
+						<option value="BAEL-ECP">BAEL-ECP - Bachelor of Arts in English Language (English Across the Professions)</option>
+						<option value="BAEL-ELSD">BAEL-ELSD - Bachelor of Arts in English Language (English Language Studies as Discipline)</option>
+						<option value="BAL-LCS">BAL-LCS - Bachelor of Arts in Literature (Literature And Cultural Studies)</option>
+						<option value="BAL-LAP">BAL-LAP - Bachelor of Arts in Literature (Literature Across The Professions)</option>
+						<option value="BS MATH">BS MATH - Bachelor of Science in Mathematics</option>
+						<option value="BS STAT">BS STAT - Bachelor of Science in Statistics </option>
+						<option value="BSDevCom">BSDevCom - Bachelor of Science in Development Communication</option>
+						<option value="BAF">BAF - Batsilyer ng Sining sa Filipino </option>
+						<option value="BS PSYCH">BS PSYCH - Bachelor of Science in Psychology</option>
+						<option value="Bachelor of Science in Nursing">Bachelor of Science in Nursing</option>
 					</select>
 
 					<div class="input-field">
@@ -247,12 +247,12 @@
 			var collegeSelect = document.querySelector('select[name="userCollege"]');
 			var programSelect = document.querySelector('select[name="userProgram"]');
 			var programs = {
-				"coed": ["BEEd - Bachelor in Elementary Education", "BECEd - Bachelor in Early Childhood Education", "BSNEd - Bachelor in Special Need Education", "BSEd-Math - Bachelor in Secondary Education (Mathematics)", "BSEd-Science - Bachelor in Secondary Education (Science)", "BSEd-Values Ed - Bachelor in Secondary Education (Values Education)", "BSEd-English - Bachelor in Secondary Education (English)", "BSEd-Filipino - Bachelor in Secondary Education (Filipino)", "BTLEd-IA - Bachelor in Technology and Livelihood Education (Industrial Arts)", "BTLEd-HE - Bachelor in Technology and Livelihood Education (Home Economics)", "BTLEd-ICT - Bachelor in Technology and Livelihood Education (Information and Communication Technology)", "BTVTEd-Draft - Bachelor in Technical and Vocational Teacher Education (Architectural Drafting)", "BTVTEd-Auto - Bachelor in Technical and Vocational Teacher Education (Automotive Technology)", "BTVTEd-Food - Bachelor in Technical and Vocational Teacher Education (Food Services Management Technology)", "BTVTEd-Elec - Bachelor in Technical and Vocational Teacher Education (Electrical Technology)", "BTVTEd-Elex - Bachelor in Technical and Vocational Teacher Education (Electronics Technology)", "BTVTEd-GFD - Bachelor in Technical and Vocational Teacher Education (Garments, Fashion and Design Technology)", "BTVTEd-WF - Bachelor in Technical and Vocational Teacher Education (Welding and Fabrication Technology)"],
-				"coe": ["BSCE - Bachelor of Science in Civil Engineering", "BSCPE - Bachelor of Science in Computer Engineering", "BSECE - Bachelor of Science in Electronics Engineering", "BSEE - Bachelor of Science in Electrical Engineering", "BSIE - Bachelor of Science in Industrial Engineering", "BSME - Bachelor of Science in Mechanical Engineering"],
-				"cot": ["BSMx - Bachelor of Science in Mechatronics", "BSGD - Bachelor of Science in Graphics and Design", "BSTechM - Bachelor of Science in Technology Management", "BIT Automotive Technology - Bachelor of Industrial Technology (Automotive Technology)", "BIT Civil Technology - Bachelor of Industrial Technology (Civil Technology)", "BIT Cosmetology - Bachelor of Industrial Technology (Cosmetology)", "BIT Drafting Technology - Bachelor of Industrial Technology (Drafting Technology)", "BIT Electrical Technology - Bachelor of Industrial Technology (Electrical Technology)", "BIT Electronics Technology - Bachelor of Industrial Technology (Electronics Technology)", "BIT Food Preparation and Services Technology - Bachelor of Industrial Technology (Food Preparation and Services Technology)", "BIT Furniture and Cabinet Making - Bachelor of Industrial Technology (Furniture and Cabinet Making)", "BIT Garments Technology - Bachelor of Industrial Technology (Garments Technology)", "BIT Interior Design Technology - Bachelor of Industrial Technology (Interior Design Technology)", "BIT Machine Shop Technology - Bachelor of Industrial Technology (Machine Shop Technology)", "BIT Power Plant Technology - Bachelor of Industrial Technology (Power Plant Technology)", "BIT Refrigeration and Air-conditioning Technology - Bachelor of Industrial Technology (Refrigeration and Air-conditioning Technology)", "BIT Welding and Fabrication Technology - Bachelor of Industrial Technology (Welding and Fabrication Technology)"],
-				"come": ["BPA - Bachelor of Public Administration", "BSHM - Bachelor of Science in Hospitality Management", "BSBA- MM - Bachelor of Science in Business Administration Major in Marketing Management", "BSTM - Bachelor of Science in Tourism Management"],
-				"ccict": ["BSIT - Bachelor of Science in Information Technology", "BSIS - Bachelor of Science in Information Systems", "BIT-CT - Bachelor in Industrial Technology- Computer Technology"],
-				"cas": ["BAEL-ECP - Bachelor of Arts in English Language (English Across the Professions)", "BAEL-ELSD - Bachelor of Arts in English Language (English Language Studies as Discipline)", "BAL–LCS - Bachelor of Arts in Literature (Literature And Cultural Studies)", "BAL–LAP - Bachelor of Arts in Literature (Literature Across The Professions)", "BS MATH - Bachelor of Science in Mathematics", "BS STAT - Bachelor of Science in Statistics", "BSDevCom - Bachelor of Science in Development Communication", "BAF - Batsilyer ng Sining sa Filipino", "BS PSYCH - Bachelor of Science in Psychology", "Bachelor of Science in Nursing"]
+				"COED": ["BEEd - Bachelor in Elementary Education", "BECEd - Bachelor in Early Childhood Education", "BSNEd - Bachelor in Special Need Education", "BSEd-Math - Bachelor in Secondary Education (Mathematics)", "BSEd-Science - Bachelor in Secondary Education (Science)", "BSEd-Values Ed - Bachelor in Secondary Education (Values Education)", "BSEd-English - Bachelor in Secondary Education (English)", "BSEd-Filipino - Bachelor in Secondary Education (Filipino)", "BTLEd-IA - Bachelor in Technology and Livelihood Education (Industrial Arts)", "BTLEd-HE - Bachelor in Technology and Livelihood Education (Home Economics)", "BTLEd-ICT - Bachelor in Technology and Livelihood Education (Information and Communication Technology)", "BTVTEd-Draft - Bachelor in Technical and Vocational Teacher Education (Architectural Drafting)", "BTVTEd-Auto - Bachelor in Technical and Vocational Teacher Education (Automotive Technology)", "BTVTEd-Food - Bachelor in Technical and Vocational Teacher Education (Food Services Management Technology)", "BTVTEd-Elec - Bachelor in Technical and Vocational Teacher Education (Electrical Technology)", "BTVTEd-Elex - Bachelor in Technical and Vocational Teacher Education (Electronics Technology)", "BTVTEd-GFD - Bachelor in Technical and Vocational Teacher Education (Garments, Fashion and Design Technology)", "BTVTEd-WF - Bachelor in Technical and Vocational Teacher Education (Welding and Fabrication Technology)"],
+				"COE": ["BSCE - Bachelor of Science in Civil Engineering", "BSCPE - Bachelor of Science in Computer Engineering", "BSECE - Bachelor of Science in Electronics Engineering", "BSEE - Bachelor of Science in Electrical Engineering", "BSIE - Bachelor of Science in Industrial Engineering", "BSME - Bachelor of Science in Mechanical Engineering"],
+				"COT": ["BSMx - Bachelor of Science in Mechatronics", "BSGD - Bachelor of Science in Graphics and Design", "BSTechM - Bachelor of Science in Technology Management", "BIT Automotive Technology - Bachelor of Industrial Technology (Automotive Technology)", "BIT Civil Technology - Bachelor of Industrial Technology (Civil Technology)", "BIT Cosmetology - Bachelor of Industrial Technology (Cosmetology)", "BIT Drafting Technology - Bachelor of Industrial Technology (Drafting Technology)", "BIT Electrical Technology - Bachelor of Industrial Technology (Electrical Technology)", "BIT Electronics Technology - Bachelor of Industrial Technology (Electronics Technology)", "BIT Food Preparation and Services Technology - Bachelor of Industrial Technology (Food Preparation and Services Technology)", "BIT Furniture and Cabinet Making - Bachelor of Industrial Technology (Furniture and Cabinet Making)", "BIT Garments Technology - Bachelor of Industrial Technology (Garments Technology)", "BIT Interior Design Technology - Bachelor of Industrial Technology (Interior Design Technology)", "BIT Machine Shop Technology - Bachelor of Industrial Technology (Machine Shop Technology)", "BIT Power Plant Technology - Bachelor of Industrial Technology (Power Plant Technology)", "BIT Refrigeration and Air-conditioning Technology - Bachelor of Industrial Technology (Refrigeration and Air-conditioning Technology)", "BIT Welding and Fabrication Technology - Bachelor of Industrial Technology (Welding and Fabrication Technology)"],
+				"COME": ["BPA - Bachelor of Public Administration", "BSHM - Bachelor of Science in Hospitality Management", "BSBA- MM - Bachelor of Science in Business Administration Major in Marketing Management", "BSTM - Bachelor of Science in Tourism Management"],
+				"CCICT": ["BSIT - Bachelor of Science in Information Technology", "BSIS - Bachelor of Science in Information Systems", "BIT-CT - Bachelor in Industrial Technology- Computer Technology"],
+				"CAS": ["BAEL-ECP - Bachelor of Arts in English Language (English Across the Professions)", "BAEL-ELSD - Bachelor of Arts in English Language (English Language Studies as Discipline)", "BAL–LCS - Bachelor of Arts in Literature (Literature And Cultural Studies)", "BAL–LAP - Bachelor of Arts in Literature (Literature Across The Professions)", "BS MATH - Bachelor of Science in Mathematics", "BS STAT - Bachelor of Science in Statistics", "BSDevCom - Bachelor of Science in Development Communication", "BAF - Batsilyer ng Sining sa Filipino", "BS PSYCH - Bachelor of Science in Psychology", "Bachelor of Science in Nursing"]
 			};
 
 			collegeSelect.addEventListener('change', function() {
@@ -311,8 +311,8 @@
 					programSelect.required = true;
 					collegeSelect.required = true;
 				} else if (positionSelect.value === 'dean') {
-					programSelect.required = true;
-					collegeSelect.required = false;
+					programSelect.required = false;
+					collegeSelect.required = true; // Set college as required for dean
 				} else if (positionSelect.value === 'admin') {
 					programSelect.required = false;
 					collegeSelect.required = false;
@@ -330,6 +330,7 @@
 			positionSelect.addEventListener('change', toggleFields);
 		});
 	</script>
+
 </body>
 
 </html>

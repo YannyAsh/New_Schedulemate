@@ -42,7 +42,16 @@ if (isset($_GET['room_edit'])) {
 
             <!-- sidebar menu -->
             <div class="list-group list-group-flush my-3">
-                <a href="dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-house me-2"></i>Dashboard</a>
+                <!-- Conditional links based on user position -->
+                <?php if ($_SESSION["userPosition"] === 'admin') { ?>
+                    <a href="admin_dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-user-shield me-2"></i>Admin Dashboard</a>
+                <?php } elseif ($_SESSION["userPosition"] === 'dean') { ?>
+                    <a href="dean_dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-user-graduate me-2"></i>Dean Dashboard</a>
+                <?php } ?>
+
+                <!-- schedule -->
+                <a href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text active"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
+
 
                 <!-- entries -->
                 <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
@@ -62,9 +71,6 @@ if (isset($_GET['room_edit'])) {
                         </li>
                     </ul>
                 </div>
-
-                <!-- schedule -->
-                <a href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
 
                 <!-- reports -->
                 <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>

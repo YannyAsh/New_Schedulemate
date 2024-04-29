@@ -21,6 +21,8 @@ if (isset($_POST["login"])) {
 
         // Check user approval status
         $userApproval = $user['userApproval'];
+        // Store user position in session
+        $_SESSION["userPosition"] = $user['userPosition']; // Corrected this line
 
         if ($userApproval == "approved") {
             // Redirect to appropriate dashboard based on user position
@@ -29,7 +31,7 @@ if (isset($_POST["login"])) {
             } elseif ($user['userPosition'] === 'dean') {
                 header("Location: dean_dashboard.php");
             } elseif ($user['userPosition'] === 'chairperson') {
-                header("Location: chair_dashboard.php");
+                header("Location: schedule_index.php");
             }
             exit(); // Always exit after header redirect
         } elseif ($userApproval == "pending") {

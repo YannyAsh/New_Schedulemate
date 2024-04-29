@@ -30,29 +30,38 @@ include 'admin_approval.php';
 
             <!-- sidebar menu -->
             <div class="list-group list-group-flush my-3">
-                <a href="dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-house me-2"></i>Dashboard</a>
-
-                <!-- entries -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
-                <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
-                        </li>
-                        <li>
-                            <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
-                        </li>
-                        <li>
-                            <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
-                        </li>
-                        <li>
-                            <a href="room_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Rooms</a>
-                        </li>
-                    </ul>
-                </div>
+                <!-- Conditional links based on user position -->
+                <?php if ($_SESSION["userPosition"] === 'admin') { ?>
+                    <a href="admin_dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-user-shield me-2"></i>Admin Dashboard</a>
+                <?php } elseif ($_SESSION["userPosition"] === 'dean') { ?>
+                    <a href="dean_dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-user-graduate me-2"></i>Dean Dashboard</a>
+                <?php } ?>
 
                 <!-- schedule -->
-                <a href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
+                <?php if ($_SESSION["userPosition"] !== 'admin' && $_SESSION["userPosition"] !== 'dean') { ?>
+                    <a href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
+                <?php } ?>
+
+                <!-- entries -->
+                <?php if ($_SESSION["userPosition"] !== 'admin' && $_SESSION["userPosition"] !== 'dean') { ?>
+                    <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
+                    <div class="sidebar-submenu">
+                        <ul>
+                            <li>
+                                <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
+                            </li>
+                            <li>
+                                <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
+                            </li>
+                            <li>
+                                <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
+                            </li>
+                            <li>
+                                <a href="room_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Rooms</a>
+                            </li>
+                        </ul>
+                    </div>
+                <?php } ?>
 
                 <!-- reports -->
                 <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>
@@ -186,6 +195,7 @@ include 'admin_approval.php';
                                             <tr>
                                                 <th>Employee ID</th>
                                                 <th>Name</th>
+                                                <th>College</th>
                                                 <th>Program</th>
                                                 <th>Position</th>
                                                 <th>Actions</th>
@@ -199,13 +209,15 @@ include 'admin_approval.php';
                                             ?>
 
                                                 <tr>
-                                                    <td><?php echo $row['userID']; ?></td>
-                                                    <td><?php echo $row['userFname']; ?></td>
+                                                    <td><?php echo $row['userEmployID']; ?></td>
+                                                    <td><?php echo $row['userFname'] . ' ' . $row['userMname'] . ' ' . $row['userLname']; ?></td>
+                                                    <td><?php echo $row['userCollege']; ?></td>
                                                     <td><?php echo $row['userProgram']; ?></td>
                                                     <td><?php echo $row['userPosition']; ?></td>
                                                     <td>
                                                         <form method="POST" action="admin_approval.php">
                                                             <input type="hidden" name="userID" value="<?php echo $row['userID']; ?>">
+                                                            <input type="hidden" name="userPosition" value="<?php echo $row['userPosition']; ?>">
                                                             <button type="submit" name="approve" class="approve" value="Approve" data-bs-toggle="modal">
                                                                 <i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe86c;</i>
                                                             </button>
