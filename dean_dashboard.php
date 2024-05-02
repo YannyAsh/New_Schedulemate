@@ -163,8 +163,8 @@ include 'admin_approval.php';
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $query = "SELECT * FROM tb_register WHERE userApproval = 'pending' AND userPosition = 'chairperson' ORDER BY userID ASC";
-                                                $result = mysqli_query($conn, $query); // Corrected variable name from $result to $query
+                                                $query = "SELECT * FROM tb_register WHERE userApproval = 'pending' AND userPosition = 'chairperson' AND userCollege = (SELECT userCollege FROM tb_register WHERE userPosition = 'dean' AND userID = " . $_SESSION['userID'] . ") ORDER BY userID ASC";
+                                                $result = mysqli_query($conn, $query);
                                                 while ($row = mysqli_fetch_array($result)) {
                                                 ?>
 
