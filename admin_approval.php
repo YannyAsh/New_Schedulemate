@@ -40,7 +40,7 @@ if (isset($_POST['deny'])) {
     $userPosition = $_POST['userPosition']; // Assuming you have access to user position in the form
 
     // Make sure userID is set in the session
-    $_SESSION['userID'] = $userID;
+    $_SESSION['userID'] = $userID; // Add this line to set userID in the session when denied
 
     $select = "DELETE FROM tb_register WHERE userID = '$userID'";
     $result = mysqli_query($conn, $select);

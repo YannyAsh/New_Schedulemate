@@ -163,7 +163,7 @@ include 'admin_approval.php';
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $query = "SELECT * FROM tb_register WHERE userApproval = 'pending' AND userPosition = 'chairperson' AND userCollege = (SELECT userCollege FROM tb_register WHERE userPosition = 'dean' AND userID = " . $_SESSION['userID'] . ") ORDER BY userID ASC";
+                                                $query = "SELECT * FROM tb_register WHERE userApproval = 'pending' ORDER BY userID ASC";
                                                 $result = mysqli_query($conn, $query);
                                                 while ($row = mysqli_fetch_array($result)) {
                                                 ?>
@@ -192,7 +192,7 @@ include 'admin_approval.php';
                                             </tbody>
                                         </table>
                                         <div class="clearfix">
-                                            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                                            <div class="hint-text">Showing <b>10</b> out of <b>25</b> entries</div>
                                             <ul class="pagination">
                                                 <li class="page-item"><a href="#" class="page-link">Previous</a></li>
                                                 <li class="page-item"><a href="#" class="page-link">1</a></li>
