@@ -1,119 +1,8 @@
 <?php
-include 'section_all_process.php';
-if (isset($_GET['sec_edit'])) {
-    $secID = $_GET['sec_edit'];
+include 'subject_all_process.php';
+include 'include/header.php';
 
-    $record = mysqli_query($conn, "SELECT * FROM tb_section WHERE secID=$secID");
-    $data = mysqli_fetch_array($record);
-    $secProgram = $data['secProgram'];
-    $secYearlvl = $data['secYearlvl'];
-    $secName = $data['secName'];
-    $secSession = $data['secSession'];
-    $secStatus = $data['secStatus'];
-}
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- sidebar style -->
-    <link rel="stylesheet" href="CSS/dashboard.css" />
-    <!-- table style -->
-    <link rel="stylesheet" href="CSS/content.css" />
-
-    <!-- sweetalert2 js -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Section</title>
-</head>
-
-<body>
-    <div class="d-flex" id="wrapper">
-        <!-- Sidebar -->
-        <div class="secondary-bg" id="sidebar-wrapper">
-            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold border-bottom">
-                <img src="images/logo.png" alt="smlogo" class="logo">
-            </div>
-
-            <!-- sidebar menu -->
-            <div class="list-group list-group-flush my-3">
-                <a href="dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-house me-2"></i>Dashboard</a>
-
-                <!-- entries -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
-                <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
-                        </li>
-                        <li>
-                            <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
-                        </li>
-                        <li>
-                            <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
-                        </li>
-                        <li>
-                            <a href="room_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Rooms</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- schedule -->
-                <a href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
-
-                <!-- reports -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>
-                <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="pbs_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBS</a>
-                        </li>
-                        <li>
-                            <a href="pbt_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBT</a>
-                        </li>
-                        <li>
-                            <a href="pbru_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBRU</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
-
-                <!-- menu toggle -->
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-align-left fs-4 me-3" id="menu-toggle"></i>
-                </div>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- profile settings -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>John Doe
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
 
             <!-- Start of the contents -->
@@ -152,47 +41,41 @@ if (isset($_GET['sec_edit'])) {
                                     <div class="col-sm-7">
                                         <h2>Manage Section Entries</h2>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <input class="form-control" id="tableSearch" type="text" placeholder="Search">
-                                    </div>
                                     <div class="col">
                                         <a href="#addSection" class="btn btn-success" data-bs-toggle="modal"><i class="material-icons">&#xE147;</i><span>Add New Section</span></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table id="myTable" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th style="display: none;">secID</th>
-                                            <th>No.</th>
+                                            <th >No.</th>
                                             <th>Section Program</th>
                                             <th>Section Year Level</th>
                                             <th>Section Name</th>
                                             <th>Session</th>
-                                            <th style="display: none;">Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="myTable">
+                                    <tbody >
                                         <?php
-                                        $result_active = mysqli_query($conn, "SELECT * FROM tb_section WHERE secStatus = 1");
-                                        $result_inactive = mysqli_query($conn, "SELECT * FROM tb_section WHERE secStatus = 0");
-                                        $i = 1;
-
+                                        $sql =  $db->getAllRowsFromTable('tb_section');
+                                        $i=1;
                                         // Display Active Sections
-                                        while ($row = mysqli_fetch_array($result_active)) {
+                                        foreach ($sql as $row ) {
                                         ?>
                                             <tr>
-                                                <td style="display: none;"><?php echo $row["secID"] ?></td>
-                                                <td><?php echo $i; ?></td>
+                                                <td ><?php echo $i; ?></td>
                                                 <td><?php echo $row["secProgram"] ?></td>
                                                 <td><?php echo $row["secYearlvl"] ?></td>
                                                 <td><?php echo $row["secName"] ?></td>
                                                 <td><?php echo $row["secSession"] ?></td>
-                                                <td style="display: none;"><?php echo "Active"; ?></td>
                                                 <td>
-                                                    <a href="" name="sec_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
+                                                    <a href="" name="sec_edit" class="edit" data-bs-toggle="modal"
+                                                    data-id="<?=$row["secID"]?>"
+                                                    data-status="active"
+                                                    ><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
                                                     <input type="hidden" name="secID" value="<?php echo $row['secID']; ?>">
                                                     <a href="#statusSection" class="status" data-bs-toggle="modal" data-secid="<?php echo $row['secID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
                                                 </td>
@@ -202,20 +85,25 @@ if (isset($_GET['sec_edit'])) {
                                         }
 
                                         // Display Inactive Sections
-                                        while ($row = mysqli_fetch_array($result_inactive)) {
+                                        $conditions = ['status = 1'];
+                                        $sql2 =  $db->getAllRowsFromTableWhere('tb_section',$conditions);
+                                        foreach ($sql2 as $row ) {
                                         ?>
-                                            <tr style="color: #999; /* Gray out inactive sections */">
-                                                <td style="display: none;"><?php echo $row["secID"] ?></td>
-                                                <td><?php echo $i; ?></td>
-                                                <td><?php echo $row["secProgram"] ?></td>
-                                                <td><?php echo $row["secYearlvl"] ?></td>
-                                                <td><?php echo $row["secName"] ?></td>
-                                                <td><?php echo $row["secSession"] ?></td>
-                                                <td style="display: none;"><?php echo "Inactive"; ?></td>
-                                                <td>
-                                                    <a href="" name="sec_edit" class="edit" data-bs-toggle="modal" data-secid="<?php echo $row['secID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
-                                                    <input type="hidden" name="secID" value="<?php echo $row['secID']; ?>">
-                                                    <a href="#statusSection" class="status" data-bs-toggle="modal" data-secid="<?php echo $row['secID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
+                                            <tr  >
+                                                <td class="text-danger"><?php echo $i; ?></td>
+                                                <td class="text-danger"><?php echo $row["secProgram"] ?></td>
+                                                <td class="text-danger"><?php echo $row["secYearlvl"] ?></td>
+                                                <td class="text-danger"><?php echo $row["secName"] ?></td>
+                                                <td class="text-danger"><?php echo $row["secSession"] ?></td>
+                                                <td class="text-warning">
+                                                    <a href="#statusSectionActivate" 
+                                                        class="status" 
+                                                        data-bs-toggle="modal" 
+                                                        data-secid="<?php echo $row['secID']; ?>">
+                                                        <i class="material-icons" data-bs-toggle="tooltip" title="Status">
+                                                            &#xe86c;
+                                                        </i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         <?php
@@ -224,18 +112,6 @@ if (isset($_GET['sec_edit'])) {
                                         ?>
                                     </tbody>
                                 </table>
-                                <div class="clearfix">
-                                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                                    <ul class="pagination">
-                                        <li class="page-item"><a href="#" class="page-link">Previous</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -245,7 +121,7 @@ if (isset($_GET['sec_edit'])) {
                             <div class="modal-content">
 
                                 <form method="POST" action="section_all_process.php">
-                                    <input type="hidden" name="secID" value="<?php echo $secID; ?>">
+                                    <input type="hidden" name="secID" >
                                     <input type="hidden" name="secStatus" value="1"> <!-- Always set to "1" for active status -->
 
                                     <div class="modal-header">
@@ -257,13 +133,13 @@ if (isset($_GET['sec_edit'])) {
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label style="font-weight: bold;">Section Program</label>
-                                            <input type="text" name="secProgram" class="form-control" required value="<?php echo $secProgram ?>">
+                                            <input type="text" name="secProgram" class="form-control" required >
                                         </div>
 
                                         <div class="form-group">
                                             <label style="font-weight: bold;">Section Year Level</label>
-                                            <select class="form-control" required name="secYearlvl" value="<?php echo $secYearlvl ?>">
-                                                <option value="" disabled>Select Year Level</option>
+                                            <select class="form-control" required name="secYearlvl" >
+                                                <option value="" >Select Year Level</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -273,15 +149,15 @@ if (isset($_GET['sec_edit'])) {
 
                                         <div class="form-group">
                                             <label style="font-weight: bold;">Section Name</label>
-                                            <input type="text" name="secName" class="form-control" required value="<?php echo $secName ?>">
+                                            <input type="text" name="secName" class="form-control" required >
                                         </div>
 
                                         <div class="form-group">
                                             <label style="font-weight: bold;">Session</label>
                                             <select class="form-control" required name="secSession">
-                                                <option value="" disabled>Select Session</option>
-                                                <option id="secDay" value="Day" <?= ($secSession == "Day") ? "selected" : ""; ?>>Day Class</option>
-                                                <option id="secNight" value="Night" <?= ($secSession == "Night") ? "selected" : ""; ?>>Night Class</option>
+                                                <option value="" >Select Session</option>
+                                                <option id="secDay" value="Day" >Day Class</option>
+                                                <option id="secNight" value="Night" >Night Class</option>
                                             </select>
                                         </div>
 
@@ -339,8 +215,8 @@ if (isset($_GET['sec_edit'])) {
                                             <label style="font-weight: bold;" for="secSession">Session</label>
                                             <select name="secSession" id="secSession" class="form-control" required>
                                                 <option value="" disabled>Select Session</option>
-                                                <option id="secDay" value="Day" <?= ($secSession == "Day") ? "selected" : ""; ?>>Day Class</option>
-                                                <option id="secNight" value="Night" <?= ($secSession == "Night") ? "selected" : ""; ?>>Night Class</option>
+                                                <option id="secDay" value="Day" >Day Class</option>
+                                                <option id="secNight" value="Night">Night Class</option>
                                             </select>
                                         </div>
                                     </div>
@@ -376,6 +252,32 @@ if (isset($_GET['sec_edit'])) {
                                     <div class="modal-footer">
                                         <input type="button" class="btn" data-bs-dismiss="modal" value="Cancel">
                                         <input type="submit" class="btn" name="sec_toggle_status" value="Confirm Status">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Change Status Modal HTML -->
+                    <div id="statusSectionActivate" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="POST" action="section_all_process.php">
+                                    <input type="hidden" name="secID" id="secID" value="<?php echo $secID; ?>">
+
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Change Section Status</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <h6>Are you sure you want to change the Status of this Section?</h6>
+                                        <input type="hidden" name="secID" id="status_secIDz" value="">
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn" data-bs-dismiss="modal" value="Cancel">
+                                        <input type="submit" class="btn" name="sec_toggle_statusActivate" value="Confirm Status">
                                     </div>
                                 </form>
                             </div>
@@ -448,18 +350,19 @@ if (isset($_GET['sec_edit'])) {
                 $('#editSection').modal('show');
 
                 $tr = $(this).closest('tr');
+                id = $(this).attr('data-id');
 
                 var data = $tr.find("td").map(function() {
                     return $(this).text();
                 }).get();
 
                 console.log(data);
-                $('#secID').val(data[0]);
-                $('#secProgram').val(data[2]);
-                $('#secYearlvl').val(data[3]);
-                $('#secName').val(data[4]);
-                $('#secSession').val(data[5]);
-                $('#secStatus').val(data[6]);
+                $('#secID').val(id);
+                $('#secProgram').val(data[1]);
+                $('#secYearlvl').val(data[2]);
+                $('#secName').val(data[3]);
+                $('#secSession').val(data[4]);
+                $('#secStatus').val('active');
             });
         });
     </script>
@@ -471,10 +374,37 @@ if (isset($_GET['sec_edit'])) {
         $('.status').on('click', function() {
             var secID = $(this).data('secid');
             $('#status_secID').val(secID); // Set secID to the hidden input field
-            $('#statusSection').modal('show');
+            $('#status_secIDz').val(secID); // Set secID to the hidden input field
+            
+            // $('#statusSection').modal('show');
         });
     </script>
+    <style>
+        .text-gray {
+    color: gray !important;
+}
 
-</body>
+    </style>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+<script>
+$(document).ready(function() {
+    var table = $('#myTable').DataTable();
 
-</html>
+    // Loop through each table row
+    table.rows().every(function() {
+        // Check if the row has the 'inactive' class
+        var rowClass = $(this.node()).attr('class');
+        console.log(rowClass);
+
+        if (rowClass=="inactive") {
+            // Add a CSS class to change background color to blue
+            $(this.node()).css('background-color', 'blue!important');
+            console.log(1123);
+        }
+    });
+});
+
+ 
+
+</script>

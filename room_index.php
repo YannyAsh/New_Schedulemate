@@ -1,5 +1,9 @@
 <?php
+include 'conn/conn.php';
 include 'room_all_process.php';
+include 'include/header.php';
+$db = new DatabaseHandler();
+
 if (isset($_GET['room_edit'])) {
     $roomID = $_GET['room_edit'];
     $room_edit_state = true;
@@ -11,109 +15,6 @@ if (isset($_GET['room_edit'])) {
     $roomStatus = $data['roomStatus'];
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- sidebar style -->
-    <link rel="stylesheet" href="CSS/dashboard.css" />
-    <!-- table style -->
-    <link rel="stylesheet" href="CSS/content.css" />
-
-    <!-- sweetalert2 js -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Room</title>
-</head>
-
-<body>
-    <div class="d-flex" id="wrapper">
-        <!-- Sidebar -->
-        <div class="secondary-bg" id="sidebar-wrapper">
-            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold border-bottom">
-                <img src="images/logo.png" alt="smlogo" class="logo">
-            </div>
-
-            <!-- sidebar menu -->
-            <div class="list-group list-group-flush my-3">
-                <a href="dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-house me-2"></i>Dashboard</a>
-
-                <!-- entries -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
-                <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
-                        </li>
-                        <li>
-                            <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
-                        </li>
-                        <li>
-                            <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
-                        </li>
-                        <li>
-                            <a href="room_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Rooms</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- schedule -->
-                <a href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
-
-                <!-- reports -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>
-                <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="pbs_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBS</a>
-                        </li>
-                        <li>
-                            <a href="pbt_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBT</a>
-                        </li>
-                        <li>
-                            <a href="pbru_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBRU</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
-
-                <!-- menu toggle -->
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-align-left fs-4 me-3" id="menu-toggle"></i>
-                </div>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- profile settings -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>John Doe
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="profile_index.php">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
             <!-- Start of the contents -->
             <div class="container-fluid px-4">
                 <div class="row g-3 my-2">
@@ -150,89 +51,68 @@ if (isset($_GET['room_edit'])) {
                                     <div class="col-sm-7">
                                         <h2>Manage Room Entries</h2>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <input class="form-control" id="tableSearch" type="text" placeholder="Search">
-                                    </div>
                                     <div class="col">
                                         <a href="#addRoom" class="btn btn-success" data-bs-toggle="modal"><i class="material-icons">&#xE147;</i><span>Add New Room</span></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table id="myTable" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th style="display: none;">roomID</th>
                                             <th>No.</th>
                                             <th>Building Name</th>
                                             <th>Floor Number</th>
                                             <th>Room Number</th>
-                                            <th style="display: none;">roomStatus</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="myTable">
+                                    <tbody >
                                         <?php
-                                        $result_active = mysqli_query($conn, "SELECT * FROM tb_room WHERE roomStatus = 1");
-                                        $result_inactive = mysqli_query($conn, "SELECT * FROM tb_room WHERE roomStatus = 0");
+                                        $sql = $db->getAllRowsFromTable('tb_room');
                                         $i = 1;
-
                                         // Display Active Room
-                                        while ($row = mysqli_fetch_array($result_active)) {
+                                        foreach ($sql as $row) {
                                         ?>
                                             <tr>
-                                                <td style="display: none;"><?php echo $row["roomID"] ?></td>
                                                 <td><?php echo $i; ?></td>
                                                 <td><?php echo $row["roomBuild"] ?></td>
                                                 <td><?php echo $row["roomFloornum"] ?></td>
                                                 <td><?php echo $row["roomNum"] ?></td>
-                                                <td style="display: none;"><?php echo "Active" ?>
                                                 </td>
                                                 <td>
-                                                    <a href="" name="room_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
+                                                    <a href="" name="room_edit" class="edit"
+                                                    data-id = "<?php echo $row["roomID"] ?>"
+                                                    data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
                                                     <input type="hidden" name="roomID" value="<?php echo $row['roomID']; ?>">
                                                     <a href="#statusRoom" class="status" data-bs-toggle="modal" data-roomid="<?php echo $row['roomID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
                                                 </td>
+                                            </tr>
+
+                                            <?php
+                                        $i++;
+                                        }
+                                        $conditions = ['status=1'];
+                                        $sql = $db->getAllRowsFromTableWhere('tb_room',$conditions);
+                                        // Display Active Room
+                                        foreach ($sql as $row) {
+                                        ?>
+                                            <tr>
+                                                <td class="text-danger"> <?php echo $i; ?></td>
+                                                <td class="text-danger"> <?php echo $row["roomBuild"] ?></td>
+                                                <td class="text-danger"> <?php echo $row["roomFloornum"] ?></td>
+                                                <td class="text-danger"> <?php echo $row["roomNum"] ?></td>
+                                                </td>
+                                                <td></td>
                                             </tr>
                                         <?php
                                             $i++;
                                         }
 
-                                        // Display Inactive Room
-                                        while ($row = mysqli_fetch_array($result_inactive)) {
-                                        ?>
-                                            <tr style="color: #999; /* Gray out inactive room */">
-                                                <td style="display: none;"><?php echo $row["roomID"] ?></td>
-                                                <td><?php echo $i; ?></td>
-                                                <td><?php echo $row["roomBuild"] ?></td>
-                                                <td><?php echo $row["roomFloornum"] ?></td>
-                                                <td><?php echo $row["roomNum"] ?></td>
-                                                <td style="display: none;"><?php echo "Inactive"; ?></td>
-                                                <td>
-                                                    <a href="" name="room_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
-                                                    <input type="hidden" name="roomID" value="<?php echo $row['roomID']; ?>">
-                                                    <a href="#statusRoom" class="status" data-bs-toggle="modal" data-roomid="<?php echo $row['roomID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
-                                                </td>
-                                            </tr>
-                                        <?php
-                                            $i++;
-                                        }
                                         ?>
 
                                     </tbody>
                                 </table>
-                                <div class="clearfix">
-                                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                                    <ul class="pagination">
-                                        <li class="page-item"><a href="#" class="page-link">Previous</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -241,7 +121,7 @@ if (isset($_GET['room_edit'])) {
                     <div id="addRoom" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form method="POST" action="room_all_process.php">
+                                <form method="POST" action="php/action_page.php">
                                     <input type="hidden" name="roomID" value="<?php echo $roomID; ?>">
                                     <input type="hidden" name="roomStatus" value="1"> <!-- Always set to "1" for active status -->
 
@@ -387,27 +267,26 @@ if (isset($_GET['room_edit'])) {
         });
     </script>
 
+<!-- display edit modal -->
     <script>
         $(document).ready(function() {
-
-            // display Edit modal
 
             $('.edit').on('click', function() {
 
                 $('#editRoom').modal('show');
 
                 $tr = $(this).closest('tr');
-
+                id = $(this).data('id')
                 var data = $tr.find("td").map(function() {
                     return $(this).text();
                 }).get();
 
                 console.log(data);
-                $('#roomID').val(data[0]);
-                $('#roomBuild').val(data[2]);
-                $('#roomFloornum').val(data[3]);
-                $('#roomNum').val(data[4]);
-                $('#roomStatus').val(data[5]);
+                $('#roomID').val(id);
+                $('#roomBuild').val(data[1]);
+                $('#roomFloornum').val(data[2]);
+                $('#roomNum').val(data[3]);
+                $('#roomStatus').val('Active');
             });
 
         });
@@ -423,6 +302,8 @@ if (isset($_GET['room_edit'])) {
             $('#statusRoom').modal('show');
         });
     </script>
-</body>
-
-</html>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+<script>
+    $('#myTable').DataTable();
+</script>

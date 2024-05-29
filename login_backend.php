@@ -18,6 +18,12 @@ if (isset($_POST["login"])) {
     // Check if user exists and password is correct
     if ($user && password_verify($password, $user["userPass"])) {
         $_SESSION["user"] = "yes";
+        $_SESSION["program"] = $user["userProgram"];
+        $_SESSION["college"] = $user["userCollege"];
+        $_SESSION["postion"] = $user['userPosition'];
+        $_SESSION["userFname"] = $user["userFname"];
+        $_SESSION["userMname"] = $user["userMname"];
+        $_SESSION["userLname"] = $user["userLname"];
 
         // Check user approval status
         $userApproval = $user['userApproval'];
@@ -29,7 +35,7 @@ if (isset($_POST["login"])) {
             } elseif ($user['userPosition'] === 'dean') {
                 header("Location: dean_dashboard.php");
             } elseif ($user['userPosition'] === 'chairperson') {
-                header("Location: chair_dashboard.php");
+                header("Location: schedule_index.php");
             }
             exit(); // Always exit after header redirect
         } elseif ($userApproval == "pending") {

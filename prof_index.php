@@ -1,6 +1,8 @@
 <?php
+include 'conn/conn.php';
 include 'prof_all_process.php';
-
+include 'include/header.php';
+$db = new DatabaseHandler();
 if (isset($_GET['prof_edit'])) {
     $profID = $_GET['prof_edit'];
     $prof_edit_state = true;
@@ -20,108 +22,6 @@ if (isset($_GET['prof_edit'])) {
     $profStatus = $data["profStatus"];
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- sidebar style -->
-    <link rel="stylesheet" href="CSS/dashboard.css" />
-    <!-- table style -->
-    <link rel="stylesheet" href="CSS/content.css" />
-    <title>Professor</title>
-</head>
-
-<body>
-    <div class="d-flex" id="wrapper">
-        <!-- Sidebar -->
-        <div class="secondary-bg" id="sidebar-wrapper">
-            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold border-bottom">
-                <img src="images/logo.png" alt="smlogo" class="logo">
-            </div>
-
-            <!-- sidebar menu -->
-            <div class="list-group list-group-flush my-3">
-                <a href="dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-house me-2"></i>Dashboard</a>
-
-                <!-- entries -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
-                <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
-                        </li>
-                        <li>
-                            <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
-                        </li>
-                        <li>
-                            <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
-                        </li>
-                        <li>
-                            <a href="room_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Rooms</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- schedule -->
-                <a href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
-
-                <!-- reports -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>
-                <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="pbs_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBS</a>
-                        </li>
-                        <li>
-                            <a href="pbt_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBT</a>
-                        </li>
-                        <li>
-                            <a href="pbru_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBRU</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
-
-                <!-- menu toggle -->
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-align-left fs-4 me-3" id="menu-toggle"></i>
-                </div>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- profile settings -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>John Doe
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="profile_index.php">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-
             <!-- Start of the contents -->
             <div class="container-fluid px-4">
                 <div class="row g-3 my-2">
@@ -132,9 +32,6 @@ if (isset($_GET['prof_edit'])) {
                                     <div class="col-sm-7">
                                         <h2>Manage Professor Entries</h2>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <input class="form-control" id="tableSearch" type="text" placeholder="Search">
-                                    </div>
                                     <div class="col">
                                         <a href="#addProf" class="btn btn-success" data-bs-toggle="modal"><i class="material-icons">&#xE147;</i><span>Add New Professor</span></a>
                                     </div>
@@ -142,10 +39,9 @@ if (isset($_GET['prof_edit'])) {
                             </div>
                             <!-- makes the table responsive -->
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table id="table" class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th style="display: none;">profID</th>
                                             <th>No.</th>
                                             <th>Employee ID</th>
                                             <th>First Name</th>
@@ -154,20 +50,15 @@ if (isset($_GET['prof_edit'])) {
                                             <th>Rank</th>
                                             <th>Employment Status</th>
                                             <th>Actions</th>
-
                                         </tr>
                                     </thead>
                                     <tbody id="myTable">
                                         <?php
-                                        $result_active = mysqli_query($conn, "SELECT * FROM tb_professor WHERE profStatus = 1");
-                                        $result_inactive = mysqli_query($conn, "SELECT * FROM tb_professor WHERE profStatus = 0");
-                                        $i = 1;
-
-                                        // Display Active Professor
-                                        while ($row = mysqli_fetch_array($result_active)) {
+                                        $i=1;
+                                        $sql1 = $db->getAllRowsFromTable('tb_professor');
+                                        foreach ($sql1 as $row) {
                                         ?>
-                                            <tr>
-                                                <td style="display: none;"><?php echo $row["profID"] ?></td>
+                                            <tr >
                                                 <td><?php echo $i; ?></td>
                                                 <td><?php echo $row["profEmployID"] ?></td>
                                                 <td><?php echo $row["profFname"] ?></td>
@@ -175,39 +66,57 @@ if (isset($_GET['prof_edit'])) {
                                                 <td><?php echo $row["profLname"] ?></td>
                                                 <td><?php echo $row["profRank"] ?></td>
                                                 <td><?php echo $row["profEmployStatus"] ?></td>
-                                                <td style="display: none;"><?php echo "Active"; ?></td>
                                                 <td>
-                                                    <form method="POST" action="prof_all_process.php">
-                                                        <a href="#viewProf" class="view" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="View" data-id='<?php echo $row['profID']; ?>'>&#xe8f4;</i></a>
-                                                        <input type="hidden" name="profID" value="<?php echo $profID; ?>">
+                                                        <a href="#viewProf" class="view text-primary" data-bs-toggle="modal"
+                                                        data-id="<?=$row['profEmployID']?>"
+                                                        data-fname="<?=$row['profFname']?>"
+                                                        data-mname="<?=$row['profMname']?>"
+                                                        data-lname="<?=$row['profLname']?>"
+                                                        data-mobile="<?=$row['profMobile']?>"
+                                                        data-address="<?=$row['profAddress']?>"
+                                                        data-educational="<?=$row['profEduc']?>"
+                                                        data-expertise="<?=$row['profExpert']?>"
+                                                        data-rank="<?=$row['profRank']?>"
+                                                        data-max="<?=$row['profMax']?>"
+                                                        data-employmentstatus="<?=$row['profEmployStatus']?>"
+                                                        ><i class="material-icons" data-bs-toggle="tooltip" title="View" data-id='<?php echo $row['profID']; ?>'>&#xe8f4;</i></a>
+                                                        
                                                         <a href="#statusProf" class="status" data-bs-toggle="modal" data-profid="<?php echo $row['profID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
-                                                    </form>
                                                 </td>
                                             </tr>
                                         <?php
                                             $i++;
                                         }
-
-                                        // Display Inactive Sections
-                                        while ($row = mysqli_fetch_array($result_inactive)) {
                                         ?>
-                                            <tr style="color: #999; /* Gray out inactive professors */">
-                                                <td style="display: none;"><?php echo $row["profID"] ?></td>
-                                                <td><?php echo $i; ?></td>
-                                                <td><?php echo $row["profEmployID"] ?></td>
-                                                <td><?php echo $row["profFname"] ?></td>
-                                                <td><?php echo $row["profMname"] ?></td>
-                                                <td><?php echo $row["profLname"] ?></td>
-                                                <td><?php echo $row["profRank"] ?></td>
-                                                <td><?php echo $row["profEmployStatus"] ?></td>
-                                                <td style="display: none;"><?php echo "Inactive"; ?></td>
 
+                                    <?php
+                                        $condition = 'status = 1';
+                                        $sql2 =  $db->getAllRowsFromTableWhere2('tb_professor',$condition);
+                                        foreach ($sql2 as $row) {
+                                        ?>
+                                            <tr >
+                                                <td class="text-danger"><?php echo $i; ?></td>
+                                                <td class="text-danger"><?php echo $row["profEmployID"] ?></td>
+                                                <td class="text-danger"><?php echo $row["profFname"] ?></td>
+                                                <td class="text-danger"><?php echo $row["profMname"] ?></td>
+                                                <td class="text-danger"><?php echo $row["profLname"] ?></td>
+                                                <td class="text-danger"><?php echo $row["profRank"] ?></td>
+                                                <td class="text-danger"><?php echo $row["profEmployStatus"] ?></td>
                                                 <td>
-                                                    <form method="POST" action="prof_all_process.php">
-                                                        <a href="#viewProf" class="view" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="View" data-id='<?php echo $row['profID']; ?>'>&#xe8f4;</i></a>
-                                                        <input type="hidden" name="profID" value="<?php echo $profID; ?>">
-                                                        <a href="#statusProf" class="status" data-bs-toggle="modal" data-profid="<?php echo $row['profID']; ?>"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
-                                                    </form>
+                                                        <a href="#viewProf" class="view text-primary" data-bs-toggle="modal"
+                                                        data-id="<?=$row['profEmployID']?>"
+                                                        data-fname="<?=$row['profFname']?>"
+                                                        data-mname="<?=$row['profMname']?>"
+                                                        data-lname="<?=$row['profLname']?>"
+                                                        data-mobile="<?=$row['profMobile']?>"
+                                                        data-address="<?=$row['profAddress']?>"
+                                                        data-educational="<?=$row['profEduc']?>"
+                                                        data-expertise="<?=$row['profExpert']?>"
+                                                        data-rank="<?=$row['profRank']?>"
+                                                        data-max="<?=$row['profMax']?>"
+                                                        data-employmentstatus="<?=$row['profEmployStatus']?>"
+                                                        ><i class="material-icons" data-bs-toggle="tooltip" title="View" data-id='<?php echo $row['profID']; ?>'>&#xe8f4;</i></a>
+                                                        
                                                 </td>
                                             </tr>
                                         <?php
@@ -216,18 +125,6 @@ if (isset($_GET['prof_edit'])) {
                                         ?>
                                     </tbody>
                                 </table>
-                                <div class="clearfix">
-                                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                                    <ul class="pagination">
-                                        <li class="page-item"><a href="#" class="page-link">Previous</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -237,10 +134,8 @@ if (isset($_GET['prof_edit'])) {
                     <div id="addProf" class="modal fade">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                                <form method="POST" action="prof_all_process.php">
-                                    <input type="hidden" name="profID" value="<?php echo $profID; ?>">
-                                    <input type="hidden" name="profStatus" value="1"> <!-- Always set to "1" for active status -->
-
+                                <form method="POST" action="php/action_page.php">
+                                    <input type="hidden" name="profID" >
                                     <div class="modal-header">
                                         <h5 class="modal-title">Add New Professor</h5>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
@@ -379,7 +274,7 @@ if (isset($_GET['prof_edit'])) {
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <label>Maximum Units</label>
+                                                        <label>Maximum Hours</label>
                                                         <input type="number" name="profHrs" class="form-control" value="<?php echo $profHrs; ?>">
                                                     </div>
                                                 </div>
@@ -434,33 +329,28 @@ if (isset($_GET['prof_edit'])) {
                                                 </tr>
                                             </thead>
                                             <tbody id="myTable">
-                                                <?php
-                                                $result = mysqli_query($conn, "SELECT * FROM tb_professor");
-                                                $i = 1;
-                                                while ($row = mysqli_fetch_array($result)) {
-                                                ?>
+                                               
                                                     <tr>
-                                                        <td><?php echo $row["profEmployID"] ?></td>
-                                                        <td><?php echo $row["profFname"] ?></td>
-                                                        <td><?php echo $row["profMname"] ?></td>
-                                                        <td><?php echo $row["profLname"] ?></td>
-                                                        <td><?php echo $row["profMobile"] ?></td>
-                                                        <td><?php echo $row["profAddress"] ?></td>
-                                                        <td><?php echo $row["profEduc"] ?></td>
-                                                        <td><?php echo $row["profExpert"] ?></td>
-                                                        <td><?php echo $row["profRank"] ?></td>
-                                                        <td><?php echo $row["profHrs"] ?></td>
-                                                        <td><?php echo $row["profEmployStatus"] ?></td>
+                                                        <td id="data_1"></td>
+                                                        <td id="data_2"></td>
+                                                        <td id="data_3"></td>
+                                                        <td id="data_4"></td>
+                                                        <td id="data_5"></td>
+                                                        <td id="data_6"></td>
+                                                        <td id="data_7"></td>
+                                                        <td id="data_8"></td>
+                                                        <td id="data_9"></td>
+                                                        <td id="data_10"></td>
+                                                        <td id="data_11"></td>
                                                     </tr>
-                                                <?php
-                                                } ?>
+                                             
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <input type="button" class="btn" data-bs-dismiss="modal" value="Close">
-                                    <a class="btn btn-default" data-bs-toggle="modal" data-bs-dismiss="modal" href="#editProf" role="button">Edit</a>
+                                    <a class="btn btn-default" data-bs-toggle="modal" data-bs-dismiss="modal" href="#editProf" id="editBtn_prof" role="button">Edit</a>
                                 </div>
                             </div>
                         </div>
@@ -470,7 +360,7 @@ if (isset($_GET['prof_edit'])) {
                     <div id="editProf" class="modal fade">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                                <form method="POST" action="prof_all_process.php">
+                                <form method="POST" action="php/action_page.php">
                                     <input type="hidden" name="profID" id="profID" value="<?php echo $profID; ?>">
                                     <input type="hidden" name="profStatus" value="1">
 
@@ -670,8 +560,8 @@ if (isset($_GET['prof_edit'])) {
                     <div id="statusProf" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form method="POST" action="prof_all_process.php">
-                                    <input type="hidden" name="profID" id="profID" value="<?php echo $profID; ?>">
+                                <form method="POST" action="php/action_page.php">
+                                    <input type="" name="del_profID" id="del_profID" value="<?php echo $profID; ?>">
 
                                     <div class="modal-header">
                                         <h5 class="modal-title">Change Status</h5>
@@ -764,7 +654,6 @@ if (isset($_GET['prof_edit'])) {
 
                 console.log(data);
                 $('#profID').val(data[0]);
-
                 $('#profEmployID').val(data[2]);
                 $('#profFname').val(data[3]);
                 $('#profMname').val(data[4]);
@@ -820,12 +709,90 @@ if (isset($_GET['prof_edit'])) {
 
         // JavaScript to set secID when opening status modal
         $('.status').on('click', function() {
+            // del_profID
             var profID = $(this).data('profid');
             $('#status_profID').val(profID); // Set secID to the hidden input field
             $('#statusProf').modal('show');
+            $('#del_profID').val(profID).hide()
         });
     </script>
 
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function() {
+    $('.view').click(function() {
+        var profEmployID = $(this).data('id');
+        var profFname = $(this).data('fname');
+        var profMname = $(this).data('mname');
+        var profLname = $(this).data('lname');
+        var profMobile = $(this).data('mobile');
+        var profAddress = $(this).data('address');
+        var profEduc = $(this).data('educational');
+        var profExpert = $(this).data('expertise');
+        var profRank = $(this).data('rank');
+        var profMax = $(this).data('max');
+        var profEmployStatus = $(this).data('employmentstatus');
+
+        console.log(profAddress)
+        console.log(profMax)
+        // Now you can use these variables as per your requirements
+        $('#editBtn_prof').data('id',profEmployID)
+        $('#editBtn_prof').data('fname',profFname)
+        $('#editBtn_prof').data('mname',profMname)
+        $('#editBtn_prof').data('lname',profLname)
+        $('#editBtn_prof').data('mobile',profMobile)
+        $('#editBtn_prof').data('address',profAddress)
+        $('#editBtn_prof').data('educational',profEduc)
+        $('#editBtn_prof').data('expertise',profExpert)
+        $('#editBtn_prof').data('rank',profRank)
+        $('#editBtn_prof').data('max',profMax)
+        $('#editBtn_prof').data('employmentstatus',profEmployStatus)
+     
+
+        $('#data_1').text(profEmployID)
+        $('#data_2').text(profFname)
+        $('#data_3').text(profMname)
+        $('#data_4').text(profLname)
+        $('#data_5').text(profMobile)
+        $('#data_6').text(profAddress)
+        $('#data_7').text(profEduc)
+        $('#data_8').text(profExpert)
+        $('#data_9').text(profRank)
+        $('#data_10').text(profMax)
+        $('#data_11').text(profEmployStatus)
+        
+        $('#editBtn_prof').click(function(){
+            var profEmployID = $(this).data('id');
+            var profFname = $(this).data('fname');
+            var profMname = $(this).data('mname');
+            var profLname = $(this).data('lname');
+            var profMobile = $(this).data('mobile');
+            var profAddress = $(this).data('address');
+            var profEduc = $(this).data('educational');
+            var profExpert = $(this).data('expertise');
+            var profRank = $(this).data('rank');
+            var profMax = $(this).data('max');
+            var profEmployStatus = $(this).data('employmentstatus');
+
+            $('#profMobile').val(profMobile)
+            $('#profAddress').val(profAddress)
+            $('#profAddress').val(profAddress)
+            $('#profEduc').val(profEduc)
+            $('#profExpert').val(profExpert)
+            $('#profRank').val(profRank)
+            $('#profHrs').val(profMax)
+
+        })
+        
+    });
+});
+
+</script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+<script>
+    $('#table').DataTable();
+</script>

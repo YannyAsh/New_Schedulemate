@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 include_once('db.php');
 
 $profFname = "";
@@ -36,7 +34,7 @@ if (isset($_POST["prof_add_new"])) {
     // var_dump($_POST);
     // echo"</pre>";
     // die;
- 
+    
     // Validate required fields
     if (empty($profFname) || empty($profLname) || empty($profMobile)) {
         $_SESSION['message'] = "Error: Missing required fields";

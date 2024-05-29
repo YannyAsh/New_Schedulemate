@@ -18,6 +18,7 @@ if (isset($_POST['sec_add_new'])) {
     $secName = $_POST["secName"];
     $secSession = $_POST["secSession"];
     $secStatus = $_POST["secStatus"];
+    $secCourse = $_SESSION["program"];
 
     // Check for duplicate entry 
     $stmt = $conn->prepare("SELECT COUNT(*) FROM tb_section WHERE secYearlvl=? AND secName=?");
@@ -34,8 +35,8 @@ if (isset($_POST['sec_add_new'])) {
     }
 
     //Add new data to the database
-    $stmt = $conn->prepare("INSERT INTO tb_section (secProgram, secYearlvl, secName, secSession, secStatus) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sisss", $secProgram, $secYearlvl, $secName, $secSession, $secStatus);
+    $stmt = $conn->prepare("INSERT INTO tb_section (secProgram, secYearlvl, secName, secSession, secStatus,secCourse) VALUES (?, ?, ?, ?, ?,?)");
+    $stmt->bind_param("sissss", $secProgram, $secYearlvl, $secName, $secSession, $secStatus,$secCourse);
     $stmt->execute();
 
     if ($stmt) {
@@ -132,7 +133,7 @@ if (isset($_POST['sec_toggle_status'])) {
 
     $newStatus = ($currentStatus == 1) ? 0 : 1;
 
-    $stmt = $conn->prepare("UPDATE tb_section SET secStatus=? WHERE secID=?");
+    $stmt = $conn->prepare("UPDATE tb_section SET secStatus=? , status = 1 WHERE secID=?");
     $stmt->bind_param("ii", $newStatus, $secID);
     $stmt->execute();
 
@@ -144,3 +145,30 @@ if (isset($_POST['sec_toggle_status'])) {
     }
     $stmt->close();
 }
+
+if (isset($_POST['sec_toggle_statusActivate'])) {
+    var_dump($_POST);
+     $secID = $_POST['secID'];
+
+    $stmt = $conn->prepare("SELECT secStatus FROM tb_section WHERE secID=?");
+    $stmt->bind_param("i", $secID);
+    $stmt->execute();
+    $stmt->bind_result($currentStatus);
+    $stmt->fetch();
+    $stmt->close();
+
+    $newStatus = ($currentStatus == 1) ? 0 : 1;
+
+    $stmt = $conn->prepare("UPDATE tb_section SET secStatus=? , status = 0 WHERE secID=?");
+    $stmt->bind_param("ii", $newStatus, $secID);
+    $stmt->execute();
+
+    if ($stmt) {
+        $_SESSION["message"] = "Status Updated Successfully";
+        header('Location: section_index.php');
+    } else {
+        echo "Error: ";
+    }
+    $stmt->close();
+}
+

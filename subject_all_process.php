@@ -1,6 +1,6 @@
 <?php
-session_start();
-
+include 'conn/conn.php';
+$db = new DatabaseHandler();
 include_once('db.php');
 
 $subYear = "";
@@ -21,23 +21,23 @@ if (isset($_POST['sub_add_new'])) {
     $subYear = $_POST['subYear'];
     $subSem = $_POST['subSem'];
     $subCode = $_POST['subCode'];
+    $subYearLevel = $_POST['subYearLevel'];
+    
     $subDesc = $_POST['subDesc'];
     $subUnits = $_POST['subUnits']; // Access as array
     $subLabhours = $_POST['subLabhours']; // Access as array
     $subLechours = $_POST['subLechours']; // Access as array
+    $subPrerequisite = $_POST['subPrerequisite'];
     $subStatus = isset($_POST['subStatus']) ? $_POST['subStatus'] : array_fill(0, count($subCode), 1); // Default status to 1 for each entry
+    $program = $_SESSION["program"];
+    // adding type if major or minor
+    $subjectType = $_POST['subType'];
 
-    // echo"<pre>";
-    // var_dump($subDesc);
-    // echo"</pre>";
-    // die;
 
-    
-    
     // Loop through each entry and insert into the database
     for($i=1; $i < count($subCode); $i++) {
-        $stmt = $conn->prepare("INSERT INTO tb_subjects (subYear, subSem, subCode, subDesc, subUnits, subLabhours, subLechours, subStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssssss", $subYear ,$subSem, $subCode[$i], $subDesc[$i], $subUnits[$i], $subLabhours[$i], $subLechours[$i], $subStatus[$i]);
+        $stmt = $conn->prepare("INSERT INTO tb_subjects(subYear, subSem, subCode, subDesc, subUnits, subLabhours, subLechours, subStatus, SubCourse, subYearlvl, subPrerequisite, subType) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)");
+        $stmt->bind_param("ssssssssssss", $subYear ,$subSem, $subCode[$i], $subDesc[$i], $subUnits[$i], $subLabhours[$i], $subLechours[$i], $subStatus[$i], $program,$subYearLevel,$subPrerequisite[$i], $subjectType[$i-1]);
         $stmt->execute();
     }
 
@@ -54,8 +54,8 @@ if (isset($_POST['sub_add_new'])) {
 
 //For updating records
 if (isset($_POST["sub_update"])) {
-    $subYear = $_POST['subYear'];
-    $subSem = $_POST['subSem'];
+    // $subYear = $_POST['subYear'];
+    // $subSem = $_POST['subSem'];
     $subCode = $_POST['subCode'];
     $subDesc = $_POST['subDesc'];
     $subUnits = $_POST['subUnits'];
@@ -64,8 +64,11 @@ if (isset($_POST["sub_update"])) {
     $subStatus = $_POST['subStatus'];
     $subID = $_POST['subID'];
 
-    $stmt = $conn->prepare("UPDATE tb_subjects SET subYear=?, subSem=?, subCode=?, subDesc=?, subUnits=?, subLabhours=?, subLechours=?, subStatus=? WHERE subID=?");
-    $stmt->bind_param("ssssssssi", $subYear, $subSem, $subCode, $subDesc, $subUnits, $subLabhours, $subLechours, $subStatus, $subID);
+    $stmt = $conn->prepare("UPDATE tb_subjects SET subCode=?, subDesc=?, subUnits=?, subLabhours=?, subLechours=?, subStatus=? WHERE subID=?");
+    $stmt->bind_param("ssssssi", $subCode, $subDesc, $subUnits, $subLabhours, $subLechours, $subStatus, $subID);
+
+    // $stmt = $conn->prepare("UPDATE tb_subjects SET subYear=?, subSem=?, subCode=?, subDesc=?, subUnits=?, subLabhours=?, subLechours=?, subStatus=? WHERE subID=?");
+    // $stmt->bind_param("ssssssssi", $subYear, $subSem, $subCode, $subDesc, $subUnits, $subLabhours, $subLechours, $subStatus, $subID);
     $stmt->execute();
 
     if ($stmt) {
@@ -90,8 +93,8 @@ if (isset($_POST['sub_toggle_status'])) {
 
     $newStatus = ($currentStatus == 1) ? 0 : 1;
 
-    $stmt = $conn->prepare("UPDATE tb_subjects SET subStatus=? WHERE subID=?");
-    $stmt->bind_param("ii", $newStatus, $subID);
+    $stmt = $conn->prepare("UPDATE tb_subjects SET subStatus=? , status= ? WHERE subID=?");
+    $stmt->bind_param("iii", $newStatus,$newStatus, $subID);
     $stmt->execute();
 
     if ($stmt) {
@@ -102,3 +105,8 @@ if (isset($_POST['sub_toggle_status'])) {
     }
     $stmt->close();
 }
+?>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>

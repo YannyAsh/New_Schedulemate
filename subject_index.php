@@ -1,5 +1,7 @@
 <?php
 include 'subject_all_process.php';
+include 'include/header.php';
+// var_dump($_SESSION);
 if (isset($_GET['sub_edit'])) {
     $subID = $_GET['sub_edit'];
     $sub_edit_state = true;
@@ -25,112 +27,10 @@ function generateAcademicYears()
         $plotYear = "SY " . $i . " - " . $nextYear;
         $options .= "<option value=\" $plotYear\">$academicYear</option>";
     }
-
     return $options;
 }
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- sidebar style -->
-    <link rel="stylesheet" href="CSS/dashboard.css" />
-    <!-- table style -->
-    <link rel="stylesheet" href="CSS/content.css" />
-    <title>Subject</title>
-</head>
-
-<body>
-    <div class="d-flex" id="wrapper">
-        <!-- Sidebar -->
-        <div class="secondary-bg" id="sidebar-wrapper">
-            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold border-bottom">
-                <img src="images/logo.png" alt="smlogo" class="logo">
-            </div>
-
-            <!-- sidebar menu -->
-            <div class="list-group list-group-flush my-3">
-                <a href="dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-house me-2"></i>Dashboard</a>
-
-                <!-- entries -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
-                <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
-                        </li>
-                        <li>
-                            <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
-                        </li>
-                        <li>
-                            <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
-                        </li>
-                        <li>
-                            <a href="room_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Rooms</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- schedule -->
-                <a href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
-
-                <!-- reports -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>
-                <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="pbs_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBS</a>
-                        </li>
-                        <li>
-                            <a href="pbt_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBT</a>
-                        </li>
-                        <li>
-                            <a href="pbru_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBRU</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
-
-                <!-- menu toggle -->
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-align-left fs-4 me-3" id="menu-toggle"></i>
-                </div>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- profile settings -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user me-2"></i>John Doe
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="profile_index.php">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
             <!-- Start of the contents -->
             <div class="container-fluid px-4">
@@ -142,7 +42,7 @@ function generateAcademicYears()
                                     <div class="col-sm-7">
                                         <h2>Manage Subject Entries</h2>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-3" hidden>
                                         <input class="form-control" id="tableSearch" type="text" placeholder="Search">
                                     </div>
                                     <div class="col">
@@ -151,11 +51,12 @@ function generateAcademicYears()
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover" id="table">
                                     <thead>
                                         <tr>
                                             <th>No.</th>
                                             <th>Academic Year</th>
+                                            <th>Year level</th>
                                             <th>Semester</th>
                                             <th>Subject Code</th>
                                             <th>Subject Description</th>
@@ -167,13 +68,16 @@ function generateAcademicYears()
                                     </thead>
                                     <tbody id="myTable">
                                         <?php
-                                        $result = mysqli_query($conn, "SELECT * FROM tb_subjects");
+                                        $program = $_SESSION['program'];
+                                        $conditions = ['SubCourse= "'.$program.'" '];
+                                        $sql = $db->getAllRowsFromTableWhere('tb_subjects',$conditions);                                        
                                         $i = 1;
-                                        while ($row = mysqli_fetch_array($result)) {
+                                        foreach ($sql as $row) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $row["subID"] ?></td>
                                                 <td><?php echo $row["subYear"] ?></td>
+                                                <td><?php echo $row["subYearlvl"] ?></td>
                                                 <td><?php echo $row["subSem"] ?></td>
                                                 <td><?php echo $row["subCode"] ?></td>
                                                 <td><?php echo $row["subDesc"] ?></td>
@@ -188,11 +92,15 @@ function generateAcademicYears()
                                                             echo "Inactive";
                                                         } ?> -->
                                                 <td>
-                                                    <form method="POST" action="subject_all_process.php">
-                                                        <a href="" name="sub_edit" class="edit" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i></a>
-                                                        <input type="hidden" name="subID" value="<?php echo $row['subID']; ?>">
-                                                        <a href="#statusSubj" class="status" data-bs-toggle="modal"><i class="material-icons" data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
-                                                    </form>
+                                                        <a href="" name="sub_edit" class="edit edit-btn" data-bs-toggle="modal">
+                                                        <i class="material-icons" data-bs-toggle="tooltip" title="Edit">&#xe254;</i>
+                                                        </a>
+                                                        <input type="hidden" name="subID" value="">
+
+                                                        <a href="#statusSubj" class="status delbtn" data-bs-toggle="modal"
+                                                        data-id="<?=$row["subID"]?>"
+                                                        ><i class="material-icons" 
+                                                        data-bs-toggle="tooltip" title="Status">&#xe909;</i></a>
                                                     
                                                 </td>
                                             </tr>
@@ -201,18 +109,6 @@ function generateAcademicYears()
                                         } ?>
                                     </tbody>
                                 </table>
-                                <div class="clearfix">
-                                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                                    <ul class="pagination">
-                                        <li class="page-item"><a href="#" class="page-link">Previous</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -231,14 +127,14 @@ function generateAcademicYears()
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="subYear">Academic Year</label>
-                                            <select name="subYear" class="upper-form-control" id="subYear">
+                                            <select name="subYear" class="upper-form-control" id="subYear" required>
                                                 <option value="" disabled selected>Select Academic Year</option>
                                                 <!-- Function to generate academic year options -->
                                                 <?php echo generateAcademicYears(); ?>
                                             </select>
 
                                             <label for="subSem" class="upper-label">Semester</label>
-                                            <select name="subSem" class="upper-form-control" id="subSem">
+                                            <select name="subSem" class="upper-form-control" id="subSem" required>
                                                 <option value="" disabled selected>Select Semester</option>
                                                 <option value="1st Semester">1st Semester</option>
                                                 <?php
@@ -250,8 +146,17 @@ function generateAcademicYears()
                                                 }
                                                 ?>
                                             </select>
+                                            
+                                            <label for="subyear" class="upper-label">Year level</label>
+                                            <select name="subYearLevel" class="upper-form-control" id="subYear" required>
+                                                <option value="" disabled selected>Select Year Level</option>
+                                                <option value="first year">First Year</option>
+                                                <option value="second year">Second Year</option>
+                                                <option value="third year">Third Year</option>
+                                                <option value="fourth year">Fourth Year</option>
+                                            </select>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" hidden>
                                             <label for="numRows">Enter the number of rows:</label>
                                             <input type="number" class="form-control" id="numRows" placeholder="Number of Rows">
                                             <button type="button" class="btn btn-primary" id="createRowsBtn">Create Rows</button>
@@ -263,23 +168,38 @@ function generateAcademicYears()
                                                     <label class="row-label"></label>
                                                 </div>
                                                 <div class="col">
-                                                    <label for="subCode[]">Subject Code</label>
-                                                    <input type="text" placeholder="Subject Code" name="subCode[]" id="subCode" class="form-control" value="<?php echo $subCode ?>">
+                                                    <label for="subCode">Subject Code</label>
+                                                    <input type="text"  placeholder="Subject Code" name="subCode[]"  class="form-control" >
                                                     <label for="subLabhours[]">Subject Lab Hours</label>
-                                                    <input type="number" placeholder="Subject Lab Hours" name="subLabhours[]" id="subLabhours" class="form-control" value="<?php echo $subLabhours ?>">
+                                                    <input type="number" placeholder="Subject Lab Hours" name="subLabhours[]" class="form-control" >
                                                     <button type="button" class="btn btn-danger remove-btn" disabled>Remove</button>
+                                                    <button type="button" class="btn mt-1 btn-primary addrow-btn" >Add Row</button>
                                                 </div>
                                                 <div class="col">
                                                     <label for="subDesc[]">Subject Description</label>
-                                                    <input type="text" placeholder="Subject Description" name="subDesc[]" id="subDesc" class="form-control" value="<?php echo $subDesc ?>">
+                                                    <input type="text"  placeholder="Subject Description" name="subDesc[]" class="form-control">
                                                     <label for="subLechours[]">Subject Lec Hours</label>
-                                                    <input type="number" placeholder="Subject Lec Hours" name="subLechours[]" id="subLechours" class="form-control" value="<?php echo $subLechours ?>">
+                                                    <input type="number"  placeholder="Subject Lec Hours" name="subLechours[]" class="form-control" >
                                                 </div>
+                                                
                                                 <div class="col">
                                                     <label for="subUnits[]">Subject Hours</label>
-                                                    <input type="number" placeholder="Subject Hours" name="subUnits[]" id="subUnits" class="form-control" value="<?php echo $subUnits ?>">
+                                                    <input type="number"  placeholder="Subject Hours" name="subUnits[]" class="form-control" value="<?php echo $subUnits ?>">
+                                                    <label for="subPrerequisite[]">Subject Prerequisite</label>
+                                                    <input type="text"  placeholder="Subject Prerequisite" name="subPrerequisite[]" class="form-control" >
+                                                    
+                                                    <label for="subType[]">Subject Type</label>
+                                                    <select type="checkbox" name="subType[]" class="form-control">
+                                                        <option value="" selected disabled>Select Subject Type</option>
+                                                        <option value="minor">Minor</option>
+                                                        <option value="major">Major</option>
+                                                    </select>
                                                 </div>
+                                            
                                             </div>
+                                        </div>
+                                        <div id="addedFormInputs">
+
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -317,7 +237,7 @@ function generateAcademicYears()
                             <div class="modal-content">
 
                                 <form method="POST" action="subject_all_process.php">
-                                    <input type="hidden" name="subID" id="subID" value="<?php echo $subID; ?>">
+                                    <input type="hidden" name="subID" id="edit_id_subID" value="<?php echo $subID; ?>">
                                     <input type="hidden" name="subStatus" value="<?php echo $subStatus; ?>">
 
                                     <div class="modal-header">
@@ -327,23 +247,23 @@ function generateAcademicYears()
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label>Subject Code</label>
-                                            <input type="text" name="subCode" id="subCode" class="form-control" required value="<?php echo $subCode ?>">
+                                            <input type="text" name="subCode" id="edit_subCode" class="form-control" required >
                                         </div>
                                         <div class="form-group">
                                             <label>Subject Description</label>
-                                            <input type="text" name="subDesc" id="subDesc" class="form-control" required value="<?php echo $subDesc ?>">
+                                            <input type="text" name="subDesc" id="edit_subDesc" class="form-control" required >
                                         </div>
                                         <div class="form-group">
                                             <label>Subject Units</label>
-                                            <input type="number" name="subUnits" id="subUnits" class="form-control" required value="<?php echo $subUnits ?>">
+                                            <input type="number" name="subUnits" id="edit_subUnits" class="form-control" required >
                                         </div>
                                         <div class="form-group">
                                             <label>Subject Lab Hours</label>
-                                            <input type="number" name="subLabhours" id="subLabhours" class="form-control" required value="<?php echo $subLabhours ?>">
+                                            <input type="number" name="subLabhours" id="edit_subLabhours" class="form-control" required >
                                         </div>
                                         <div class="form-group">
                                             <label>Subject Lec Hours</label>
-                                            <input type="number" name="subLechours" id="subLechours" class="form-control" required value="<?php echo $subLechours ?>">
+                                            <input type="number" name="subLechours" id="edit_subLechours" class="form-control" required >
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -358,17 +278,18 @@ function generateAcademicYears()
                     <div id="statusSubj" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form>
+                                <form method="POST">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Change Subject Status</h5>
                                         <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body">
+                                        <input type="text" name="subID" id="idStatus">
                                         <h6>Are you sure you want to inactivate this Subject?</h6>
                                     </div>
                                     <div class="modal-footer">
                                         <input type="button" class="btn" data-bs-dismiss="modal" value="Cancel">
-                                        <input type="submit" class="btn" value="Confirm Status">
+                                        <input type="submit" class="btn" name="sub_toggle_status" value="Confirm Status">
                                     </div>
                                 </form>
                             </div>
@@ -520,12 +441,12 @@ function generateAcademicYears()
                 }).get();
 
                 console.log(data);
-                $('#subID').val(data[0]);
-                $('#subCode').val(data[1]);
-                $('#subDesc').val(data[2]);
-                $('#subUnits').val(data[3]);
-                $('#subLabhours').val(data[4]);
-                $('#subLechours').val(data[5]);
+                $('#edit_id_subID').val(data[0]);
+                $('#edit_subCode').val(data[3]);
+                $('#edit_subDesc').val(data[4]);
+                $('#edit_subUnits').val(data[6]);
+                $('#edit_subLabhours').val(data[7]);
+                $('#edit_subLechours').val(data[8]);
                 // $('#secDay').val(data[4]);
                 // $('#secNight').val(data[5]);
                 // $('#secStatus').val(data[6]);
@@ -542,3 +463,37 @@ function generateAcademicYears()
 </body>
 
 </html>
+<script>
+        var rowToRemove; // Store the row to be removed
+            var rowCount = 1; // Initialize row count
+     $(document).on('click', '#addSubj .addrow-btn', function(){
+        var rowCountCurrent = 0;
+        $('.row-label').each(function(){
+            rowCountCurrent+=1;
+            })
+        console.log(rowCountCurrent);
+        rowCount++;
+
+            // Initialize the modal with one form row
+            var rowTemplate = $('#rowTemplate').clone();
+            rowTemplate.removeAttr('id').removeAttr('style');
+            rowTemplate.find('.row-label').text('Subject ' + rowCountCurrent + ':');
+
+            rowTemplate.find('.remove-btn').prop('disabled', false); // Enable the remove button for the new row
+            $('#formInputs').append(rowTemplate);
+          
+            });
+
+</script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.min.css">
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+<script>
+    $('#table').DataTable();
+</script>
+<script>
+  $('.delbtn').click(function(){
+    var id = $(this).attr('data-id');
+    $('#idStatus').val(id).hide()
+});
+
+</script>

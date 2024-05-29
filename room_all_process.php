@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 include_once('db.php');
 
@@ -145,7 +144,7 @@ if (isset($_POST['room_toggle_status'])) {
 
     $newStatus = ($currentStatus == 1) ? 0 : 1;
 
-    $stmt = $conn->prepare("UPDATE tb_room SET roomStatus=? WHERE roomID=?");
+    $stmt = $conn->prepare("UPDATE tb_room SET roomStatus=?,status=1 WHERE roomID=?");
     $stmt->bind_param("ii", $newStatus, $roomID);
     $stmt->execute();
 
