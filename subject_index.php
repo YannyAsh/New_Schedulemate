@@ -445,15 +445,6 @@ function generateAcademicYears()
             $('#edit_subUnits').val(data[6]);
             $('#edit_subLabhours').val(data[7]);
             $('#edit_subLechours').val(data[8]);
-            // $('#secDay').val(data[4]);
-            // $('#secNight').val(data[5]);
-            // $('#secStatus').val(data[6]);
-
-            // if (data[4] == 'Day') {
-
-
-            // }
-
         });
 
     });

@@ -16,6 +16,7 @@ if (isset($_POST["login"])) {
     $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
     // Check if user exists and password is correct
+
     if ($user && password_verify($password, $user["userPass"])) {
         $_SESSION["user"] = "yes";
         $_SESSION["program"] = $user["userProgram"];
@@ -25,10 +26,9 @@ if (isset($_POST["login"])) {
         $_SESSION["userMname"] = $user["userMname"];
         $_SESSION["userLname"] = $user["userLname"];
 
+
         // Check user approval status
         $userApproval = $user['userApproval'];
-        // Store user position in session
-        $_SESSION["userPosition"] = $user['userPosition']; // Corrected this line
 
         if ($userApproval == "approved") {
             // Redirect to appropriate dashboard based on user position

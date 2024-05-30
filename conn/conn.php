@@ -2,13 +2,11 @@
 session_start();
 
 
-class DatabaseHandler
-{
+class DatabaseHandler {
 
     private $pdo;
 
-    public function __construct()
-    {
+    public function __construct() {
         // Set your database connection parameters here
         $dbHost = 'localhost';
         $dbPort = '3306';
@@ -26,8 +24,7 @@ class DatabaseHandler
         }
     }
 
-    public function getAllRowsFromTable($tableName)
-    {
+    public function getAllRowsFromTable($tableName) {
         try {
             $stmt = $this->pdo->prepare("SELECT * FROM $tableName WHERE status = 0");
             $stmt->execute();
@@ -39,8 +36,7 @@ class DatabaseHandler
         }
     }
 
-    public function getAllRowsFromTableLimitBy($tableName, $count)
-    {
+    public function getAllRowsFromTableLimitBy($tableName,$count) {
         try {
             $stmt = $this->pdo->prepare("SELECT * FROM $tableName 
             WHERE status = 0 AND process_status != 'done' ORDER BY id desc LIMIT $count");
@@ -52,28 +48,27 @@ class DatabaseHandler
             echo "Query failed: " . $e->getMessage();
         }
     }
-
-
-    public function getAllRowsFromTableWhere($tableName, array $additionalConditions = [])
-    {
+    
+    
+    public function getAllRowsFromTableWhere($tableName, array $additionalConditions = []) {
         try {
             // Construct the WHERE clause with status = 0 and additional conditions
             $whereClause = "status != 123123123";
-
+    
             if (!empty($additionalConditions)) {
                 $whereClause .= " AND " . implode(' AND ', $additionalConditions);
             }
-
+    
             // Prepare the SQL statement with the dynamic WHERE clause
             $sql = "SELECT * FROM $tableName WHERE $whereClause";
             $stmt = $this->pdo->prepare($sql);
-
+    
             // Execute the query
             $stmt->execute();
-
+    
             // Fetch the results as an associative array
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    
             return $result;
         } catch (PDOException $e) {
             // Handle query errors
@@ -81,82 +76,79 @@ class DatabaseHandler
         }
     }
 
-
-    public function getAllRowsFromTableWhere2($tableName, $whereClause, array $additionalConditions = [])
-    {
+    
+    public function getAllRowsFromTableWhere2($tableName,$whereClause, array $additionalConditions = []) {
         try {
             // Construct the WHERE clause with status = 0 and additional conditions
-            if ($whereClause != "") {
+            if($whereClause!=""){
                 if (!empty($additionalConditions)) {
                     $whereClause .= " AND " . implode(' AND ', $additionalConditions);
                 }
             }
-
-
+    
+    
             // Prepare the SQL statement with the dynamic WHERE clause
             $sql = "SELECT * FROM $tableName WHERE $whereClause";
             $stmt = $this->pdo->prepare($sql);
-
+    
             // Execute the query
             $stmt->execute();
-
+    
             // Fetch the results as an associative array
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    
             return $result;
         } catch (PDOException $e) {
             // Handle query errors
             echo "Query failed: " . $e->getMessage();
         }
     }
-    public function getAllRowsFromTableWhereGroup($tableName, array $additionalConditions = [], $groupBy = null)
-    {
+    public function getAllRowsFromTableWhereGroup($tableName, array $additionalConditions = [], $groupBy = null) {
         try {
             // Construct the WHERE clause with status = 0 and additional conditions
             $whereClause = "status = 0";
-
+    
             if (!empty($additionalConditions)) {
                 $whereClause .= " AND " . implode(' AND ', $additionalConditions);
             }
-
+    
             // Construct the GROUP BY clause if $groupBy is provided
             $groupByClause = "";
             if (!empty($groupBy)) {
                 $groupByClause = " GROUP BY " . $groupBy;
             }
-
+    
             // Prepare the SQL statement with the dynamic WHERE and GROUP BY clauses
             $sql = "SELECT * FROM $tableName WHERE $whereClause $groupByClause";
             $stmt = $this->pdo->prepare($sql);
-
+    
             // Execute the query
             $stmt->execute();
-
+    
             // Fetch the results as an associative array
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    
             return $result;
         } catch (PDOException $e) {
             // Handle query errors
             echo "Query failed: " . $e->getMessage();
         }
     }
-    public function getAllRowsFromTableWhereGroup2($tableName, array $additionalConditions = [], $groupBy = null)
-    {
+    public function getAllRowsFromTableWhereGroup2($tableName, array $additionalConditions = [], $groupBy = null) {
         try {
             // Construct the WHERE clause with status = 0 and additional conditions
             $whereClause = "status = 1";
-
+    
             if (!empty($additionalConditions)) {
                 $whereClause .= " AND " . implode(' AND ', $additionalConditions);
             }
-
+    
             // Construct the GROUP BY clause if $groupBy is provided
             $groupByClause = "";
             if (!empty($groupBy)) {
                 $groupByClause = " GROUP BY " . $groupBy;
             }
-
+    
             // Prepare the SQL statement with the dynamic WHERE and GROUP BY clauses
             $sql = "SELECT * FROM $tableName WHERE $whereClause $groupByClause";
             $stmt = $this->pdo->prepare($sql);
@@ -166,17 +158,16 @@ class DatabaseHandler
 
             // Fetch the results as an associative array
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    
             return $result;
         } catch (PDOException $e) {
             // Handle query errors
             echo "Query failed: " . $e->getMessage();
         }
     }
-
-
-    public function loginUser($username, $password)
-    {
+    
+    
+    public function loginUser($username, $password) {
         try {
             $username = htmlentities($username);
             $password = htmlentities($password);
@@ -203,8 +194,7 @@ class DatabaseHandler
             return false;
         }
     }
-
-
+    
 
     public function insertData($tableName, $data)
     {
@@ -378,10 +368,9 @@ class DatabaseHandler
         }
     }
 
+    
 
-
-    public function updateData($tableName, $data, $whereConditions)
-    {
+    public function updateData($tableName, $data, $whereConditions) {
         try {
             $setClause = '';
             foreach ($data as $key => $value) {
@@ -389,7 +378,7 @@ class DatabaseHandler
             }
             // Remove the trailing comma and space from the setClause
             $setClause = rtrim($setClause, ', ');
-
+    
             $whereClause = '';
             foreach ($whereConditions as $whereKey => $whereValue) {
                 $whereClause .= "$whereKey = :where_$whereKey AND ";
@@ -397,18 +386,18 @@ class DatabaseHandler
 
             // Remove the trailing "AND" from the whereClause
             $whereClause = rtrim($whereClause, ' AND ');
-
+    
             $sql = "UPDATE $tableName SET $setClause WHERE $whereClause";
             $stmt = $this->pdo->prepare($sql);
-
+    
             foreach ($data as $key => $value) {
                 $stmt->bindValue(':' . $key, $value);
             }
-
+    
             foreach ($whereConditions as $whereKey => $whereValue) {
                 $stmt->bindValue(':where_' . $whereKey, $whereValue);
             }
-
+    
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
@@ -418,16 +407,15 @@ class DatabaseHandler
         }
     }
 
-
-    public function getIdByColumnValue($tableName, $columnName, $columnValue, $idColumnName)
-    {
+    
+    public function getIdByColumnValue($tableName, $columnName, $columnValue, $idColumnName) {
         try {
             $stmt = $this->pdo->prepare("SELECT $idColumnName FROM $tableName WHERE $columnName = :column_value");
             $stmt->bindParam(':column_value', $columnValue);
             $stmt->execute();
-
+            
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
+            
             if ($result) {
                 return $result[$idColumnName];
             } else {
@@ -438,49 +426,46 @@ class DatabaseHandler
             return null;
         }
     }
-
-    public function getCountByConditions($tableName, $conditions)
-    {
+    public function getCountByConditions($tableName, $conditions) {
         try {
             $sql = "SELECT COUNT(*) as count FROM $tableName";
-
+    
             if (!empty($conditions)) {
                 $sql .= " WHERE ";
                 $whereConditions = [];
-
+    
                 foreach ($conditions as $column => $value) {
                     $whereConditions[] = "$column = :$column";
                 }
-
+    
                 $sql .= implode(" AND ", $whereConditions);
             }
-
+    
             $stmt = $this->pdo->prepare($sql);
-
+    
             foreach ($conditions as $column => $value) {
                 $stmt->bindParam(":$column", $value);
             }
-
+    
             $stmt->execute();
             $count = $stmt->fetchColumn();
-
+    
             return $count;
         } catch (PDOException $e) {
             // Handle the exception as needed
             return null;
         }
     }
-
-
-    public function getAllColumnsByColumnValue($tableName, $columnName, $columnValue)
-    {
+    
+    
+    public function getAllColumnsByColumnValue($tableName, $columnName, $columnValue) {
         try {
             $stmt = $this->pdo->prepare("SELECT * FROM $tableName WHERE $columnName = :column_value");
             $stmt->bindParam(':column_value', $columnValue);
             $stmt->execute();
-
+            
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
+            
             if ($result) {
                 return $result;
             } else {
@@ -491,14 +476,13 @@ class DatabaseHandler
             return null;
         }
     }
-    public function getAllColumns($tableName)
-    {
+    public function getAllColumns($tableName) {
         try {
             $stmt = $this->pdo->prepare("SELECT * FROM $tableName WHERE status = 0");
             $stmt->execute();
-
+            
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
+            
             if ($result) {
                 return $result;
             } else {
@@ -510,30 +494,27 @@ class DatabaseHandler
         }
     }
 
-    public function getMajorCountsByYearSem($year, $sem, $course)
-    {
-        $qry2 = 'SELECT COUNT(*) as major_counts FROM `tb_subjects` WHERE subSem = "' . $sem . '" AND subYearlvl = "' . $year . '" AND SubCourse = "' . $course . '" AND subType="major"';
+    public function getMajorCountsByYearSem($year, $sem, $course){
+        $qry2 = 'SELECT COUNT(*) as major_counts FROM `tb_subjects` WHERE subSem = "'.$sem.'" AND subYearlvl = "'.$year.'" AND SubCourse = "'.$course.'" AND subType="major"';
         $stmt2 = $this->pdo->prepare($qry2);
-
+    
         $stmt2->execute();
-
+        
         $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
         return $result2['major_counts'];
     }
 
-    public function getMajorCountsOfPlot($sem, $section, $course)
-    {
-        $qry2 = 'SELECT COUNT(*) as major_counts FROM `tb_scheduled` as tb1 INNER JOIN `tb_subjects` AS tb2 ON tb1.subject = tb2.subCode WHERE tb2.subSem = "' . $sem . '" AND tb1.subject = tb2.subCode AND tb2.subType = "major" AND tb1.course="' . $course . '" AND tb1.section = "' . $section . '"; ';
+    public function getMajorCountsOfPlot($sem, $section, $course){
+        $qry2 = 'SELECT COUNT(*) as major_counts FROM `tb_scheduled` as tb1 INNER JOIN `tb_subjects` AS tb2 ON tb1.subject = tb2.subCode WHERE tb2.subSem = "'.$sem.'" AND tb1.subject = tb2.subCode AND tb2.subType = "major" AND tb1.course="'.$course.'" AND tb1.section = "'.$section.'"; ';
         $stmt2 = $this->pdo->prepare($qry2);
-
+    
         $stmt2->execute();
-
+        
         $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-        return $result2['major_counts'];
+        return $result2['major_counts'];  
     }
 
-    public function getMajorToDisplay($year, $sem, $section)
-    {
+    public function getMajorToDisplay($year, $sem, $section){
         $qry = "SELECT tb_scheduled.*, tb_subjects.* 
                 FROM tb_scheduled 
                 INNER JOIN tb_subjects 
@@ -550,10 +531,9 @@ class DatabaseHandler
     // public function restrictPlottedTime ()
 
 
-    public function pdf_data_subjects($sy, $sem, $course, $yearlevel)
-    {
+    public function pdf_data_subjects($sy,$sem,$course,$yearlevel) {
         try {
-
+            
             // Prepare the SQL statement with the dynamic WHERE clause
             $sql = "SELECT * FROM `tb_subjects` WHERE 
             (`subYear`) = '$sy' 
@@ -562,17 +542,19 @@ class DatabaseHandler
             AND (`subYearlvl`) = '$yearlevel'
             AND status = 0";
             $stmt = $this->pdo->prepare($sql);
-
+    
             // Execute the query
             $stmt->execute();
-
+    
             // Fetch the results as an associative array
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    
             return $result;
         } catch (PDOException $e) {
             // Handle query errors
             echo "Query failed: " . $e->getMessage();
         }
     }
+
 }
+?>
