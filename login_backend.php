@@ -27,6 +27,8 @@ if (isset($_POST["login"])) {
 
         // Check user approval status
         $userApproval = $user['userApproval'];
+        // Store user position in session
+        $_SESSION["userPosition"] = $user['userPosition']; // Corrected this line
 
         if ($userApproval == "approved") {
             // Redirect to appropriate dashboard based on user position

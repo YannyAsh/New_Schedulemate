@@ -4,6 +4,116 @@ include 'include/header.php';
 
 ?>
 
+<<<<<<< HEAD
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- sidebar style -->
+    <link rel="stylesheet" href="CSS/dashboard.css" />
+    <!-- table style -->
+    <link rel="stylesheet" href="CSS/content.css" />
+
+    <!-- sweetalert2 js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Section</title>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="secondary-bg" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold border-bottom">
+                <img src="images/logo.png" alt="smlogo" class="logo">
+            </div>
+
+            <!-- sidebar menu -->
+            <div class="list-group list-group-flush my-3">
+                <!-- Conditional links based on user position -->
+                <?php if ($_SESSION["userPosition"] === 'admin') { ?>
+                    <a href="admin_dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-user-shield me-2"></i>Admin Dashboard</a>
+                <?php } elseif ($_SESSION["userPosition"] === 'dean') { ?>
+                    <a href="dean_dashboard.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-user-graduate me-2"></i>Dean Dashboard</a>
+                <?php } ?>
+
+                <!-- schedule -->
+                <a href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text active"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
+
+                <!-- entries -->
+                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
+                        </li>
+                        <li>
+                            <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
+                        </li>
+                        <li>
+                            <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
+                        </li>
+                        <li>
+                            <a href="room_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Rooms</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- reports -->
+                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="pbs_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBS</a>
+                        </li>
+                        <li>
+                            <a href="pbt_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBT</a>
+                        </li>
+                        <li>
+                            <a href="pbru_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBRU</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+
+                <!-- menu toggle -->
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-align-left fs-4 me-3" id="menu-toggle"></i>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- profile settings -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user me-2"></i>John Doe
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+>>>>>>> d50c17f9aa181a628050f13a07dc80bd50c68851
 
             <!-- Start of the contents -->
             <div class="container-fluid px-4">
@@ -34,7 +144,7 @@ include 'include/header.php';
                             </script>
                         <?php unset($_SESSION['error']);
                         endif; ?>
-                        
+
                         <div class="table-wrapper">
                             <div class="table-title">
                                 <div class="row">

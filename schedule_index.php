@@ -6,7 +6,7 @@ include 'include/header.php';
 $db = new DatabaseHandler();
 
 // Display data for dropdown
-$stmnt = "SELECT subID, subCode,subYearlvl,SubCourse,subDesc,subType,subSem FROM tb_subjects where status = 0 ";
+$stmnt = "SELECT subID, subCode,subYearlvl,SubCourse,subType,subSem FROM tb_subjects where status = 0 ";
 $result_subject = mysqli_query($conn, $stmnt);
 
 $stmnt = "SELECT secID, secProgram, secYearlvl, secName,secCourse  FROM tb_section where status = 0 ";
@@ -48,7 +48,6 @@ $hidden = 'hidden';
 $program = $_SESSION['program'];
 $programType = '';
 
-
 if ($position == "dean" || $position == "chairperson") {
     //$conditions = ["course = '".$program."'"];
     $hidden = 'hidden';
@@ -62,7 +61,11 @@ if ($position == "dean" || $position == "chairperson") {
 } else if ($position == "admin") {
     $hidden = '';
 }
-
+// CAS ONLY
+if (strpos($program, 'CAS') !== false) {
+    $programType = 'CAS';
+    $conditions = [];
+}
 $programType = json_encode($programType);
 
 // END CONDITIONS FOR SQLs
@@ -72,38 +75,14 @@ $programType = json_encode($programType);
 <div class="container-fluid px-4">
     <div class="row g-3 my-2">
         <div class="container">
-            <!-- this is for the alerts -->
-            <?php if (isset($_SESSION['message'])) : ?>
-                <script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: '<?php echo $_SESSION['message']; ?>',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                </script>
-            <?php unset($_SESSION['message']);
-            endif; ?>
-
-            <?php if (isset($_SESSION['error'])) : ?>
-                <script>
-                    Swal.fire({
-                        icon: 'error',
-                        title: '<?php echo $_SESSION['error']; ?>',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                </script>
-            <?php unset($_SESSION['error']);
-            endif; ?>
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-7">
                             <h2>Manage Schedule Entries</h2>
                         </div>
-                        <div class="col <?php echo ($_SESSION['college'] == 'cas' ? "d-none" : "") ?>">
-                            <a href="#addSchedule" class="btn btn-success" data-bs-toggle="modal"><i class="material-icons">&#xE147;</i><span>Add New Schedule</span></a>
+                        <div class="col">
+                            <a <?= $hidden ?> href="#addSchedule" class="btn btn-success" data-bs-toggle="modal"><i class="material-icons">&#xE147;</i><span>Add New Schedule</span></a>
                         </div>
                     </div>
                 </div>
@@ -203,7 +182,7 @@ $programType = json_encode($programType);
                 </div>
             </div>
         </div>
-
+        
         <!-- Add Modal HTML -->
         <div id="addSchedule" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -218,6 +197,7 @@ $programType = json_encode($programType);
                         <div class="modal-body">
                             <div class="form-group">
                                 <div class="row">
+
                                     <div class="col">
                                         <select name="plotYear" required id="plotYear" class="form-control">
                                             <option value="" disabled selected>Select Academic Year</option>
@@ -288,7 +268,7 @@ $programType = json_encode($programType);
                                                         ?>
                                                                         <option data-program="<?= $row['SubCourse'] ?>" data-yearlevel="<?= $row['subYearlvl'] ?>" data-sem="<?= $row['subSem'] ?>" value="<?= $row['subCode'] ?> ">
                                                                             <!-- DISPLAY -->
-                                                                            <?= $row['subCode'] ?> - <?= $row['subDesc'] ?>
+                                                                            <?= $row['subCode'] ?> / / <?= $row['subType'] ?> //<?= $row['SubCourse'] ?>
                                                                             <!-- END DISPLAY -->
                                                                         </option>
                                                                     <?php
@@ -297,7 +277,7 @@ $programType = json_encode($programType);
                                                                     ?>
                                                                     <option data-program="<?= $row['SubCourse'] ?>" data-yearlevel="<?= $row['subYearlvl'] ?>" data-sem="<?= $row['subSem'] ?>" value="<?= $row['subCode'] ?> ">
                                                                         <!-- DISPLAY -->
-                                                                        <?= $row['subCode'] ?> - <?= $row['subDesc'] ?>
+                                                                        <?= $row['subCode'] ?> / / <?= $row['subType'] ?> //<?= $row['SubCourse'] ?>
                                                                         <!-- END DISPLAY -->
                                                                     </option>
                                                         <?php

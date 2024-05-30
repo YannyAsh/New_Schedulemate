@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['program'])) {
+if(!isset($_SESSION['program'])){
     echo '<script>
 window.location.href="index.php"
 </script>';
@@ -8,16 +8,16 @@ $Sessposition =  $_SESSION["postion"];
 $limited = "";
 $limited1 = "";
 
-if ($Sessposition == "chairperson") {
+if($Sessposition == "chairperson"){
     $limited = "hidden";
 }
-if ($Sessposition == "admin") {
+if($Sessposition == "admin"){
     $limited1 = "hidden";
     $url = "admin_dashboard.php";
 }
-if ($Sessposition == "dean") {
+if($Sessposition == "dean"){
     $limited1 = "hidden";
-    $url = "dean_dashboard.php";
+    $url = "dean_dashboard.php";  
 }
 ?>
 
@@ -33,7 +33,7 @@ if ($Sessposition == "dean") {
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
     <!-- sidebar style -->
     <link rel="stylesheet" href="CSS/dashboard.css" />
     <!-- table style -->
@@ -51,62 +51,62 @@ if ($Sessposition == "dean") {
 
             <!-- sidebar menu -->
             <div class="list-group list-group-flush my-3">
-                <a <?= $limited ?> href="<?= $url ?>" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-house me-2"></i>Dashboard</?a>
+                <a <?=$limited?> href="<?=$url?>" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-house me-2"></i>Dashboard</?a>
 
-                    <!-- entries -->
-                    <a <?= $limited1 ?> href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
-                    <div class="sidebar-submenu">
-                        <ul>
-                            <li>
-                                <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
-                            </li>
-                            <li>
-                                <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
-                            </li>
-                            <li>
-                                <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
-                            </li>
-                            <li>
-                                <a href="room_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Rooms</a>
-                            </li>
-                        </ul>
-                    </div>
-
-
-
-                    <!-- schedule -->
-                    <a <?= $limited1 ?> href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
+                <!-- entries -->
+                <a <?=$limited1?> href="#"  class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-square-plus me-2"></i>Entries <i class="fa-solid fa-caret-down"></i></a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="section_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Sections</a>
+                        </li>
+                        <li>
+                            <a href="prof_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Professors</a>
+                        </li>
+                        <li>
+                            <a href="subject_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
+                        </li>
+                        <li>
+                            <a href="room_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Rooms</a>
+                        </li>
+                    </ul>
+                </div>
 
 
-                    <!-- pdf -->
-                    <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>PDF <i class="fa-solid fa-caret-down"></i></a>
-                    <div class="sidebar-submenu">
-                        <ul>
-                            <li>
-                                <a href="subjects_pdf.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
-                            </li>
-                        </ul>
-                    </div>
+
+                <!-- schedule -->
+                <a <?=$limited1?> href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
 
 
-                    <!-- reports -->
-                    <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>
-                    <div class="sidebar-submenu">
-                        <ul>
-                            <li>
-                                <a href="pbs_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBS</a>
-                            </li>
-                            <li>
-                                <a href="pbt_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBT</a>
-                            </li>
-                            <li>
-                                <a href="pbru_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBRU</a>
-                            </li>
-                            <li>
-                                <a href="mis_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">MIS</a>
-                            </li>
-                        </ul>
-                    </div>
+                <!-- pdf -->
+                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>PDF <i class="fa-solid fa-caret-down"></i></a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="subjects_pdf.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!-- reports -->
+                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>
+                <div class="sidebar-submenu">
+                    <ul>
+                        <li>
+                            <a href="pbs_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBS</a>
+                        </li>
+                        <li>
+                            <a href="pbt_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBT</a>
+                        </li>
+                        <li>
+                            <a href="pbru_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">PBRU</a>
+                        </li>
+                        <li>
+                            <a href="mis_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">MIS</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -130,8 +130,8 @@ if ($Sessposition == "dean") {
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i>
-
-                                <?= ucwords($_SESSION['userFname']) ?>
+                                
+                                <?=ucwords($_SESSION['userFname'])?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="profile_index.php">Profile</a></li>

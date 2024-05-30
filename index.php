@@ -145,7 +145,7 @@
 						<option value="">BTVTEd-GFD - Bachelor in Technical and Vocational Teacher Education (Garments, Fashion and Design Technology)</option>
 						<option value="">BTVTEd-WF - Bachelor in Technical and Vocational Teacher Education (Welding and Fabrication Technology)</option>
 
-						<!-- College of Engineering -->
+						<!-- Collage of Engineering -->
 						<option value="">BSCE - Bachelor of Science in Civil Engineering</option>
 						<option value="">BSCPE - Bachelor of Science in Computer Engineering</option>
 						<option value="">BSECE - Bachelor of Science in Electronics Engineering</option>
@@ -153,7 +153,7 @@
 						<option value="">BSIE - Bachelor of Science in Industrial Engineering</option>
 						<option value="">BSME - Bachelor of Science in Mechanical Engineering</option>
 
-						<!-- College of Technology -->
+						<!-- Collage of Technology -->
 						<option value="">BSMx - Bachelor of Science in Mechatronics</option>
 						<option value="">BSGD - Bachelor of Science in Graphics and Design</option>
 						<option value="">BSTechM - Bachelor of Science in Technology Management</option>
