@@ -78,17 +78,6 @@ if($Sessposition == "dean"){
                 <a <?=$limited1?> href="schedule_index.php" class="list-group-item list-group-item bg-transparent second-text fw-bold"><i class="fas fa-regular fa-calendar-plus me-2"></i>Schedule</a>
 
 
-                <!-- pdf -->
-                <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>PDF <i class="fa-solid fa-caret-down"></i></a>
-                <div class="sidebar-submenu">
-                    <ul>
-                        <li>
-                            <a href="subjects_pdf.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Subjects</a>
-                        </li>
-                    </ul>
-                </div>
-
-
                 <!-- reports -->
                 <a href="#" class="list-group-submenu list-group-item bg-transparent second-text fw-bold"><i class="fas fa-solid fa-clipboard me-2"></i>Reports <i class="fa-solid fa-caret-down"></i></a>
                 <div class="sidebar-submenu">
@@ -104,6 +93,9 @@ if($Sessposition == "dean"){
                         </li>
                         <li>
                             <a href="mis_index.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">MIS</a>
+                        </li>
+                        <li>
+                            <a href="subjects_pdf.php" class="submenu-item list-group-item bg-transparent second-text fw-bold">Prospectus</a>
                         </li>
                     </ul>
                 </div>
